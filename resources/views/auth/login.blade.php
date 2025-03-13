@@ -33,17 +33,22 @@
                 <p>
                     Prototype
                 </p>
+                <p>
+                    @include(_message)
+                </p>
 
             </div>
             <div class="col-md-6">
                 <div class="ibox-content">
-                    <form class="m-t" role="form" action="index.html">
+                    <form class="m-t" role="form" action="" method="POST">
+                        {{  csrf_field() }}
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Username" required="">
+                            <input type="email" name="inputEmail" class="form-control" placeholder="Email" required="">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" required="">
+                            <input type="password" name="inputPassword" class="form-control" placeholder="Password" required="">
                         </div>
+                        <label> <input type="checkbox" class="i-checks" name="inputRememberMe"> Remember me </label>
                         <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
                         <a href="#">

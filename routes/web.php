@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\EmployeeController;
 
@@ -10,9 +11,8 @@ Route::get('/', function () {
     return view('admin.index');
 });
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+Route::get('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'auth_login']);
 
 Route::get('/register', function () {
    return view('auth.register'); 
