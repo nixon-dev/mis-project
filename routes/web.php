@@ -7,7 +7,15 @@ use App\Http\Controllers\EmployeeController;
 
 
 Route::get('/', function () {
-    return view('main.app');
+    return view('admin.index');
+});
+
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
+Route::get('/register', function () {
+   return view('auth.register'); 
 });
 
 Route::get('/page1', [StudentController::class, 'index']);
