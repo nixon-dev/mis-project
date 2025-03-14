@@ -9,10 +9,13 @@
     <title>Management Information System</title>
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset ('font-awesome/css/font-awesome.css ') }}" rel="stylesheet">
+    <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 
-    <link href="{{ asset ('css/animate.css') }}" rel="stylesheet">
-    <link href="{{ asset ('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+
+    @yield('css')
 
 
 </head>
@@ -23,12 +26,13 @@
 
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="sidebar-collapse">
-                <ul class="nav metismenu" id="side-menu">
+                <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element">
-                        <img alt="image" class="rounded-circle" src="{{ asset('img/profiles/rhovin.png') }}" style="width: 48px; height: 48x; object-fit: cover;"/>
-                        <span class="block m-t-xs font-bold">Rhovin Dulay</span>
-                            <span class="text-muted text-xs block">OJT</span>
+                            <img alt="image" class="rounded-circle" src="{{ asset('img/profiles/rhovin.png') }}"
+                                style="width: 48px; height: 48x; object-fit: cover;" />
+                            <span class="block m-t-xs font-bold">{{ Auth::user()->name ?? 'Guest' }}</span>
+                            <span class="text-muted text-xs block">{{ Auth::user()->role ?? 'Guest' }}</span>
                         </div>
                         <div class="logo-element">
                             MIS
@@ -36,10 +40,12 @@
                     </li>
 
                     <li>
-                        <a href="{{ url ('/page1') }}"><i class="fa fa-pie-chart"></i> <span class="nav-label">Dashboard</span> </a>
+                        <a href="{{ url('/admin/dashboard') }}"><i class="fa fa-pie-chart"></i> <span
+                                class="nav-label">Dashboard</span> </a>
                     </li>
                     <li>
-                        <a href="{{ url ('/page2') }}"><i class="fa fa-flask"></i> <span class="nav-label">Page 2</span></a>
+                        <a href="{{ url('/admin/document-tracking') }}"><i class="fa fa-file-text"></i> <span
+                                class="nav-label">Document Tracking</span></a>
                     </li>
                 </ul>
 
@@ -50,11 +56,12 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                        
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
+                                class="fa fa-bars"></i> </a>
+
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
-                       
+
                         <!-- <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                                 <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
@@ -154,7 +161,7 @@
 
 
                         <li>
-                            <a href="login.html">
+                            <a href="{{ url('/logout') }}">
                                 <i class="fa fa-sign-out"></i> Log out
                             </a>
                         </li>
@@ -162,13 +169,13 @@
 
                 </nav>
             </div>
-           
+
 
             @yield('content')
 
 
             <div class="footer">
-                
+
                 <div>
                     <strong>Copyright</strong> LGU DIFFUN &copy; 2025
                 </div>
@@ -178,16 +185,16 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="{{ asset ('js/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ asset ('js/popper.min.js ') }}"></script>
-    <script src="{{ asset ('js/bootstrap.js') }}"></script>
-    <script src="{{ asset ('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-    <script src="{{ asset ('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="{{ asset ('js/inspinia.js') }}"></script>
-    <script src="{{ asset ('js/plugins/pace/pace.min.js') }}"></script>
-
+    <script src="{{ asset('js/inspinia.js') }}"></script>
+    <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
+    
+    @yield('script')
 
 </body>
 

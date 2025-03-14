@@ -40,7 +40,7 @@
             <div class="col-md-6">
                 <div class="ibox-content">
                     <form class="m-t" role="form" action="" method="POST">
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="form-group">
                             <input type="email" name="inputEmail" class="form-control" placeholder="Email"
                                 required="">

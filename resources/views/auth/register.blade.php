@@ -9,10 +9,10 @@
     <title>Register - Management Information System</title>
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset ('font-awesome/css/font-awesome.css ') }}" rel="stylesheet">
+    <link href="{{ asset('font-awesome/css/font-awesome.css ') }}" rel="stylesheet">
 
-    <link href="{{ asset ('css/animate.css') }}" rel="stylesheet">
-    <link href="{{ asset ('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 
 </head>
@@ -33,26 +33,54 @@
                 <p>
                     Prototype
                 </p>
+                <!-- Display validation errors -->
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
             </div>
             <div class="col-md-6">
                 <div class="ibox-content">
-                    <form class="m-t" role="form" action="index.html">
+                    <form class="m-t" role="form" action="{{ route('register') }}" method="POST">
+                        @csrf
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Name" required>
+                            <input type="text" name="name" class="form-control" placeholder="Name"
+                                value="{{ old('name') }}" required>
+                            @error('name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Username" required>
+                            <input type="email" name="email" class="form-control" placeholder="Email"
+                                value="{{ old('email') }}" required>
+                            @error('email')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" required>
+                            <input type="password" name="password" class="form-control" placeholder="Password"
+                                required>
+                            @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password_confirmation" class="form-control"
+                                placeholder="Confirm Password" required>
                         </div>
                         <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
 
                         <p class="text-muted text-center">
                             <small>Already have an account?</small>
                         </p>
-                        <a class="btn btn-sm btn-white btn-block" href="{{ url ('/login') }}">Login</a>
+                        <a class="btn btn-sm btn-white btn-block" href="{{ url('/login') }}">Login</a>
                     </form>
                     <p class="m-t">
                         <small>Pakaenam si Rhovin &copy; 2025</small>
@@ -72,15 +100,15 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="{{ asset ('js/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ asset ('js/popper.min.js ') }}"></script>
-    <script src="{{ asset ('js/bootstrap.js') }}"></script>
-    <script src="{{ asset ('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-    <script src="{{ asset ('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js ') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="{{ asset ('js/inspinia.js') }}"></script>
-    <script src="{{ asset ('js/plugins/pace/pace.min.js') }}"></script>
+    <script src="{{ asset('js/inspinia.js') }}"></script>
+    <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 
 
 </body>
