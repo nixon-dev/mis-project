@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="dark">
 
 <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Management Information System</title>
+    <title> @yield('title', 'Management Information System')</title>
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -14,38 +14,42 @@
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('css/personal.css') }}" rel="stylesheet">
+
 
     @yield('css')
 
 
 </head>
 
-<body class="">
+<body class="fixed-sidebar">
 
     <div id="wrapper">
 
-        <nav class="navbar-default navbar-static-side" role="navigation">
+        <nav class="navbar-default navbar-static-side dark-skin text-white" role="navigation">
             <div class="sidebar-collapse">
-                <ul class="nav" id="side-menu">
-                    <li class="nav-header">
+                <ul class="nav metismenu " id="side-menu">
+                    <li class="nav-header dark-skin ">
                         <div class="dropdown profile-element">
-                            <img alt="image" class="rounded-circle" src="{{ asset('img/profiles/rhovin.png') }}"
-                                style="width: 48px; height: 48x; object-fit: cover;" />
-                            <span class="block m-t-xs font-bold">{{ Auth::user()->name ?? 'Guest' }}</span>
+                            <img alt="image" class="rounded-circle" src="{{ asset('img/logo/diffun_quirino.png') }}"
+                                style="width: 70px; height: 70x; object-fit: cover;" />
+                            <span class="block m-t-xs font-bold">{{ Auth::user()->name ?? 'Guest Name' }}</span>
                             <span class="text-muted text-xs block">{{ Auth::user()->role ?? 'Guest' }}</span>
                         </div>
-                        <div class="logo-element">
+                        <div class="dark-skin logo-element">
                             MIS
                         </div>
                     </li>
 
                     <li>
-                        <a href="{{ url('/admin/dashboard') }}"><i class="fa fa-pie-chart"></i> <span
-                                class="nav-label">Dashboard</span> </a>
+                        <a href="{{ url('/admin/dashboard') }}" class="text-white"><i
+                                class="fa fa-pie-chart text-green"></i>
+                            <span class="nav-label">Dashboard</span> </a>
                     </li>
                     <li>
-                        <a href="{{ url('/admin/document-tracking') }}"><i class="fa fa-file-text"></i> <span
-                                class="nav-label">Document Tracking</span></a>
+                        <a href="{{ url('/admin/document-tracking') }}" class="text-white"><i
+                                class="fa fa-file-text  text-green"></i> <span class="nav-label">Document
+                                Tracking</span></a>
                     </li>
                 </ul>
 
@@ -53,14 +57,14 @@
         </nav>
 
         <div id="page-wrapper" class="gray-bg">
-            <div class="row border-bottom">
-                <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
+            <div class="row">
+                <nav class="dark-skin navbar navbar-static-top  " role="navigation">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary green-skin" href="#"><i
                                 class="fa fa-bars"></i> </a>
 
                     </div>
-                    <ul class="nav navbar-top-links navbar-right">
+                    <ul class="nav navbar-top-links navbar-right ">
 
                         <!-- <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -176,8 +180,8 @@
 
             <div class="footer">
 
-                <div>
-                    <strong>Copyright</strong> LGU DIFFUN &copy; 2025
+                <div class="text-dark pull-right">
+                    <strong">Copyright</strong> LGU DIFFUN &copy; 2025
                 </div>
             </div>
 
@@ -188,12 +192,13 @@
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="{{ asset('js/inspinia.js') }}"></script>
     <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
-    
+
     @yield('script')
 
 </body>

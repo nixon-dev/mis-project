@@ -1,13 +1,19 @@
 @extends('admin.base')
+
+@section('title', 'Document Tracking - Management Information System')
+
+
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
         integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
 @endsection
 
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-sm-4">
+        <div class="col-sm-8">
             <h2>Document Tracking</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -18,7 +24,7 @@
                 </li>
             </ol>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-4">
             <div class="title-action">
                 <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Add Document</a>
             </div>
@@ -35,27 +41,32 @@
                                         @csrf()
                                         <div class="form-group">
                                             <label>Title</label>
-                                            <input type="text" name="document_title" placeholder="" class="form-control" required>
+                                            <input type="text" name="document_title" placeholder="" class="form-control"
+                                                required minlength="5">
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="p-w-sm">Origin Office</label>
-                                            <select class="select-office col-sm-12" id="origin_office"
-                                                name="document_origin" required>
-                                                <option value=""></option>
-                                                @foreach ($office as $o)
-                                                    <option value="{{ $o->office_id }}">{{ $o->office_name }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="form-group row ">
+                                            <div class="col-sm-12">
+                                                <label class="">Origin Office</label>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <select id="mySelect" class="form-control p-w-sm select2"
+                                                    style="width: 100%;" name="document_origin" required>
+                                                    <option value=""></option>
+                                                    @foreach ($office as $o)
+                                                        <option value="{{ $o->office_id }}">{{ $o->office_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Nature of Document</label>
-                                            <input type="text" name="document_nature" placeholder=""
-                                                class="form-control" required>
+                                            <input type="text" name="document_nature" placeholder="" class="form-control"
+                                                required>
                                         </div>
                                         <div class="form-group">
                                             <label>Document No.</label>
-                                            <input type="number" name="document_number" placeholder=""
-                                                class="form-control"  required>
+                                            <input type="number" name="document_number" placeholder="" class="form-control"
+                                                required>
                                         </div>
                                         <div class="form-group">
                                             <label>Deadline</label>
@@ -155,7 +166,7 @@
                                                 </svg>
                                             </a> --}}
                                             <a href="{{ url('/admin/view-document/' . $d->document_id) }}"
-                                                class="btn btn-outline-primary">
+                                                class="btn btn-primary">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                                     <path
@@ -197,9 +208,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
         integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
     <script>
         $("#origin_office").selectize({
             sortField: 'text'
         });
+
+        $(document).ready(function() {
+            $('#mySelect').select2({
+                placeholder: "Select an option...",
+                allowClear: true
+            });
+        });
     </script>
+
+
 @endsection

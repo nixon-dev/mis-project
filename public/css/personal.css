@@ -1,0 +1,41 @@
+.green-bg {
+    background: #73ed04;
+}
+
+.red-bg {
+    background: #d43934;
+}
+
+.purple-bg {
+    background: #9121ff;
+}
+
+.yellow-bg {
+    background: #fadf3a;
+}
+
+.dark-skin {
+    font-weight: 600;
+    background: #0d0e13;
+    color: white;
+}
+
+.dark-skin-2 {
+    background: #1c1c24;
+}
+
+.dark-skin-3 {
+    background: #1b1b23;
+}
+
+.dark-skin-4 {
+    background: #212529;
+}
+
+.text-green {
+    color: #73ed04;
+}
+
+.border-radius-35 {
+    border-radius: 35px;
+}

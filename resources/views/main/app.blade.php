@@ -8,11 +8,11 @@
 
     <title>Management Information System</title>
 
-    <link href="{{ asset ('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset ('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 
-    <link href="{{ asset ('css/animate.css') }}" rel="stylesheet">
-    <link href="{{ asset ('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 
 </head>
@@ -36,17 +36,22 @@
                     </li>
 
                     <li>
-                        <a href="{{ url ('/page1') }}"><i class="fa fa-pie-chart"></i> <span class="nav-label">Dashboard</span> </a>
+                        <a href="{{ url('/page1') }}"><i class="fa fa-pie-chart"></i> <span
+                                class="nav-label">Dashboard</span> </a>
                     </li>
                     <li>
-                        <a href="{{ url ('/page2') }}"><i class="fa fa-flask"></i> <span class="nav-label">Page 2</span></a>
+                        <a href="{{ url('/page2') }}"><i class="fa fa-flask"></i> <span class="nav-label">Page
+                                2</span></a>
                     </li>
 
                     <li>
-                        <a href="css_animation.html"><i class="fa fa-magic"></i> <span class="nav-label">CSS Animations </span><span class="label label-info float-right">62</span></a>
+                        <a href="css_animation.html"><i class="fa fa-magic"></i> <span class="nav-label">CSS Animations
+                            </span><span class="label label-info float-right">62</span></a>
                     </li>
                     <li class="landing_link">
-                        <a target="_blank" href="landing.html"><i class="fa fa-star"></i> <span class="nav-label">Landing Page</span> <span class="label label-warning float-right">NEW</span></a>
+                        <a target="_blank" href="landing.html"><i class="fa fa-star"></i> <span
+                                class="nav-label">Landing Page</span> <span
+                                class="label label-warning float-right">NEW</span></a>
                     </li>
                     <li class="special_link">
                         <a href="package.html"><i class="fa fa-database"></i> <span class="nav-label">Package</span></a>
@@ -60,10 +65,12 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
+                                class="fa fa-bars"></i> </a>
                         <form role="search" class="navbar-form-custom" action="search_results.html">
                             <div class="form-group">
-                                <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                                <input type="text" placeholder="Search for something..." class="form-control"
+                                    name="top-search" id="top-search">
                             </div>
                         </form>
                     </div>
@@ -83,7 +90,8 @@
                                         </a>
                                         <div class="media-body">
                                             <small class="float-right">46h ago</small>
-                                            <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                            <strong>Mike Loreipsum</strong> started following <strong>Monica
+                                                Smith</strong>. <br>
                                             <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
                                         </div>
                                     </div>
@@ -96,7 +104,8 @@
                                         </a>
                                         <div class="media-body ">
                                             <small class="float-right text-navy">5h ago</small>
-                                            <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                            <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica
+                                                Smith</strong>. <br>
                                             <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
                                         </div>
                                     </div>
@@ -199,7 +208,7 @@
             @yield('content')
 
 
-            <div class="footer">
+            <div class="footer dark-skin">
                 <div class="float-right">
                     10GB of <strong>250GB</strong> Free.
                 </div>
@@ -212,15 +221,15 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="{{ asset ('js/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ asset ('js/popper.min.js ') }}"></script>
-    <script src="{{ asset ('js/bootstrap.js') }}"></script>
-    <script src="{{ asset ('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-    <script src="{{ asset ('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js ') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="{{ asset ('js/inspinia.js') }}"></script>
-    <script src="{{ asset ('js/plugins/pace/pace.min.js') }}"></script>
+    <script src="{{ asset('js/inspinia.js') }}"></script>
+    <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 
 
 </body>

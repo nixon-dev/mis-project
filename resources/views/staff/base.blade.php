@@ -8,11 +8,10 @@
 
     <title>Management Information System</title>
 
-    <link href="{{ asset ('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset ('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-
-    <link href="{{ asset ('css/animate.css') }}" rel="stylesheet">
-    <link href="{{ asset ('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 
 </head>
@@ -36,10 +35,12 @@
                     </li>
 
                     <li>
-                        <a href="{{ url ('/page1') }}"><i class="fa fa-pie-chart"></i> <span class="nav-label">Dashboard</span> </a>
+                        <a href="{{ url('/page1') }}"><i class="fa fa-pie-chart"></i> <span
+                                class="nav-label">Dashboard</span> </a>
                     </li>
                     <li>
-                        <a href="{{ url ('/page2') }}"><i class="fa fa-flask"></i> <span class="nav-label">Page 2</span></a>
+                        <a href="{{ url('/page2') }}"><i class="fa fa-flask"></i> <span class="nav-label">Page
+                                2</span></a>
                     </li>
                 </ul>
 
@@ -50,11 +51,12 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                        
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
+                                class="fa fa-bars"></i> </a>
+
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
-                       
+
                         <!-- <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                                 <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
@@ -162,13 +164,13 @@
 
                 </nav>
             </div>
-           
+
 
             @yield('content')
 
 
             <div class="footer">
-                
+
                 <div>
                     <strong>Copyright</strong> LGU DIFFUN &copy; 2025
                 </div>
@@ -178,15 +180,15 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="{{ asset ('js/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ asset ('js/popper.min.js') }}"></script>
-    <script src="{{ asset ('js/bootstrap.js') }}"></script>
-    <script src="{{ asset ('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-    <script src="{{ asset ('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="{{ asset ('js/inspinia.js') }}"></script>
-    <script src="{{ asset ('js/plugins/pace/pace.min.js') }}"></script>
+    <script src="{{ asset('js/inspinia.js') }}"></script>
+    <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 
 
 </body>

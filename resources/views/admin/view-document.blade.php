@@ -1,22 +1,26 @@
 @extends('admin.base')
+@section('title', 'View Document - Management Information System')
 
 
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-sm-4">
+        <div class="col-sm-8">
             <h2>Document Tracking</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="/admin/dashboard">Admin</a>
                 </li>
+                <li class="breadcrumb-item">
+                    <strong>Document Tracking</strong>
+                </li>
                 <li class="breadcrumb-item active">
-                    <strong>View Document</strong>
+                    <strong>@truncate($data[0]->document_title)</strong>
                 </li>
             </ol>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-4">
             <div class="title-action">
-                <a href="" class="btn btn-primary">This is action area</a>
+                <a href="" class="btn btn-primary">Add Action</a>
             </div>
         </div>
     </div>

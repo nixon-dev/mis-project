@@ -13,18 +13,31 @@
 
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/personal.css') }}" rel="stylesheet">
 
 
 </head>
 
-<body class="gray-bg">
+<body class="dark-skin-2">
 
-    <div class="loginColumns animated fadeInDown">
-        @include('_message')
+    <div class="loginColumns animated fadeInDown" style="margin-top: -80px;">
 
         <div class="row">
+            <div class="col-md-6 text-center mb-4">
+                <img class="text-center pull-right" src="{{ asset('img/logo/diffun_quirino.png') }}"
+                    style="width: 120px; height: 120px; object-fit: cover;" />
 
-            <div class="col-md-6">
+            </div>
+            <div class="col-md-6 text-center mb-4">
+                <img class="text-center pull-left" src="{{ asset('img/logo/mis.png') }}"
+                    style="width: 120px; height: 120px; object-fit: cover;" />
+
+            </div>
+
+            <div class="col-md-12">
+                @include('_message')
+            </div>
+            <div class="col-md-6 text-white">
                 <h1 class="font-bold">Login</h1>
 
                 <h3 class="font-bold">Management Information System</h3>
@@ -38,15 +51,17 @@
 
             </div>
             <div class="col-md-6">
-                <div class="ibox-content">
+                <div class="ibox-content border-radius-35 dark-skin">
                     <form class="m-t" role="form" action="" method="POST">
                         @csrf
                         <div class="form-group">
-                            <input type="email" name="inputEmail" class="form-control" placeholder="Email"
+                            <input type="email" name="inputEmail"
+                                class="form-control bg-dark text-white border-secondary" placeholder="Email"
                                 required="">
                         </div>
                         <div class="form-group">
-                            <input type="password" name="inputPassword" class="form-control" placeholder="Password"
+                            <input type="password" name="inputPassword"
+                                class="form-control bg-dark text-white border-secondary" placeholder="Password"
                                 required="">
                         </div>
                         <label> <input type="checkbox" class="i-checks" name="inputRememberMe"> Remember me </label>
@@ -59,7 +74,8 @@
                         <p class="text-muted text-center">
                             <small>Do not have an account?</small>
                         </p>
-                        <a class="btn btn-sm btn-white btn-block" href="{{ url('/register') }}">Create an account</a>
+                        <a class="btn btn-sm red-bg btn-block" href="{{ url('/register') }}">Create an
+                            account</a>
                     </form>
                     <p class="m-t">
                         <small>Pakaenam si Rhovin &copy; 2025</small>
@@ -69,11 +85,9 @@
         </div>
         <hr />
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12 text-white">
                 Copyright LGU DIFFUN
-            </div>
-            <div class="col-md-6 text-right">
-                <small>© 2025</small>
+                <small class="pull-right">© 2025</small>
             </div>
         </div>
     </div>
