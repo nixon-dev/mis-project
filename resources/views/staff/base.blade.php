@@ -1,61 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="dark">
 
 <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Management Information System</title>
+    <title> @yield('title', 'Management Information System')</title>
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/personal.css') }}" rel="stylesheet">
+
+
+    @yield('css')
 
 
 </head>
 
-<body class="">
+<body class="fixed-sidebar">
 
     <div id="wrapper">
 
-        <nav class="navbar-default navbar-static-side" role="navigation">
+        <nav class="navbar-default navbar-static-side dark-skin" role="navigation">
             <div class="sidebar-collapse">
-                <ul class="nav metismenu" id="side-menu">
-                    <li class="nav-header">
+                <ul class="nav metismenu " id="side-menu">
+                    <li class="nav-header ">
                         <div class="dropdown profile-element">
-                            <img alt="image" class="rounded-circle" src="{{ asset('img/profiles/rhovin.png') }}" />
-                            <span class="block m-t-xs font-bold">Rhovin Dulay</span>
-                            <span class="text-muted text-xs block">OJT</span>
+                            <img alt="image" class="rounded-circle" src="{{ asset('img/logo/diffun_quirino.png') }}"
+                                style="width: 50px; height: 50x; object-fit: cover;" />
+                            <span class="block m-t-xs font-bold">{{ Auth::user()->name ?? 'Guest Name' }}</span>
+                            <span class="text-muted text-xs block">{{ Auth::user()->role ?? 'Guest' }}</span>
                         </div>
-                        <div class="logo-element">
+                        <div class="dark-skin logo-element">
                             MIS
                         </div>
                     </li>
 
-                    <li>
-                        <a href="{{ url('/page1') }}"><i class="fa fa-pie-chart"></i> <span
-                                class="nav-label">Dashboard</span> </a>
+                    <li class="{{ request()->routeIs('staff.index') ? 'active' : '' }}">
+                        <a href="{{ url('/staff/dashboard') }}" class="text-white"><i class="fa fa-pie-chart"></i>
+                            <span class="nav-label">Dashboard</span> </a>
                     </li>
-                    <li>
-                        <a href="{{ url('/page2') }}"><i class="fa fa-flask"></i> <span class="nav-label">Page
-                                2</span></a>
+                    <li class="{{ request()->routeIs('staff.document') ? 'active' : '' }}">
+                        <a href="{{ url('/staff/document-tracking') }}" class="text-white"><i
+                                class="fa fa-file-text "></i> <span class="nav-label">Document
+                                Tracking</span></a>
                     </li>
+                    <li class="{{ request()->routeIs('staff.settings') ? 'active' : '' }}">
+                        <a href="{{ url('/staff/settings') }}" class="text-white"><i class="fa fa-gear "></i>
+                            <span class="nav-label">Settings</span></a>
+                    </li>
+                    {{-- <li
+                        class="{{ request()->routeIs(['staff.personal-setting', 'staff.users-list']) ? 'active' : '' }}">
+                        <a href="#" aria-expanded="false" class="text-white"><i class="fa fa-gear"
+                                aria-hidden="true"></i>
+                            <span class="nav-label">Settings</span><span class="fa arrow" aria-hidden="true"></span></a>
+                        <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+
+                            <li class="{{ request()->routeIs('staff.personal-setting') ? 'active' : '' }}"><a
+                                    href="{{ url('/staff/personal-settings') }}">Personal Settings</a></li>
+                            <li class="{{ request()->routeIs('staff.users-list') ? 'active' : '' }}"><a
+                                    href="{{ url('/staff/users-list') }}">User List</a></li>
+
+                        </ul>
+                    </li> --}}
                 </ul>
 
             </div>
         </nav>
 
         <div id="page-wrapper" class="gray-bg">
-            <div class="row border-bottom">
-                <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
+            <div class="row">
+                <nav class="navbar navbar-static-top dark-skin" role="navigation">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#"><i
                                 class="fa fa-bars"></i> </a>
 
                     </div>
-                    <ul class="nav navbar-top-links navbar-right">
+                    <ul class="nav navbar-top-links navbar-right ">
 
                         <!-- <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -156,7 +182,7 @@
 
 
                         <li>
-                            <a href="{{ url('/logout') }}">
+                            <a href="{{ url('/logout') }}" class="text-white">
                                 <i class="fa fa-sign-out"></i> Log out
                             </a>
                         </li>
@@ -171,8 +197,8 @@
 
             <div class="footer">
 
-                <div>
-                    <strong>Copyright</strong> LGU DIFFUN &copy; 2025
+                <div class="text-dark pull-right">
+                    <strong">Copyright</strong> LGU DIFFUN &copy; 2025
                 </div>
             </div>
 
@@ -190,6 +216,7 @@
     <script src="{{ asset('js/inspinia.js') }}"></script>
     <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 
+    @yield('script')
 
 </body>
 

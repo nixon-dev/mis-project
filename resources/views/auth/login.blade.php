@@ -23,24 +23,19 @@
     <div class="loginColumns animated fadeInDown" style="margin-top: -80px;">
 
         <div class="row">
-            <div class="col-md-6 text-center mb-4">
-                <img class="text-center pull-right" src="{{ asset('img/logo/diffun_quirino.png') }}"
-                    style="width: 120px; height: 120px; object-fit: cover;" />
-
-            </div>
-            <div class="col-md-6 text-center mb-4">
-                <img class="text-center pull-left" src="{{ asset('img/logo/mis.png') }}"
-                    style="width: 120px; height: 120px; object-fit: cover;" />
-
+            <div class="col-sm-12 text-center mb-4">
+                <img class="text-center" src="{{ asset('img/logo/diffun_quirino.png') }}"
+                    style="width: 10vw; height: auto; object-fit: cover;" />
+                <img class="text-center" src="{{ asset('img/logo/mis.png') }}"
+                    style="width: 10vw; height: auto; object-fit: cover;" />
             </div>
 
             <div class="col-md-12">
                 @include('_message')
             </div>
-            <div class="col-md-6 text-white">
-                <h1 class="font-bold">Login</h1>
+            <div class="col-md-6 d-md-block d-none text-white">
 
-                <h3 class="font-bold">Management Information System</h3>
+                <h2 class="font-bold">Management Information System</h2>
 
                 <p>
                     Document Tracking System
@@ -50,18 +45,19 @@
                 </p>
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 d-md-block">
                 <div class="ibox-content border-radius-35 dark-skin">
+                    <h2 class="font-bold text-center">Login</h2>
                     <form class="m-t" role="form" action="" method="POST">
                         @csrf
                         <div class="form-group">
                             <input type="email" name="inputEmail"
-                                class="form-control bg-dark text-white border-secondary" placeholder="Email"
+                                class="form-control dark-skin-2 text-white border-secondary" placeholder="Email"
                                 required="">
                         </div>
                         <div class="form-group">
                             <input type="password" name="inputPassword"
-                                class="form-control bg-dark text-white border-secondary" placeholder="Password"
+                                class="form-control dark-skin-2 text-white border-secondary" placeholder="Password"
                                 required="">
                         </div>
                         <label> <input type="checkbox" class="i-checks" name="inputRememberMe"> Remember me </label>
@@ -74,7 +70,8 @@
                         <p class="text-muted text-center">
                             <small>Do not have an account?</small>
                         </p>
-                        <a class="btn btn-sm red-bg btn-block" href="{{ url('/register') }}">Create an
+                        <a class="btn btn-sm btn-success block full-width m-b" href="{{ url('/register') }}">Create
+                            an
                             account</a>
                     </form>
                     <p class="m-t">
@@ -101,7 +98,6 @@
 
     <!-- Custom and plugin javascript -->
     <script src="{{ asset('js/inspinia.js') }}"></script>
-    <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 
 
 </body>

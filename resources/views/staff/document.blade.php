@@ -1,4 +1,4 @@
-@extends('admin.base')
+@extends('staff.base')
 
 @section('title', 'Document Tracking - Management Information System')
 
@@ -18,7 +18,7 @@
             <h2>Document Tracking</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard">Admin</a>
+                    <a href="/staff/dashboard">Staff</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>Document Tracking</strong>
@@ -38,7 +38,7 @@
                                 <div class="col-sm-12">
                                     <h3 class="m-t-none m-b">Add Document</h3>
 
-                                    <form role="form" action="{{ url('/admin/insert-document') }}" method="POST">
+                                    <form role="form" action="{{ url('/staff/insert-document') }}" method="POST">
                                         @csrf()
                                         <div class="form-group">
                                             <label>Title</label>
@@ -148,7 +148,7 @@
                                         <td> {{ $d->document_number }} </td>
                                         <td> {{ $d->document_deadline }} </td>
                                         <td class="text-center">
-                                            <a href="{{ url('/admin/view-document/' . $d->document_id) }}"
+                                            <a href="{{ url('/staff/view-document/' . $d->document_id) }}"
                                                 class="btn btn-danger btn-sm">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="#fff" class="bi bi-eye" viewBox="0 0 16 16">

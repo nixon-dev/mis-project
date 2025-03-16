@@ -1,41 +1,60 @@
-.green-bg {
-    background: #73ed04;
-}
-
-.red-bg {
-    background: #d43934;
-}
-
-.purple-bg {
-    background: #9121ff;
-}
-
-.yellow-bg {
-    background: #fadf3a;
-}
-
 .dark-skin {
     font-weight: 600;
-    background: #0d0e13;
-    color: white;
+    background: #0d0e13 !important;
+    color: #fff;
 }
 
 .dark-skin-2 {
-    background: #1c1c24;
+    font-weight: 600;
+    background: #111119 !important;
+    color: #fff;
 }
 
-.dark-skin-3 {
-    background: #1b1b23;
+.white-skin {
+    font-weight: 600;
+    background: #f7f8fd;
+    color: #000;
 }
 
-.dark-skin-4 {
-    background: #212529;
+.light-skin-2 {
+    background: #f5f8fd;
 }
 
-.text-green {
-    color: #73ed04;
+.black {
+    background: #030404;
 }
 
-.border-radius-35 {
-    border-radius: 35px;
+.pink {
+    background: #ca436c;
+}
+
+.blue {
+    background: #1d30fe;
+}
+
+.gray {
+    background: #2b2d3a;
+}
+
+.white {
+    background: #fcfbff;
+}
+
+.light-blue {
+    background: #addaf1;
+}
+
+.red {
+    background: #f84a65;
+}
+
+.purple {
+    background: #9121fe;
+}
+
+.yellow {
+    background: #fadd39;
+}
+.border-radius-3 {
+    border-radius: 3%;
 }
