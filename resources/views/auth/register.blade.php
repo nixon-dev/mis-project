@@ -25,20 +25,19 @@
     <div class="loginColumns animated fadeInDown" style="margin-top: -80px;">
 
         <div class="row">
-            <div class="col-md-6 text-center mb-4">
-                <img class="text-center pull-right" src="{{ asset('img/logo/diffun_quirino.png') }}"
-                    style="width: 120px; height: 120px; object-fit: cover;" />
-
+            <div class="col-sm-12 text-center mb-4">
+                <img class="text-center" src="{{ asset('img/logo/diffun_quirino.png') }}"
+                    style="width: 10vw; height: auto; object-fit: cover;" />
+                <img class="text-center" src="{{ asset('img/logo/mis.png') }}"
+                    style="width: 10vw; height: auto; object-fit: cover;" />
             </div>
-            <div class="col-md-6 text-center mb-4">
-                <img class="text-center pull-left" src="{{ asset('img/logo/mis.png') }}"
-                    style="width: 120px; height: 120px; object-fit: cover;" />
 
+            <div class="col-md-12">
+                @include('_message')
             </div>
-            <div class="col-md-6 text-white">
-                <h1 class="font-bold">Register</h1>
+            <div class="col-md-6 d-md-block d-none text-white">
 
-                <h3 class="font-bold">Management Information System</h3>
+                <h2 class="font-bold">Management Information System</h2>
 
                 <p>
                     Document Tracking System
@@ -46,25 +45,16 @@
                 <p>
                     Prototype
                 </p>
-                <!-- Display validation errors -->
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
 
             </div>
             <div class="col-md-6 ">
-                <div class="ibox-content dark-skin border-radius-35">
+                <div class="ibox-content dark-skin border-radius-3">
+                    <h2 class="font-bold text-center">Register</h2>
                     <form class="m-t" role="form" action="{{ route('register') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <input type="text" name="name"
-                                class="form-control bg-dark text-white border-secondary" placeholder="Name"
+                                class="form-control dark-skin-2 text-white border-secondary" placeholder="Name"
                                 value="{{ old('name') }}" required>
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
@@ -73,7 +63,7 @@
                         </div>
                         <div class="form-group">
                             <input type="email" name="email"
-                                class="form-control bg-dark text-white border-secondary" placeholder="Email"
+                                class="form-control dark-skin-2 text-white border-secondary" placeholder="Email"
                                 value="{{ old('email') }}" required>
                             @error('email')
                                 <span class="text-danger">{{ $message }}</span>
@@ -81,23 +71,23 @@
                         </div>
                         <div class="form-group">
                             <input type="password" name="password"
-                                class="form-control bg-dark text-white border-secondary" placeholder="Password" required
-                                minlength="6">
+                                class="form-control dark-skin-2 text-white border-secondary" placeholder="Password"
+                                required minlength="6">
                             @error('password')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <input type="password" name="password_confirmation"
-                                class="form-control bg-dark text-white border-secondary" placeholder="Confirm Password"
-                                required minlength="6">
+                                class="form-control dark-skin-2 text-white border-secondary"
+                                placeholder="Confirm Password" required minlength="6">
                         </div>
                         <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
 
                         <p class="text-muted text-center">
                             <small>Already have an account?</small>
                         </p>
-                        <a class="btn btn-sm red-bg btn-block" href="{{ url('/login') }}">Login</a>
+                        <a class="btn btn-sm btn-success block full-width m-b" href="{{ url('/login') }}">Login</a>
                     </form>
                     <p class="m-t">
                         <small>Pakaenam si Rhovin &copy; 2025</small>

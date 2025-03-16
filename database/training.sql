@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2025 at 09:38 AM
+-- Generation Time: Mar 16, 2025 at 02:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,26 +48,6 @@ CREATE TABLE `cache_locks` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `country`
---
-
-CREATE TABLE `country` (
-  `id` int(11) NOT NULL,
-  `country` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `country`
---
-
-INSERT INTO `country` (`id`, `country`) VALUES
-(1, 'Philippines'),
-(2, 'Thailand'),
-(3, 'Taiwan');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `document`
 --
 
@@ -77,19 +57,20 @@ CREATE TABLE `document` (
   `document_origin` int(255) NOT NULL,
   `document_nature` varchar(255) NOT NULL,
   `document_number` int(255) NOT NULL,
-  `document_deadline` date NOT NULL
+  `document_deadline` date NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `document`
 --
 
-INSERT INTO `document` (`document_id`, `document_title`, `document_origin`, `document_nature`, `document_number`, `document_deadline`) VALUES
-(1, 'To payment of ICT Equipment and Furniture and Fixtures for the MIS Uni', 1, 'RHOVIN', 12637, '2025-03-31'),
-(2, 'Pakaenam si Rhovin', 1, 'Permit', 21331, '2025-03-14'),
-(3, 'asdasdasdaaaaaaaaaaaaaaaaaaaaaaaaa', 1, 'Permit', 123, '2025-03-14'),
-(4, 'Pakaenam si Rhovin', 1, 'asdasdasd', 123123, '2025-03-14'),
-(5, 'asdasdasdaaaaaaaaaaaaaaaaaaaaaaaaa', 1, 'Permit', 21331, '2025-04-05');
+INSERT INTO `document` (`document_id`, `document_title`, `document_origin`, `document_nature`, `document_number`, `document_deadline`, `created_at`) VALUES
+(8, 'Budget for IT Equipments', 1, 'Request Letter', 32151, '2025-02-11', '2025-02-02 17:55:56'),
+(9, 'To payment of ICT Equipment and Furniture and Fixtures for the MIS Uni', 1, 'Bill', 1234, '2025-03-10', '2025-03-16 18:11:31'),
+(10, 'Business Permit Application Form', 2, 'Permit', 892319, '2025-03-16', '2025-03-16 18:24:11'),
+(11, 'Environmental Compliance Certificate (ECC)', 6, 'Infrastructure & Development', 54123, '2025-04-01', '2025-03-16 18:24:56'),
+(13, 'Statement of Receipts and Expenditures', 5, 'Financial & Budgeting', 16234, '2025-03-30', '2025-03-16 19:14:15');
 
 -- --------------------------------------------------------
 
@@ -117,9 +98,18 @@ CREATE TABLE `history` (
   `history_id` int(255) NOT NULL,
   `document_id` int(255) NOT NULL,
   `history_name` varchar(255) NOT NULL,
-  `history_date` date NOT NULL,
-  `history_action` text NOT NULL
+  `history_date` datetime NOT NULL,
+  `history_action` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `history`
+--
+
+INSERT INTO `history` (`history_id`, `document_id`, `history_name`, `history_date`, `history_action`, `created_at`) VALUES
+(5, 13, 'Nickson Prieto', '2025-03-16 19:14:00', 'Prepared the documents', '2025-03-16 19:14:33'),
+(6, 13, 'Mayor Garnace', '2025-03-16 21:07:00', 'Signed', '2025-03-16 21:07:34');
 
 -- --------------------------------------------------------
 
@@ -234,32 +224,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('sazM6Do2PgwHyEG8XYRRRE81Har6gaBHExwN9dej', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidWNkeklrRDA1cnFiQ21XZGFnTWh3ZDNPMkxlZ2VJa1Izckp4WDlQMSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTk6Imh0dHA6Ly9sb2NhbGhvc3QvbWlzLXByb2plY3QvcHVibGljL2FkbWluL2RvY3VtZW50LXRyYWNraW5nIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9', 1741941345);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `students`
---
-
-CREATE TABLE `students` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `firstname` varchar(255) NOT NULL,
-  `middlename` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL,
-  `birthdate` date NOT NULL,
-  `country_id` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `students`
---
-
-INSERT INTO `students` (`id`, `firstname`, `middlename`, `lastname`, `birthdate`, `country_id`, `created_at`, `updated_at`) VALUES
-(2, 'Ana', 'as', 'as', '2024-10-01', 1, NULL, NULL),
-(4, 'Rhovin', 'John', 'Dulay', '2025-04-05', 2, NULL, NULL);
+('3cSJ2CNtqzJ5kWtYmyjIeDknBNTeAkADS0u91W3K', 2, '192.168.1.65', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 OPR/117.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiYldTWE44VXlGSjA1OUdlUnlJYkFmb05JVFBmU3VRdUFVQ2s4WEVFcyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDc6Imh0dHA6Ly8xOTIuMTY4LjEuNjU6MTIxOC9hZG1pbi92aWV3LWRvY3VtZW50LzEzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9', 1742131863);
 
 -- --------------------------------------------------------
 
@@ -284,10 +249,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
-(1, 'Rhovin John Dulay', 'rhovin.supot@gmail.com', '2025-03-14 04:39:00', '$2y$12$TWsD0Y/gt9LghuzWGP4iROKaxLfO3tPB5/Se5uLDcXUV/wy6NkQR6', 'xyk7u6DQcTkGj8sE80imxmEfM8OISSiFwBrPtG1f0q30JAkDWimBdVH7DFiI', NULL, NULL, 'Staff'),
-(2, 'Nickson Santos Prieto', 'nickson.prieto05@gmail.com', '2025-03-14 04:39:00', '$2y$12$TWsD0Y/gt9LghuzWGP4iROKaxLfO3tPB5/Se5uLDcXUV/wy6NkQR6', 'pcPEt9m6ep6GQo3k6cDKNYFLXgbQByKwETBDVIM7cWl9IOcArSoTvlo6CI8H', NULL, NULL, 'Administrator'),
-(3, 'Rhovin John Dulay', 'rhovin.supot@pakaenam.com', NULL, '$2y$12$/8W8oBqscjZ250aNKvNWwu/AVOSoUBDVwELCkS71vseLc30symqiS', NULL, '2025-03-13 18:16:29', '2025-03-13 18:16:29', 'Guest'),
-(4, 'Rhyan Ambrocio', 'rhyan.ambrocio@gmail.com', NULL, '$2y$12$Xg1YNi.R3ZuwZt9R8VEKbeQBAgTNHIuUsKFOivvZz9v364qc8wX/i', NULL, '2025-03-13 18:17:02', '2025-03-13 18:17:02', 'Guest');
+(1, 'Rhovin John Dulay', 'rhovin.supot@gmail.com', '2025-03-14 04:39:00', '$2y$12$TWsD0Y/gt9LghuzWGP4iROKaxLfO3tPB5/Se5uLDcXUV/wy6NkQR6', 'HfKEJQN3gTDM10BsCt8g0egJpY0Z0sK0t8nvgegser5E3iKIRaG55aAqrtWm', '2025-03-13 18:16:29', '2025-03-13 18:16:29', 'Staff'),
+(2, 'Nickson Santos Prieto', 'nickson.prieto05@gmail.com', '2025-03-14 04:39:00', '$2y$12$TWsD0Y/gt9LghuzWGP4iROKaxLfO3tPB5/Se5uLDcXUV/wy6NkQR6', 'kmcKg61Ai7umLZsyhrZmhi2fjgRMwswa0rLTpntD7gf04h0uAcPpX5GT0joj', '2025-03-13 18:16:29', '2025-03-16 05:30:31', 'Administrator'),
+(3, 'Rhovin John Dulay', 'rhovin.supot@pakaenam.com', NULL, '$2y$12$/8W8oBqscjZ250aNKvNWwu/AVOSoUBDVwELCkS71vseLc30symqiS', NULL, '2025-03-13 18:16:29', '2025-03-16 05:07:13', 'Guest'),
+(4, 'Rhyan Ambrocio', 'rhyan.ambrocio@gmail.com', NULL, '$2y$12$Xg1YNi.R3ZuwZt9R8VEKbeQBAgTNHIuUsKFOivvZz9v364qc8wX/i', NULL, '2025-03-13 18:17:02', '2025-03-13 18:17:02', 'Guest'),
+(5, 'asdasd', 'asdaasd@gmail.com', NULL, '$2y$12$/8nQyYqS68f8rzCM/ZIZlOCuge.7/yjJUE0psdAQPysiScJrrIFFO', NULL, '2025-03-15 22:28:29', '2025-03-15 22:28:29', 'Guest'),
+(6, 'Admin Name', 'admin@gmail.com', NULL, '$2y$12$QMbhWqWCoTZLrwQu6sl8wef6Pv0QjaBvD2euJ5uvS5eNliuw57aEa', 'N1hJRS8AH1EsYTdL5Np2eqnmzBlNCA1QgLS8ckNw4ETDkpcH4TydKG7wVB0Q', '2025-03-15 22:30:17', '2025-03-16 05:28:19', 'Administrator');
 
 --
 -- Indexes for dumped tables
@@ -304,12 +271,6 @@ ALTER TABLE `cache`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
-
---
--- Indexes for table `country`
---
-ALTER TABLE `country`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `document`
@@ -371,12 +332,6 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
--- Indexes for table `students`
---
-ALTER TABLE `students`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -388,16 +343,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `country`
---
-ALTER TABLE `country`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT for table `document`
 --
 ALTER TABLE `document`
-  MODIFY `document_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `document_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -409,7 +358,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `history_id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `history_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -430,16 +379,10 @@ ALTER TABLE `office`
   MODIFY `office_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `students`
---
-ALTER TABLE `students`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

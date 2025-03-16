@@ -1,4 +1,4 @@
-@extends('admin.base')
+@extends('staff.base')
 @section('title', 'View Document - Management Information System')
 
 @section('css')
@@ -12,7 +12,7 @@
             <h2>Document Tracking</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard">Admin</a>
+                    <a href="/staff/dashboard">Staff</a>
                 </li>
                 <li class="breadcrumb-item">
                     <strong>Document Tracking</strong>
@@ -35,7 +35,7 @@
                                 <div class="col-sm-12">
                                     <h3 class="m-t-none m-b">Add Action</h3>
 
-                                    <form role="form" action="{{ url('/admin/insert-document-action') }}" method="POST">
+                                    <form role="form" action="{{ url('/staff/insert-document-action') }}" method="POST">
                                         @csrf()
 
                                         <div class="form-group d-none">
@@ -83,6 +83,7 @@
                     <p class="alert alert-success">{{ Session::get('success') }}</p>
                 @endif
 
+
                 @if ($errors->any())
                     <div class="col-sm-12">
                         <div class="alert alert-danger">
@@ -99,7 +100,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    <a href="{{ url('/admin/delete-document/' . $data[0]->document_id) }}"
+                                    <a href="{{ url('/staff/delete-document/' . $data[0]->document_id) }}"
                                         class="btn btn-white btn-xs pull-right"
                                         onclick="return confirm('Delete document?')">Delete Document</a>
                                     <h2>{{ $data[0]->document_title }}</h2>

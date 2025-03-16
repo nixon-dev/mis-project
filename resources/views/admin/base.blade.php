@@ -26,13 +26,13 @@
 
     <div id="wrapper">
 
-        <nav class="navbar-default navbar-static-side dark-skin text-white" role="navigation">
+        <nav class="navbar-default navbar-static-side dark-skin" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav metismenu " id="side-menu">
-                    <li class="nav-header dark-skin ">
+                    <li class="nav-header ">
                         <div class="dropdown profile-element">
                             <img alt="image" class="rounded-circle" src="{{ asset('img/logo/diffun_quirino.png') }}"
-                                style="width: 70px; height: 70x; object-fit: cover;" />
+                                style="width: 50px; height: 50x; object-fit: cover;" />
                             <span class="block m-t-xs font-bold">{{ Auth::user()->name ?? 'Guest Name' }}</span>
                             <span class="text-muted text-xs block">{{ Auth::user()->role ?? 'Guest' }}</span>
                         </div>
@@ -41,15 +41,27 @@
                         </div>
                     </li>
 
-                    <li>
-                        <a href="{{ url('/admin/dashboard') }}" class="text-white"><i
-                                class="fa fa-pie-chart text-green"></i>
+                    <li class="{{ request()->routeIs('admin.index') ? 'active' : '' }}">
+                        <a href="{{ url('/admin/dashboard') }}" class="text-white"><i class="fa fa-pie-chart"></i>
                             <span class="nav-label">Dashboard</span> </a>
                     </li>
-                    <li>
+                    <li class="{{ request()->routeIs('admin.document') ? 'active' : '' }}">
                         <a href="{{ url('/admin/document-tracking') }}" class="text-white"><i
-                                class="fa fa-file-text  text-green"></i> <span class="nav-label">Document
+                                class="fa fa-file-text "></i> <span class="nav-label">Document
                                 Tracking</span></a>
+                    </li>
+                    <li class="{{ request()->routeIs(['admin.user-setting', 'admin.users-list']) ? 'active' : '' }}">
+                        <a href="#" aria-expanded="false" class="text-white"><i class="fa fa-gear"
+                                aria-hidden="true"></i>
+                            <span class="nav-label">Settings</span><span class="fa arrow" aria-hidden="true"></span></a>
+                        <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+
+                            <li class="{{ request()->routeIs('admin.user-setting') ? 'active' : '' }}"><a
+                                    href="{{ url('/admin/user-settings') }}">User Settings</a></li>
+
+                            <li class={{ request()->routeIs('admin.users-list') ? 'active' : '' }}><a
+                                    href="{{ url('/admin/users') }}">User List</a></li>
+                        </ul>
                     </li>
                 </ul>
 
@@ -58,9 +70,9 @@
 
         <div id="page-wrapper" class="gray-bg">
             <div class="row">
-                <nav class="dark-skin navbar navbar-static-top  " role="navigation">
+                <nav class="navbar navbar-static-top dark-skin" role="navigation">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary green-skin" href="#"><i
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#"><i
                                 class="fa fa-bars"></i> </a>
 
                     </div>
@@ -165,7 +177,7 @@
 
 
                         <li>
-                            <a href="{{ url('/logout') }}">
+                            <a href="{{ url('/logout') }}" class="text-white">
                                 <i class="fa fa-sign-out"></i> Log out
                             </a>
                         </li>
