@@ -163,7 +163,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5">.:No Record Found:.</td>
+                                        <td colspan="6">No Document Found</td>
                                     </tr>
                                 @endforelse
                             </tbody>
