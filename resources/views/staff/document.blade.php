@@ -217,6 +217,11 @@
                 pageLength: 10,
                 order: [],
                 responsive: true,
+                autoWidth: false,
+                columnDefs: [{
+                    "width": "100%",
+                    "targets": "_all"
+                }],
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [{
                         extend: 'copy'

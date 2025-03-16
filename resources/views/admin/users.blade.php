@@ -60,7 +60,8 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <table class="table table-bordered table-hover dataTables-example" style="width: 100%">
+                        <table class="table table-bordered table-hover table-responsive dataTables-example"
+                            style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -126,6 +127,11 @@
                 pageLength: 10,
                 order: [],
                 responsive: true,
+                autoWidth: false,
+                columnDefs: [{
+                    "width": "100%",
+                    "targets": "_all"
+                }],
                 initComplete: function() {
                     this.api()
                         .columns([2])

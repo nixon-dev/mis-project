@@ -22,8 +22,13 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, $role)
     {
         if (Auth::check() && Auth::user()->role === $role) {
+
             return $next($request);
         }
-        return redirect('/')->with('error', "Access Denied.");
+
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login')->with('error', "Access Denied.");
     }
 }

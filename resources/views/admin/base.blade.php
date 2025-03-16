@@ -50,13 +50,13 @@
                                 class="fa fa-file-text "></i> <span class="nav-label">Document
                                 Tracking</span></a>
                     </li>
-                    <li class="{{ request()->routeIs(['admin.user-setting', 'admin.users-list']) ? 'active' : '' }}">
+                    <li class="{{ request()->routeIs(['admin.user-settings', 'admin.users-list']) ? 'active' : '' }}">
                         <a href="#" aria-expanded="false" class="text-white"><i class="fa fa-gear"
                                 aria-hidden="true"></i>
                             <span class="nav-label">Settings</span><span class="fa arrow" aria-hidden="true"></span></a>
                         <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
 
-                            <li class="{{ request()->routeIs('admin.user-setting') ? 'active' : '' }}"><a
+                            <li class="{{ request()->routeIs('admin.user-settings') ? 'active' : '' }}"><a
                                     href="{{ url('/admin/user-settings') }}">User Settings</a></li>
 
                             <li class={{ request()->routeIs('admin.users-list') ? 'active' : '' }}><a

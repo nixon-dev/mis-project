@@ -116,7 +116,7 @@
                                 <dl class="dl-horizontal">
 
                                     <dt>Origin:</dt>
-                                    <dd>{{ $data[0]->document_origin }}</dd>
+                                    <dd>{{ $data[0]->office_name }}</dd>
                                     <dt>Nature of Document:</dt>
                                     <dd>{{ $data[0]->document_nature }}</dd>
                                 </dl>

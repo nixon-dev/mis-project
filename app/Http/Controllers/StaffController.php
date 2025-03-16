@@ -33,15 +33,21 @@ class StaffController extends Controller
 
     public function view_document($id)
     {
-        $data = Document::where('document_id', $id)->get();
+        $data = Document::leftJoin('office', 'office.office_id', '=', 'document.document_origin')
+            ->where('document_id', $id)
+            ->get();
         $action = History::where('document_id', $id)->get();
-        $office = Office::get();
+
 
         foreach ($action as $a) {
             $a->history_date = Carbon::parse($a->history_date)->format('M d, Y - h:i A');
         }
 
-        return view('staff.view-document', compact('office', 'data', 'action'));
+        foreach ($data as $d) {
+            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y');
+        }
+
+        return view('admin.view-document', compact('data', 'action'));
 
     }
 
