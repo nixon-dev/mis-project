@@ -9,6 +9,8 @@ use App\Models\Document;
 use App\Models\History;
 use App\Models\Office;
 use App\Models\User;
+use Illuminate\Database\QueryException;
+
 
 class AdminController extends Controller
 {
@@ -46,19 +48,18 @@ class AdminController extends Controller
         }
 
         return view('admin.view-document', compact('data', 'action'));
-
     }
 
     public function document_tracking()
     {
-        $office = Office::get();
+        $office = Office::orderBy('office_name', 'ASC')->get();
         $data = Document::leftJoin('office', 'office.office_id', '=', 'document.document_origin')
             ->select('document.*', 'office.office_name')
             ->orderBy('created_at', 'DESC')
             ->get();
 
         foreach ($data as $d) {
-            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y');
+            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
         return view('admin.document', compact('data', 'office'));
     }
@@ -67,10 +68,8 @@ class AdminController extends Controller
     {
         $request->validate([
             'document_title' => 'required|string|max:255',
-            'document_origin' => 'required|numeric|max:6',
-            'document_nature' => 'required|string|max:255',
+            'document_origin' => 'required|numeric',
             'document_number' => 'required|numeric',
-            'document_deadline' => 'required|date',
         ]);
 
         $query = Document::insert([
@@ -82,9 +81,9 @@ class AdminController extends Controller
         ]);
 
         if ($query) {
-            return redirect(url('/admin/document-tracking'))->with('success', 'Add data successful');
+            return redirect(url('/admin/document-tracking'))->with('success', 'Data added successfully!');
         } else {
-            return redirect()->back()->with('error', 'Failed to insert document');
+            return redirect()->back()->with('error', 'Error: Failed to insert document');
         }
     }
 
@@ -96,7 +95,7 @@ class AdminController extends Controller
         if ($query) {
             return redirect(url('/admin/document-tracking'))->with('success', 'Document deleted successfully!');
         } else {
-            return redirect()->back() - with('error', 'Failed to delete document.');
+            return redirect()->back() - with('error', 'Error: Failed to delete document.');
         }
     }
 
@@ -119,11 +118,10 @@ class AdminController extends Controller
         ]);
 
         if ($query) {
-            return redirect()->back()->with('success', 'Add action successful');
+            return redirect()->back()->with('success', 'Action added successfully!');
         } else {
-            return redirect()->back()->with('error', 'Failed to insert action');
+            return redirect()->back()->with('error', 'Error: Failed to add action');
         }
-
     }
 
     public function users_list()
@@ -136,7 +134,11 @@ class AdminController extends Controller
     {
         $info = User::where('id', $id)->get();
 
-        return view('admin.view-user', compact('info'));
+        if ($info->isNotEmpty()) {
+            return view('admin.view-user', compact('info'));
+        } else {
+            return redirect(url('/admin/users/'))->with('error', 'Error: User not found');
+        }
     }
 
     public function user_settings()
@@ -156,7 +158,7 @@ class AdminController extends Controller
         if ($query) {
             return redirect()->back()->with('success', 'User has been updated successfully!');
         } else {
-            return redirect()->back()->with('error', 'Failed to update user.');
+            return redirect()->back()->with('error', 'Error: Failed to update user.');
         }
     }
 
@@ -171,9 +173,82 @@ class AdminController extends Controller
         $query = User::where('id', $request->id)->update(['name' => $request->name]);
 
         if ($query) {
-            return redirect()->back()->with('success', 'Personal Information Updated Successfully!');
+            return redirect()->back()->with('success', 'Personal information updated successfully!');
         } else {
-            return redirect()->back()->with('error', 'Update Failed');
+            return redirect()->back()->with('error', 'Error: Update Failed');
+        }
+    }
+
+    public function office()
+    {
+        $office = Office::orderBy('office_name', 'ASC')->get();
+
+        return view('admin.office', compact('office'));
+    }
+
+    public function office_delete($id)
+    {
+        try {
+            $query = Office::where('office_id', $id)->delete();
+            if ($query) {
+                return redirect()->back()->with('success', 'Office deleted successfully!');
+            } else {
+                return redirect()->back()->with('error', 'Error: Failed to delete office');
+            }
+        } catch (QueryException $e) {
+            if ($e->getCode() == 23000) {
+                return redirect()->back()->with('error', 'Cannot delete this office because it is linked to other records.');
+            }
+            return redirect()->back()->with('error', 'Something went wrong. Please try again.');
+        }
+    }
+
+    public function office_add(Request $request)
+    {
+        $request->validate([
+            'office_name' => 'required|string',
+        ]);
+
+        $query = Office::insert([
+            'office_name' => $request->input('office_name'),
+        ]);
+
+        if ($query) {
+            return redirect()->back()->with('success', 'Office added successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Error: Failed to add office');
+        }
+    }
+
+    public function users_delete($id)
+    {
+        $query = User::where('id', $id)->delete();
+
+        if ($query) {
+            return redirect(url('/admin/users/'))->with('success', 'User has been deleted!');
+        } else {
+            return redirect()->back()->with('error', 'Error: Failed to Delete User');
+        }
+    }
+
+    public function document_update_status(Request $request)
+    {
+        try {
+           
+
+            $allowedColumns = ['pr', 'canvass', 'abstract', 'obr', 'po', 'par', 'air', 'dv'];
+            $columnName = $request->input('item_column');
+
+            if (!in_array($columnName, $allowedColumns)) {
+                return response()->json(['success' => false, 'message' => 'Invalid column name'], 400);
+            }
+
+            Document::where('document_id', $request->input('document_id'))
+                ->update([$columnName => $request->input('item_status')]);
+
+            return response()->json(['success' => true, 'message' => 'Status updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
     }
 }

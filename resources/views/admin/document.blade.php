@@ -61,8 +61,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Nature of Document</label>
-                                            <input type="text" name="document_nature" placeholder="" class="form-control"
-                                                required>
+                                            <input type="text" name="document_nature" placeholder="" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label>Document No.</label>
@@ -71,7 +70,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Deadline</label>
-                                            <input type="date" name="document_deadline" class="form-control" required>
+                                            <input type="datetime-local" name="document_deadline" class="form-control">
                                         </div>
 
                                         <div class="form-group text-center">

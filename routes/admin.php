@@ -28,4 +28,14 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
     Route::post('/admin/user/update', [AdminController::class, 'user_update']);
 
+    Route::get('/admin/users/delete/{id}', [AdminController::class, 'users_delete']);
+
+    Route::get('/admin/office', [AdminController::class, 'office'])->name('admin.office');
+
+    Route::post('/admin/office/add', [AdminController::class, 'office_add']);
+
+    Route::get('/admin/office/{id}', [AdminController::class, 'office_delete']);
+
+    Route::post('/admin/document/update-status', [AdminController::class, 'document_update_status']);
+
 });

@@ -28,33 +28,22 @@
         </div> --}}
     </div>
 
-    <div class="wrapper wrapper-content">
+    <div class="wrapper wrapper-content animated fadeInDown">
         <div class="row">
 
             @if (Session::has('success'))
-                <div class="col-sm-12">
-                    <p class="alert alert-success">{{ Session::get('success') }}</p>
-                </div>
-            @endif
-
-
-            @if ($errors->any())
-                <div class="col-sm-12">
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
+                <p class="alert alert-success">{{ Session::get('success') }}</p>
+            @elseif (Session::has('error'))
+                <p class="alert alert-danger">{{ Session::get('error') }}</p>
             @endif
 
             <div class="col-lg-6">
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5>Personal Details</h5>
-
+                        <a href="{{ url('/admin/users/delete/' . $info[0]->id) }}" class="btn btn-white btn-xs pull-right"
+                            onclick="return confirm('Delete User?')">Delete
+                            User</a>
                     </div>
                     <div class="ibox-content">
                         <h3 class="font-bold text-dark">Name: {{ $info[0]->name }}</h3>
@@ -115,7 +104,6 @@
         $(document).ready(function() {
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
             });
         });
     </script>

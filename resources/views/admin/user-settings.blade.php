@@ -3,13 +3,16 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-8">
-            <h2>User Setting</h2>
+            <h2>Personal Setting</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="/admin/dashboard">Admin</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong>Users</strong>
+                    Settings
+                </li>
+                <li class="breadcrumb-item active">
+                    <strong>Personal</strong>
                 </li>
             </ol>
         </div>
@@ -20,15 +23,16 @@
         </div> --}}
     </div>
 
-    <div class="wrapper wrapper-content">
+    <div class="wrapper wrapper-content animated fadeInDown">
         <div class="row">
 
-            @if (Session::has('success'))
-                <div class="col-sm-12">
+            <div class="col-sm-12">
+                @if (Session::has('success'))
                     <p class="alert alert-success">{{ Session::get('success') }}</p>
-                </div>
-            @endif
-
+                @elseif (Session::has('error'))
+                    <p class="alert alert-danger">{{ Session::get('error') }}</p>
+                @endif
+            </div>
 
             @if ($errors->any())
                 <div class="col-sm-12">

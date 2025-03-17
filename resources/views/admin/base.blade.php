@@ -5,6 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title> @yield('title', 'Management Information System')</title>
 
@@ -50,7 +51,7 @@
                                 class="fa fa-file-text "></i> <span class="nav-label">Document
                                 Tracking</span></a>
                     </li>
-                    <li class="{{ request()->routeIs(['admin.user-settings', 'admin.users-list']) ? 'active' : '' }}">
+                    <li class="{{ request()->routeIs(['admin.user-settings', 'admin.users-list', 'admin.office']) ? 'active' : '' }}">
                         <a href="#" aria-expanded="false" class="text-white"><i class="fa fa-gear"
                                 aria-hidden="true"></i>
                             <span class="nav-label">Settings</span><span class="fa arrow" aria-hidden="true"></span></a>
@@ -61,6 +62,9 @@
 
                             <li class={{ request()->routeIs('admin.users-list') ? 'active' : '' }}><a
                                     href="{{ url('/admin/users') }}">User List</a></li>
+
+                            <li class={{ request()->routeIs('admin.office') ? 'active' : '' }}><a
+                                    href="{{ url('/admin/office') }}">Office List</a></li>
                         </ul>
                     </li>
                 </ul>

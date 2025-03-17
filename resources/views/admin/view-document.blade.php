@@ -3,6 +3,9 @@
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{{ asset('css/plugins/iCheck/custom.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/plugins/jQueryUI/jquery-ui.css') }}" type="text/css" />
+
 @endsection
 
 
@@ -77,23 +80,14 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <div class="wrapper wrapper-content animated fadeInUp">
+            <div class="wrapper wrapper-content animated fadeInDown">
 
                 @if (Session::has('success'))
                     <p class="alert alert-success">{{ Session::get('success') }}</p>
+                @elseif (Session::has('error'))
+                    <p class="alert alert-danger">{{ Session::get('error') }}</p>
                 @endif
 
-                @if ($errors->any())
-                    <div class="col-sm-12">
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                @endif
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row">
@@ -130,21 +124,42 @@
 
                                 </dl>
                             </div>
-                        </div>
-                        {{-- <div class="row">
-                            <div class="col-lg-12">
-                                <dl class="dl-horizontal">
-                                    <dt>Completed:</dt>
-                                    <dd>
-                                        <div class="progress progress-striped active m-b-sm">
-                                            <div style="width: 60%;" class="progress-bar"></div>
-                                        </div>
-                                        <small>Project completed in <strong>60%</strong>. Remaining close the project, sign
-                                            a contract and invoice.</small>
-                                    </dd>
-                                </dl>
+                            <div class="col-sm-12 row">
+                                <div class="checkbox i-checks pl-3">
+                                    <label><input type="checkbox" onchange="updateStatus('pr', this.checked)"
+                                            {{ $data[0]->pr == 'true' ? 'checked' : '' }}> PR</label>
+                                </div>
+                                <div class="checkbox i-checks pl-3">
+                                    <label><input type="checkbox" onchange="updateStatus('canvass', this.checked)"
+                                            {{ $data[0]->canvass == 'true' ? 'checked' : '' }}> Canvass</label>
+                                </div>
+                                <div class="checkbox i-checks pl-3">
+                                    <label><input type="checkbox" onchange="updateStatus('abstract', this.checked)"
+                                            {{ $data[0]->abstract == 'true' ? 'checked' : '' }}> Abstract</label>
+                                </div>
+                                <div class="checkbox i-checks pl-3">
+                                    <label><input type="checkbox" onchange="updateStatus('obr', this.checked)"
+                                            {{ $data[0]->obr == 'true' ? 'checked' : '' }}> OBR</label>
+                                </div>
+                                <div class="checkbox i-checks pl-3">
+                                    <label><input type="checkbox" onchange="updateStatus('po', this.checked)"
+                                            {{ $data[0]->po == 'true' ? 'checked' : '' }}> PO</label>
+                                </div>
+                                <div class="checkbox i-checks pl-3">
+                                    <label><input type="checkbox" onchange="updateStatus('par', this.checked)"
+                                            {{ $data[0]->par == 'true' ? 'checked' : '' }}> PAR</label>
+                                </div>
+                                <div class="checkbox i-checks pl-3">
+                                    <label><input type="checkbox" onchange="updateStatus('air', this.checked)"
+                                            {{ $data[0]->air == 'true' ? 'checked' : '' }}> AIR</label>
+                                </div>
+                                <div class="checkbox i-checks pl-3">
+                                    <input type="checkbox" onchange="updateStatus('dv', this.checked)"
+                                        {{ $data[0]->dv == 'true' ? 'checked' : '' }}> DV
+                                </div>
                             </div>
-                        </div> --}}
+                        </div>
+
                         <div class="row m-t-sm">
                             <div class="col-lg-12">
                                 <table class="table table-bordered">
@@ -186,39 +201,52 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="col-lg-3">
-            <div class="wrapper wrapper-content project-manager">
-                <h4>Project description</h4>
-                <img src="/Images/zender_logo.png" class="img-responsive">
-                <p class="small">
-                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                    alteration in some form, by injected humour, or randomised words which don't look
-                    even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there
-                    isn't anything embarrassing
-                </p>
-                <p class="small font-bold">
-                    <span><i class="fa fa-circle text-warning"></i> High priority</span>
-                </p>
-                <h5>Project tag</h5>
-                <ul class="tag-list" style="padding: 0">
-                    <li><a href=""><i class="fa fa-tag"></i> Zender</a></li>
-                    <li><a href=""><i class="fa fa-tag"></i> Lorem ipsum</a></li>
-                    <li><a href=""><i class="fa fa-tag"></i> Passages</a></li>
-                    <li><a href=""><i class="fa fa-tag"></i> Variations</a></li>
-                </ul>
-                <h5>Project files</h5>
-                <ul class="list-unstyled project-files">
-                    <li><a href=""><i class="fa fa-file"></i> Project_document.docx</a></li>
-                    <li><a href=""><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a></li>
-                    <li><a href=""><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a></li>
-                    <li><a href=""><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
-                </ul>
-                <div class="text-center m-t-md">
-                    <a href="#" class="btn btn-xs btn-primary">Add files</a>
-                    <a href="#" class="btn btn-xs btn-primary">Report contact</a>
-
-                </div>
-            </div>
-        </div> --}}
     </div>
+@endsection
+
+
+@section('script')
+    <script src="{{ asset('js/plugins/iCheck/icheck.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.i-checks').on('ifChanged', function(event) {
+                let checkbox = $(this).find('input[type="checkbox"]');
+                let itemId = checkbox.attr('onchange').match(/'([^']+)'/)[1]; // Extract 'air' or 'dv'
+                let isChecked = checkbox.prop('checked');
+
+                updateStatus(itemId, isChecked);
+            });
+        });
+
+        function updateStatus(itemId, isChecked) {
+            var document_id = {{ $data[0]->document_id }};
+            var token = "{{ csrf_token() }}";
+
+            $.ajax({
+                method: 'POST',
+                url: '/admin/document/update-status',
+                data: {
+                    'document_id': document_id,
+                    'item_column': itemId,
+                    'item_status': isChecked ? true : false,
+                    _token: token, 
+                },
+                success: function(response) {
+                    console.log("Success:", response);
+                },
+                error: function(xhr) {
+                    console.error("Error:", xhr.responseText);
+                }
+            });
+        }
+    </script>
 @endsection

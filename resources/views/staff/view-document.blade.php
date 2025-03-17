@@ -101,7 +101,7 @@
                             <div class="col-lg-12">
                                 <div class="m-b-md">
                                     <a href="{{ url('/staff/delete-document/' . $data[0]->document_id) }}"
-                                        class="btn btn-white btn-xs pull-right"
+                                        class="btn btn-white btn-xs pull-right d-none"
                                         onclick="return confirm('Delete document?')">Delete Document</a>
                                     <h2>{{ $data[0]->document_title }}</h2>
                                 </div>

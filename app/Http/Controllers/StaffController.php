@@ -47,20 +47,20 @@ class StaffController extends Controller
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y');
         }
 
-        return view('admin.view-document', compact('data', 'action'));
+        return view('staff.view-document', compact('data', 'action'));
 
     }
 
     public function document_tracking()
     {
-        $office = Office::get();
+        $office = Office::orderBy('office_name', 'ASC')->get();
         $data = Document::leftJoin('office', 'office.office_id', '=', 'document.document_origin')
             ->select('document.*', 'office.office_name')
             ->orderBy('created_at', 'DESC')
             ->get();
 
         foreach ($data as $d) {
-            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y');
+            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
         return view('staff.document', compact('data', 'office'));
     }
@@ -69,7 +69,7 @@ class StaffController extends Controller
     {
         $request->validate([
             'document_title' => 'required|string|max:255',
-            'document_origin' => 'required|numeric|max:6',
+            'document_origin' => 'required|numeric',
             'document_nature' => 'required|string|max:255',
             'document_number' => 'required|numeric',
             'document_deadline' => 'required|date',
@@ -84,9 +84,9 @@ class StaffController extends Controller
         ]);
 
         if ($query) {
-            return redirect(url('/staff/document-tracking'))->with('success', 'Add data successful');
+            return redirect(url('/staff/document-tracking'))->with('success', 'Add data successfully!');
         } else {
-            return redirect()->back()->with('error', 'Failed to insert document');
+            return redirect()->back()->with('error', 'Error: Failed to insert document');
         }
     }
 
@@ -98,7 +98,7 @@ class StaffController extends Controller
         if ($query) {
             return redirect(url('/staff/document-tracking'))->with('success', 'Document deleted successfully!');
         } else {
-            return redirect()->back() - with('error', 'Failed to delete document.');
+            return redirect()->back() - with('error', 'Error: Failed to delete document.');
         }
     }
 
@@ -121,9 +121,9 @@ class StaffController extends Controller
         ]);
 
         if ($query) {
-            return redirect()->back()->with('success', 'Add action successful');
+            return redirect()->back()->with('success', 'Action added successfull!');
         } else {
-            return redirect()->back()->with('error', 'Failed to insert action');
+            return redirect()->back()->with('error', 'Error: Failed to insert action');
         }
 
     }
@@ -144,9 +144,9 @@ class StaffController extends Controller
         $query = User::where('id', $request->id)->update(['name' => $request->name]);
 
         if ($query) {
-            return redirect()->back()->with('success', 'Personal Information Updated Successfully!');
+            return redirect()->back()->with('success', 'Personal Information updated successfully!');
         } else {
-            return redirect()->back()->with('error', 'Update Failed');
+            return redirect()->back()->with('error', 'Error: Update Failed');
         }
     }
 }

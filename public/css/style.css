@@ -2037,7 +2037,7 @@ button.dim:active:before {
     display: block;
     overflow: hidden;
     cursor: pointer;
-    border: 2px solid #1ab394;
+    border: 2px solid #9121fe;
     border-radius: 2px;
 }
 .onoffswitch-inner {

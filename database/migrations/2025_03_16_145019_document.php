@@ -16,7 +16,15 @@ return new class extends Migration {
             $table->integer('document_origin');
             $table->string('document_nature');
             $table->integer('document_number');
-            $table->date('document_deadline');
+            $table->date('document_deadline')->nullable();
+            $table->string('pr')->default('false');
+            $table->string('canvass')->default('false');
+            $table->string('abstract')->default('false');
+            $table->string('obr')->default('false');
+            $table->string('po')->default('false');
+            $table->string('par')->default('false');
+            $table->string('air')->default('false');
+            $table->string('dv')->default('false');
             $table->timestamps();
         });
 
