@@ -50,11 +50,10 @@
                                                 <label class="">Origin Office</label>
                                             </div>
                                             <div class="col-sm-12">
-                                                <select id="mySelect" class="form-control p-w-sm select2"
-                                                    style="width: 100%;" name="document_origin" required>
-                                                    <option value=""></option>
+                                                <select id="" class="form-control p-w-sm select2"
+                                                    style="width: 100%;" name="document_origin" readonly>
                                                     @foreach ($office as $o)
-                                                        <option value="{{ $o->office_id }}">{{ $o->office_name }}</option>
+                                                        <option value="{{ $o->office_id }}" {{ Auth::user()->office_id == $o->office_id ? 'selected' : 'disabled' }}>{{ $o->office_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -66,12 +65,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Document No.</label>
-                                            <input type="number" name="document_number" placeholder="" class="form-control"
-                                                required>
+                                            <input type="text" name="document_number" placeholder="" value="{{ date('ymd-His') }}" class="form-control"
+                                                required readonly>
                                         </div>
                                         <div class="form-group">
                                             <label>Deadline</label>
-                                            <input type="date" name="document_deadline" class="form-control" required>
+                                            <input type="datetime-local" name="document_deadline" class="form-control">
                                         </div>
 
                                         <div class="form-group text-center">
@@ -134,7 +133,7 @@
                                     <th>Nature</th>
                                     <th>No.</th>
 
-                                    <th>Deadline</th>
+                                    <th>Amount</th>
 
                                     <th>View</th>
                                 </tr>
@@ -146,10 +145,10 @@
                                         <td> {{ $d->office_name }} </td>
                                         <td> {{ $d->document_nature }} </td>
                                         <td> {{ $d->document_number }} </td>
-                                        <td> {{ $d->document_deadline }} </td>
+                                        <td> {{ $d->amount }} </td>
                                         <td class="text-center">
-                                            <a href="{{ url('/staff/view-document/' . $d->document_id) }}"
-                                                class="btn btn-danger btn-sm">
+                                            <a href="{{ url('/staff/document-tracking/' . $d->document_id) }}"
+                                                class="btn btn-secondary btn-sm">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="#fff" class="bi bi-eye" viewBox="0 0 16 16">
                                                     <path
@@ -172,7 +171,7 @@
                                     <th>Origin</th>
                                     <th>Nature</th>
                                     <th>No.</th>
-                                    <th>Deadline</th>
+                                    <th>Amount</th>
                                     <th>View</th>
                                 </tr>
                             </tfoot>

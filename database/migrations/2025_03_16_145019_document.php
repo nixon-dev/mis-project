@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->string('par')->default('false');
             $table->string('air')->default('false');
             $table->string('dv')->default('false');
+            $table->integer('amount')->default('0');
             $table->timestamps();
         });
 

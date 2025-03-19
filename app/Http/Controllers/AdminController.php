@@ -44,8 +44,12 @@ class AdminController extends Controller
         }
 
         foreach ($data as $d) {
-            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y');
+            $unformatted_deadline = Carbon::parse($d->document_deadline);
+        
+            $d->document_deadline = $unformatted_deadline->format('M d, Y - h:i A'); 
+            $d->unformatted_document_deadline = $unformatted_deadline->format('Y-m-d H:i');
         }
+        
 
         return view('admin.view-document', compact('data', 'action'));
     }
@@ -67,9 +71,8 @@ class AdminController extends Controller
     public function insert_document(Request $request)
     {
         $request->validate([
-            'document_title' => 'required|string|max:255',
+            'document_title' => 'required|string',
             'document_origin' => 'required|numeric',
-            'document_number' => 'required|numeric',
         ]);
 
         $query = Document::insert([
@@ -101,8 +104,6 @@ class AdminController extends Controller
 
     public function insert_document_action(Request $request)
     {
-
-
         $request->validate([
             'document_id' => 'required|numeric',
             'history_name' => 'required|string|max:255',
@@ -126,16 +127,22 @@ class AdminController extends Controller
 
     public function users_list()
     {
-        $users = DB::table('users')->get();
+        $users = User::leftJoin('office', 'office.office_id', '=', 'users.office_id')
+            ->select('users.*', 'office.office_name')
+            ->get();
         return view('admin.users', compact('users'));
     }
 
     public function view_users($id)
     {
-        $info = User::where('id', $id)->get();
+        $info = User::where('id', $id)
+            ->leftJoin('office', 'office.office_id', '=', 'users.office_id')
+            ->select('users.*', 'office.office_name')
+            ->get();
+        $office = Office::get();
 
         if ($info->isNotEmpty()) {
-            return view('admin.view-user', compact('info'));
+            return view('admin.view-user', compact('info', 'office'));
         } else {
             return redirect(url('/admin/users/'))->with('error', 'Error: User not found');
         }
@@ -153,7 +160,7 @@ class AdminController extends Controller
             'role' => 'required|string',
         ]);
 
-        $query = User::where('id', $request->id)->update(['role' => $request->role]);
+        $query = User::where('id', $request->id)->update(['role' => $request->role, 'office_id' => $request->office_id]);
 
         if ($query) {
             return redirect()->back()->with('success', 'User has been updated successfully!');
@@ -231,10 +238,35 @@ class AdminController extends Controller
         }
     }
 
+    public function document_update(Request $request)
+    {
+        $request->validate([
+            'document_id' => 'required|numeric',
+            'document_title' => 'required',
+            'document_nature' => 'required',
+            'amount' => 'required|numeric',
+            'document_deadline' => 'required',
+        ]);
+
+        $query = Document::where('document_id', $request->document_id)
+        ->update([
+            'document_title' => $request->document_title,
+            'document_nature' => $request->document_nature,
+            'amount' => $request->amount,
+            'document_deadline' => $request->document_deadline,
+        ]);
+
+        if ($query) {
+            return redirect()->back()->with('success', 'Document updated successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Error: Failed to update document.');
+        }
+    }
+
     public function document_update_status(Request $request)
     {
         try {
-           
+
 
             $allowedColumns = ['pr', 'canvass', 'abstract', 'obr', 'po', 'par', 'air', 'dv'];
             $columnName = $request->input('item_column');
@@ -243,8 +275,8 @@ class AdminController extends Controller
                 return response()->json(['success' => false, 'message' => 'Invalid column name'], 400);
             }
 
-            Document::where('document_id', $request->input('document_id'))
-                ->update([$columnName => $request->input('item_status')]);
+            Document::where('document_id', $request->document_id)
+                ->update([$columnName => $request->item_status]);
 
             return response()->json(['success' => true, 'message' => 'Status updated successfully']);
         } catch (\Exception $e) {

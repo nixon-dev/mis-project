@@ -8,9 +8,9 @@ Route::middleware(['auth', 'role:Staff'])->group(function () {
 
     Route::get('/staff/add-document', [StaffController::class, 'add_document'])->name('staff.add-document');
 
-    Route::get('/staff/view-document/{id}', [StaffController::class, 'view_document'])->name('staff.view-document');
-
     Route::get('/staff/document-tracking', [StaffController::class, 'document_tracking'])->name('staff.document');
+
+    Route::get('/staff/document-tracking/{id}', [StaffController::class, 'view_document'])->name('staff.view-document');
 
     Route::post('/staff/insert-document', [StaffController::class, 'insert_document']);
 
@@ -21,5 +21,9 @@ Route::middleware(['auth', 'role:Staff'])->group(function () {
     Route::get('/staff/settings', [StaffController::class, 'settings'])->name('staff.settings');
 
     Route::post('/staff/user/update', [StaffController::class, 'user_update']);
+
+    Route::post('/staff/document/update-status', [StaffController::class, 'document_update_status']);
+
+    Route::post('/staff/update-document-amount', [StaffController::class, 'document_update']);
 
 });

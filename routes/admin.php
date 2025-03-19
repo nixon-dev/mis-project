@@ -8,7 +8,7 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
     Route::get('/admin/add-document', [AdminController::class, 'add_document'])->name('admin.add-document');
 
-    Route::get('/admin/view-document/{id}', [AdminController::class, 'view_document'])->name('admin.view-document');
+    Route::get('/admin/document-tracking/{id}', [AdminController::class, 'view_document'])->name('admin.view-document');
 
     Route::get('/admin/document-tracking', [AdminController::class, 'document_tracking'])->name('admin.document');
 
@@ -37,5 +37,7 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/admin/office/{id}', [AdminController::class, 'office_delete']);
 
     Route::post('/admin/document/update-status', [AdminController::class, 'document_update_status']);
+
+    Route::post('/admin/update-document-amount', [AdminController::class, 'document_update']);
 
 });

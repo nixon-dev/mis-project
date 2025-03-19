@@ -18,7 +18,7 @@
                     <a href="/admin/dashboard">Admin</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <strong>Document Tracking</strong>
+                    <a href="/staff/document-tracking">Document Tracking</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>@truncate($data[0]->document_title)</strong>
@@ -75,6 +75,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -93,9 +94,73 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    <a href="{{ url('/admin/delete-document/' . $data[0]->document_id) }}"
-                                        class="btn btn-white btn-xs pull-right"
-                                        onclick="return confirm('Delete document?')">Delete Document</a>
+                                    <a data-toggle="modal" href="#amount-form"
+                                        class="btn btn-primary btn-xs pull-right m-l-10">Edit Document</a>
+                                    <div id="amount-form" class="modal fade" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="row">
+
+                                                        <div class="col-sm-12">
+                                                            <h3 class="m-t-none m-b">Edit Document</h3>
+
+                                                            <form role="form"
+                                                                action="{{ url('/admin/update-document-amount') }}"
+                                                                method="POST">
+                                                                @csrf()
+
+                                                                <div class="form-group d-none">
+                                                                    <label>Document ID</label>
+                                                                    <input value="{{ $data[0]->document_id }}"
+                                                                        name="document_id" class="form-control"
+                                                                        type="number" readonly>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Title</label>
+                                                                    <input type="text" name="document_title"
+                                                                        value="{{ $data[0]->document_title }}"
+                                                                        class="form-control" required minlength="5">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Nature of Document</label>
+                                                                    <input type="text" name="document_nature"
+                                                                        value="{{ $data[0]->document_nature }}"
+                                                                        class="form-control">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Amount</label>
+                                                                    <input type="number" name="amount" min="0"
+                                                                        value="{{ $data[0]->amount }}" step=".01" class="form-control"
+                                                                        required>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Deadline</label>
+                                                                    <input type="datetime-local" name="document_deadline"
+                                                                        class="form-control" value="{{ $data[0]->unformatted_document_deadline }}">
+                                                                </div>
+
+
+
+                                                                <div class="form-group text-center">
+                                                                    <button class="btn btn-sm btn-primary m-t-n-xs w-100"
+                                                                        type="submit"><strong>Edit</strong>
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- <a href="{{ url('/admin/delete-document/' . $data[0]->document_id) }}"
+                                        class="btn btn-danger btn-xs pull-right"
+                                        onclick="return confirm('Delete document?')">Delete Document</a> --}}
                                     <h2>{{ $data[0]->document_title }}</h2>
                                 </div>
                                 {{-- <dl class="dl-horizontal">
@@ -112,6 +177,8 @@
                                     <dd>{{ $data[0]->office_name }}</dd>
                                     <dt>Nature of Document:</dt>
                                     <dd>{{ $data[0]->document_nature }}</dd>
+                                    <dt>Amount:</dt>
+                                    <dd>{{ $data[0]->amount }}</dd>
                                 </dl>
                             </div>
                             <div class="col-lg-7" id="cluster_info">
@@ -238,7 +305,7 @@
                     'document_id': document_id,
                     'item_column': itemId,
                     'item_status': isChecked ? true : false,
-                    _token: token, 
+                    _token: token,
                 },
                 success: function(response) {
                     console.log("Success:", response);

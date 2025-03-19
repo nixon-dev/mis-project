@@ -4,9 +4,6 @@
 
 
 @section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
-        integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
     <link href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
@@ -65,8 +62,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Document No.</label>
-                                            <input type="number" name="document_number" placeholder="" class="form-control"
-                                                required>
+                                            <input type="text" name="document_number" placeholder="" value="{{ date('ymd-His') }}" class="form-control"
+                                                readonly>
                                         </div>
                                         <div class="form-group">
                                             <label>Deadline</label>
@@ -134,7 +131,7 @@
                                     <th>Nature</th>
                                     <th>No.</th>
 
-                                    <th>Deadline</th>
+                                    <th>Amount</th>
 
                                     <th>View</th>
                                 </tr>
@@ -146,10 +143,10 @@
                                         <td> {{ $d->office_name }} </td>
                                         <td> {{ $d->document_nature }} </td>
                                         <td> {{ $d->document_number }} </td>
-                                        <td> {{ $d->document_deadline }} </td>
+                                        <td> {{ $d->amount }} </td>
                                         <td class="text-center">
-                                            <a href="{{ url('/admin/view-document/' . $d->document_id) }}"
-                                                class="btn btn-danger btn-sm">
+                                            <a href="{{ url('/admin/document-tracking/' . $d->document_id) }}"
+                                                class="btn btn-secondary btn-sm">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="#fff" class="bi bi-eye" viewBox="0 0 16 16">
                                                     <path
@@ -172,7 +169,7 @@
                                     <th>Origin</th>
                                     <th>Nature</th>
                                     <th>No.</th>
-                                    <th>Deadline</th>
+                                    <th>Amount</th>
                                     <th>View</th>
                                 </tr>
                             </tfoot>
@@ -191,15 +188,9 @@
 @endsection
 
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
-        integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}"></script>
     <script>
-        $("#origin_office").selectize({
-            sortField: 'text'
-        });
 
         $(document).ready(function() {
             $('#mySelect').select2({

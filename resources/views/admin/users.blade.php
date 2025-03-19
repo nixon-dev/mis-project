@@ -2,6 +2,8 @@
 @section('title', 'Users - Management Information System')
 @section('css')
     <link href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
 @endsection
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -53,11 +55,11 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <table class="table table-bordered table-hover table-responsive dataTables-example"
-                            style="width: 100%;">
+                        <table class="table table-bordered table-hover dataTables-example" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Office</th>
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Manage</th>
@@ -67,6 +69,13 @@
                                 @forelse ($users as $u)
                                     <tr>
                                         <td> {{ $u->name }} </td>
+                                        @if ( $u->role == 'Administrator')
+                                        <td>Every Office</td>
+                                        @elseif ($u->office_id == Null)
+                                        <td>No Assigned Office</td>
+                                        @else
+                                            <td>{{ $u->office_name }}</td>
+                                        @endif
                                         <td> {{ $u->email }} </td>
                                         <td> {{ $u->role }} </td>
                                         <td class="text-center">
@@ -90,6 +99,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Office</th>
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Manage</th>
@@ -120,14 +130,9 @@
                 pageLength: 10,
                 order: [],
                 responsive: true,
-                autoWidth: false,
-                columnDefs: [{
-                    "width": "100%",
-                    "targets": "_all"
-                }],
                 initComplete: function() {
                     this.api()
-                        .columns([2])
+                        .columns([3])
                         .every(function() {
                             var column = this;
 

@@ -10,7 +10,7 @@ use App\Models\Document;
 use App\Models\History;
 use App\Models\Office;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
 
 class StaffController extends Controller
 {
@@ -44,17 +44,21 @@ class StaffController extends Controller
         }
 
         foreach ($data as $d) {
-            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y');
+            $unformatted_deadline = Carbon::parse($d->document_deadline);
+        
+            $d->document_deadline = $unformatted_deadline->format('M d, Y - h:i A'); 
+            $d->unformatted_document_deadline = $unformatted_deadline->format('Y-m-d H:i');
         }
 
         return view('staff.view-document', compact('data', 'action'));
-
     }
 
     public function document_tracking()
     {
+        $assigned_office = Auth::user()->office_id;
         $office = Office::orderBy('office_name', 'ASC')->get();
-        $data = Document::leftJoin('office', 'office.office_id', '=', 'document.document_origin')
+        $data = Document::where('document_origin', $assigned_office)
+            ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
             ->select('document.*', 'office.office_name')
             ->orderBy('created_at', 'DESC')
             ->get();
@@ -68,11 +72,8 @@ class StaffController extends Controller
     public function insert_document(Request $request)
     {
         $request->validate([
-            'document_title' => 'required|string|max:255',
+            'document_title' => 'required|string',
             'document_origin' => 'required|numeric',
-            'document_nature' => 'required|string|max:255',
-            'document_number' => 'required|numeric',
-            'document_deadline' => 'required|date',
         ]);
 
         $query = Document::insert([
@@ -125,7 +126,6 @@ class StaffController extends Controller
         } else {
             return redirect()->back()->with('error', 'Error: Failed to insert action');
         }
-
     }
 
     public function settings()
@@ -147,6 +147,52 @@ class StaffController extends Controller
             return redirect()->back()->with('success', 'Personal Information updated successfully!');
         } else {
             return redirect()->back()->with('error', 'Error: Update Failed');
+        }
+    }
+
+    public function document_update(Request $request)
+    {
+        $request->validate([
+            'document_id' => 'required|numeric',
+            'document_title' => 'required',
+            'document_nature' => 'required',
+            'amount' => 'required|numeric',
+            'document_deadline' => 'required',
+        ]);
+
+        $query = Document::where('document_id', $request->document_id)
+        ->update([
+            'document_title' => $request->document_title,
+            'document_nature' => $request->document_nature,
+            'amount' => $request->amount,
+            'document_deadline' => $request->document_deadline,
+        ]);
+
+        if ($query) {
+            return redirect()->back()->with('success', 'Document updated successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Error: Failed to update document.');
+        }
+    }
+
+    public function document_update_status(Request $request)
+    {
+        try {
+
+
+            $allowedColumns = ['pr', 'canvass', 'abstract', 'obr', 'po', 'par', 'air', 'dv'];
+            $columnName = $request->input('item_column');
+
+            if (!in_array($columnName, $allowedColumns)) {
+                return response()->json(['success' => false, 'message' => 'Invalid column name'], 400);
+            }
+
+            Document::where('document_id', $request->document_id)
+                ->update([$columnName => $request->item_status]);
+
+            return response()->json(['success' => true, 'message' => 'Status updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
     }
 }
