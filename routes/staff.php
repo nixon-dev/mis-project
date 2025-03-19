@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaffController;
 
 Route::middleware(['auth', 'role:Staff'])->group(function () {
+
     Route::get('/staff/dashboard', [StaffController::class, 'index'])->name('staff.index');
 
     Route::get('/staff/add-document', [StaffController::class, 'add_document'])->name('staff.add-document');
@@ -25,5 +26,4 @@ Route::middleware(['auth', 'role:Staff'])->group(function () {
     Route::post('/staff/document/update-status', [StaffController::class, 'document_update_status']);
 
     Route::post('/staff/update-document-amount', [StaffController::class, 'document_update']);
-
 });

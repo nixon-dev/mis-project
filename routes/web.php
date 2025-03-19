@@ -21,9 +21,5 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/logout', [LogoutController::class, 'logout']);
 
-Route::middleware(['auth', 'role:Staff'])->group(function () {
-    Route::get('/staff/dashboard', [StaffController::class, 'index'])->name('staff.index');
-});
-
 require __DIR__ . '/admin.php';
 require __DIR__ . '/staff.php';
