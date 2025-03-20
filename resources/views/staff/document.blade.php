@@ -1,17 +1,10 @@
 @extends('staff.base')
-
 @section('title', 'Document Tracking - Management Information System')
-
-
 @section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
-        integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-
     <link href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/3.0.4/css/responsive.bootstrap4.css" rel="stylesheet">
 @endsection
-
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-8">
@@ -53,7 +46,9 @@
                                                 <select id="" class="form-control p-w-sm select2"
                                                     style="width: 100%;" name="document_origin" readonly>
                                                     @foreach ($office as $o)
-                                                        <option value="{{ $o->office_id }}" {{ Auth::user()->office_id == $o->office_id ? 'selected' : 'disabled' }}>{{ $o->office_name }}</option>
+                                                        <option value="{{ $o->office_id }}"
+                                                            {{ Auth::user()->office_id == $o->office_id ? 'selected' : 'disabled' }}>
+                                                            {{ $o->office_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -65,8 +60,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Document No.</label>
-                                            <input type="text" name="document_number" placeholder="" value="{{ date('ymd-His') }}" class="form-control"
-                                                required readonly>
+                                            <input type="text" name="document_number" placeholder=""
+                                                value="{{ $documentId }}" class="form-control" required readonly>
                                         </div>
                                         <div class="form-group">
                                             <label>Deadline</label>
@@ -90,8 +85,11 @@
 
     <div class="wrapper wrapper-content animated fadeInDown">
 
+
         @if (Session::has('success'))
             <p class="alert alert-success">{{ Session::get('success') }}</p>
+        @elseif (Session::has('error'))
+            <p class="alert alert-danger">{{ Session::get('error') }}</p>
         @endif
 
 
@@ -125,60 +123,60 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <table class="table table-bordered table-hover dataTables-example" style="width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Origin</th>
-                                    <th>Nature</th>
-                                    <th>No.</th>
-
-                                    <th>Amount</th>
-
-                                    <th>View</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($data as $d)
+                        <div class="">
+                            <table id="documentTable" class="table table-bordered table-responsive table-hover">
+                                <thead>
                                     <tr>
-                                        <td> {{ $d->document_title }} </td>
-                                        <td> {{ $d->office_name }} </td>
-                                        <td> {{ $d->document_nature }} </td>
-                                        <td> {{ $d->document_number }} </td>
-                                        <td> {{ $d->amount }} </td>
-                                        <td class="text-center">
-                                            <a href="{{ url('/staff/document-tracking/' . $d->document_id) }}"
-                                                class="btn btn-secondary btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="#fff" class="bi bi-eye" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
-                                                    <path
-                                                        d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
-                                                </svg>
-                                            </a>
-                                        </td>
+                                        <th>Title</th>
+                                        <th>Origin</th>
+                                        <th>Nature</th>
+                                        <th>No.</th>
+
+                                        <th>Amount</th>
+
+                                        <th>View</th>
                                     </tr>
-                                @empty
+                                </thead>
+                                <tbody>
+                                    @forelse ($data as $d)
+                                        <tr>
+                                            <td> {{ $d->document_title }} </td>
+                                            <td> {{ $d->office_name }} </td>
+                                            <td> {{ $d->document_nature }} </td>
+                                            <td style="width: 100px"> {{ $d->document_number }} </td>
+                                            <td style="width: 100px"><span class="pull-left">₱</span> <span
+                                                    class="pull-right">{{ number_format($d->amount, 2) }}</span> </td>
+                                            <td class="text-center">
+                                                <a href="{{ url('/staff/document-tracking/' . $d->document_number) }}"
+                                                    class="btn btn-secondary btn-sm">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="#fff" class="bi bi-eye" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                                                        <path
+                                                            d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6">No Document Found</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                                <tfoot>
                                     <tr>
-                                        <td colspan="5">.:No Record Found:.</td>
+                                        <th>Title</th>
+                                        <th>Origin</th>
+                                        <th>Nature</th>
+                                        <th>No.</th>
+                                        <th>Amount</th>
+                                        <th>View</th>
                                     </tr>
-                                @endforelse
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Origin</th>
-                                    <th>Nature</th>
-                                    <th>No.</th>
-                                    <th>Amount</th>
-                                    <th>View</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-
-
-
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -190,16 +188,11 @@
 @endsection
 
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
-        integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.4/js/responsive.bootstrap4.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.4/js/dataTables.responsive.js"></script>
     <script>
-        $("#origin_office").selectize({
-            sortField: 'text'
-        });
-
         $(document).ready(function() {
             $('#mySelect').select2({
                 placeholder: "Select an option...",
@@ -207,20 +200,13 @@
             });
         });
     </script>
-
     <script>
         $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';
-
         $(document).ready(function() {
-            $('.dataTables-example').DataTable({
+            $('#documentTable').DataTable({
                 pageLength: 10,
                 order: [],
                 responsive: true,
-                autoWidth: false,
-                columnDefs: [{
-                    "width": "100%",
-                    "targets": "_all"
-                }],
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [{
                         extend: 'copy'
@@ -275,9 +261,7 @@
                                 });
                         });
                 }
-
             });
-
         });
     </script>
 @endsection

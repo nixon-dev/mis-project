@@ -12,7 +12,7 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-8">
-            <h2>Document Tracking</h2>
+            <h2>View Document</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="/staff/dashboard">Staff</a>
@@ -21,7 +21,7 @@
                     <a href="/staff/document-tracking">Document Tracking</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong>@truncate($data[0]->document_title)</strong>
+                    <strong>@truncate($data->document_number)</strong>
                 </li>
             </ol>
         </div>
@@ -43,8 +43,8 @@
 
                                         <div class="form-group d-none">
                                             <label>Document ID</label>
-                                            <input value="{{ $data[0]->document_id }}" name="document_id"
-                                                class="form-control" type="number" readonly>
+                                            <input value="{{ $data->document_id }}" name="document_id" class="form-control"
+                                                type="number" readonly>
                                         </div>
 
                                         <div class="form-group">
@@ -112,7 +112,7 @@
 
                                                                 <div class="form-group d-none">
                                                                     <label>Document ID</label>
-                                                                    <input value="{{ $data[0]->document_id }}"
+                                                                    <input value="{{ $data->document_id }}"
                                                                         name="document_id" class="form-control"
                                                                         type="number" readonly>
                                                                 </div>
@@ -120,28 +120,29 @@
                                                                 <div class="form-group">
                                                                     <label>Title</label>
                                                                     <input type="text" name="document_title"
-                                                                        value="{{ $data[0]->document_title }}"
+                                                                        value="{{ $data->document_title }}"
                                                                         class="form-control" required minlength="5">
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label>Nature of Document</label>
                                                                     <input type="text" name="document_nature"
-                                                                        value="{{ $data[0]->document_nature }}"
-                                                                        class="form-control">
+                                                                        value="{{ $data->document_nature }}"
+                                                                        class="form-control" required>
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label>Amount</label>
                                                                     <input type="number" name="amount" min="0"
-                                                                        value="{{ $data[0]->amount }}" step=".01" class="form-control"
-                                                                        required>
+                                                                        value="{{ $data->amount }}" step=".01"
+                                                                        class="form-control" required>
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label>Deadline</label>
                                                                     <input type="datetime-local" name="document_deadline"
-                                                                        class="form-control" value="{{ $data[0]->unformatted_document_deadline }}">
+                                                                        class="form-control"
+                                                                        @if ($data->document_deadline != 'No Deadline') value="{{ $data->unformatted_document_deadline }}" @endif>
                                                                 </div>
 
 
@@ -158,10 +159,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <a href="{{ url('/admin/delete-document/' . $data[0]->document_id) }}"
+                                    {{-- <a href="{{ url('/admin/delete-document/' . $data->document_id) }}"
                                         class="btn btn-danger btn-xs pull-right"
                                         onclick="return confirm('Delete document?')">Delete Document</a> --}}
-                                    <h2>{{ $data[0]->document_title }}</h2>
+                                    <h2>{{ $data->document_title }}</h2>
                                 </div>
                                 {{-- <dl class="dl-horizontal">
                                     <dt>Status:</dt>
@@ -174,55 +175,55 @@
                                 <dl class="dl-horizontal">
 
                                     <dt>Origin:</dt>
-                                    <dd>{{ $data[0]->office_name }}</dd>
+                                    <dd>{{ $data->office_name }}</dd>
                                     <dt>Nature of Document:</dt>
-                                    <dd>{{ $data[0]->document_nature }}</dd>
+                                    <dd>{{ $data->document_nature }}</dd>
                                     <dt>Amount:</dt>
-                                    <dd>{{ $data[0]->amount }}</dd>
+                                    <dd>₱ {{ number_format($data->amount, 2) }}</dd>
                                 </dl>
                             </div>
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal">
 
                                     <dt>Document Number:</dt>
-                                    <dd>{{ $data[0]->document_number }}</dd>
+                                    <dd>{{ $data->document_number }}</dd>
                                     <dt>Deadline:</dt>
-                                    <dd>{{ $data[0]->document_deadline }}</dd>
+                                    <dd>{{ $data->document_deadline }}</dd>
 
                                 </dl>
                             </div>
                             <div class="col-sm-12 row">
                                 <div class="checkbox i-checks pl-3">
                                     <label><input type="checkbox" onchange="updateStatus('pr', this.checked)"
-                                            {{ $data[0]->pr == 'true' ? 'checked' : '' }}> PR</label>
+                                            {{ $data->pr == 'true' ? 'checked' : '' }}> PR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label><input type="checkbox" onchange="updateStatus('canvass', this.checked)"
-                                            {{ $data[0]->canvass == 'true' ? 'checked' : '' }}> Canvass</label>
+                                            {{ $data->canvass == 'true' ? 'checked' : '' }}> Canvass</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label><input type="checkbox" onchange="updateStatus('abstract', this.checked)"
-                                            {{ $data[0]->abstract == 'true' ? 'checked' : '' }}> Abstract</label>
+                                            {{ $data->abstract == 'true' ? 'checked' : '' }}> Abstract</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label><input type="checkbox" onchange="updateStatus('obr', this.checked)"
-                                            {{ $data[0]->obr == 'true' ? 'checked' : '' }}> OBR</label>
+                                            {{ $data->obr == 'true' ? 'checked' : '' }}> OBR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label><input type="checkbox" onchange="updateStatus('po', this.checked)"
-                                            {{ $data[0]->po == 'true' ? 'checked' : '' }}> PO</label>
+                                            {{ $data->po == 'true' ? 'checked' : '' }}> PO</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label><input type="checkbox" onchange="updateStatus('par', this.checked)"
-                                            {{ $data[0]->par == 'true' ? 'checked' : '' }}> PAR</label>
+                                            {{ $data->par == 'true' ? 'checked' : '' }}> PAR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label><input type="checkbox" onchange="updateStatus('air', this.checked)"
-                                            {{ $data[0]->air == 'true' ? 'checked' : '' }}> AIR</label>
+                                            {{ $data->air == 'true' ? 'checked' : '' }}> AIR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <input type="checkbox" onchange="updateStatus('dv', this.checked)"
-                                        {{ $data[0]->dv == 'true' ? 'checked' : '' }}> DV
+                                        {{ $data->dv == 'true' ? 'checked' : '' }}> DV
                                 </div>
                             </div>
                         </div>
@@ -295,7 +296,7 @@
         });
 
         function updateStatus(itemId, isChecked) {
-            var document_id = {{ $data[0]->document_id }};
+            var document_id = {{ $data->document_id }};
             var token = "{{ csrf_token() }}";
 
             $.ajax({

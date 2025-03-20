@@ -33,21 +33,32 @@ class StaffController extends Controller
 
     public function view_document($id)
     {
-        $data = Document::leftJoin('office', 'office.office_id', '=', 'document.document_origin')
-            ->where('document_id', $id)
-            ->get();
-        $action = History::where('document_id', $id)->get();
+        $assigned_office = Auth::user()->office_id;
+        $data = Document::where('document_number', $id)
+            ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
+            ->select('document.*', 'office.office_name')
+            ->first();
 
+        if ($data->document_origin != $assigned_office) {
+            return redirect(url('/staff/document-tracking'))->with('error', "Error: You don't have permission to view this document.");
+        }
+
+        if (!$data) {
+            return redirect(url('/staff/document-tracking'))->with('error', 'Error: No Document Found');
+        }
+
+        $action = History::where('document_id', $data->document_id)->get();
 
         foreach ($action as $a) {
             $a->history_date = Carbon::parse($a->history_date)->format('M d, Y - h:i A');
         }
 
-        foreach ($data as $d) {
-            $unformatted_deadline = Carbon::parse($d->document_deadline);
-        
-            $d->document_deadline = $unformatted_deadline->format('M d, Y - h:i A'); 
-            $d->unformatted_document_deadline = $unformatted_deadline->format('Y-m-d H:i');
+        if ($data->document_deadline === NULL) {
+            $data->document_deadline = "No Deadline";
+        } else {
+            $unformatted_deadline = Carbon::parse($data->document_deadline);
+            $data->document_deadline = $unformatted_deadline->format('M d, Y - h:i A');
+            $data->unformatted_document_deadline = $unformatted_deadline->format('Y-m-d H:i');
         }
 
         return view('staff.view-document', compact('data', 'action'));
@@ -63,10 +74,26 @@ class StaffController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
+        $today = Carbon::now()->format('ymd');
+        $prefix = $today . '-';
+
+        $latestId = Document::where('document_number', 'like', $prefix . '%')
+            ->max('document_number');
+
+        if ($latestId) {
+            $lastCount = (int) substr($latestId, strlen($prefix));
+            $newCount = $lastCount + 1;
+        } else {
+            $newCount = 1;
+        }
+        $formattedCount = str_pad($newCount, 5, '0', STR_PAD_LEFT);
+
+        $documentId = $prefix . $formattedCount;
+
         foreach ($data as $d) {
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
-        return view('staff.document', compact('data', 'office'));
+        return view('staff.document', compact('data', 'office', 'documentId'));
     }
 
     public function insert_document(Request $request)
@@ -157,16 +184,15 @@ class StaffController extends Controller
             'document_title' => 'required',
             'document_nature' => 'required',
             'amount' => 'required|numeric',
-            'document_deadline' => 'required',
         ]);
 
         $query = Document::where('document_id', $request->document_id)
-        ->update([
-            'document_title' => $request->document_title,
-            'document_nature' => $request->document_nature,
-            'amount' => $request->amount,
-            'document_deadline' => $request->document_deadline,
-        ]);
+            ->update([
+                'document_title' => $request->document_title,
+                'document_nature' => $request->document_nature,
+                'amount' => $request->amount,
+                'document_deadline' => $request->document_deadline,
+            ]);
 
         if ($query) {
             return redirect()->back()->with('success', 'Document updated successfully!');
