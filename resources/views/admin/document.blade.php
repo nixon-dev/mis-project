@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Deadline</label>
-                                            <input type="datetime-local" name="document_deadline" class="form-control">
+                                            <input type="datetime-local" name="document_deadline" class="form-control" onfocus="this.showPicker()">
                                         </div>
 
                                         <div class="form-group text-center">

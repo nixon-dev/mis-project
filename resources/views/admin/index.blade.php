@@ -41,7 +41,7 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <div class="ibox-tools">
-                            <span class="label label-success float-right">Count</span>
+                            <span class="label label-primary float-right">Count</span>
                         </div>
                         <h5>Document</h5>
                     </div>
@@ -49,6 +49,39 @@
                         <h1 class="no-margins">{{ $thisMonthDocumentCount }}</h1>
                         {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
                         <small>This Month</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <div class="ibox-tools">
+                            {{-- <span class="label label-success float-right">Count</span> --}}
+                        </div>
+                        <h5>Administrator</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{ $adminCount }}</h1>
+                        {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
+                        <small>User</small>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-lg-3">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <div class="ibox-tools">
+                            {{-- <span class="label label-success float-right">Count</span> --}}
+                        </div>
+                        <h5>Staff</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{ $staffCount }}</h1>
+                        {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
+                        <small>User</small>
                     </div>
                 </div>
             </div>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Hash;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use App\Models\Document;
 use App\Models\History;
 use App\Models\Office;
@@ -17,15 +17,18 @@ class StaffController extends Controller
     public function index()
     {
 
+        $assignedOffice = Auth::user()->office_id;
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
         $lastMonth = Carbon::now()->subMonth()->month;
 
         $thisMonthDocumentCount = Document::whereMonth('created_at', $currentMonth)
             ->whereYear('created_at', $currentYear)
+            ->where('document_origin', $assignedOffice)
             ->count();
         $lastMonthDocumentCount = Document::whereMonth('created_at', $lastMonth)
             ->whereYear('created_at', $currentYear)
+            ->where('document_origin', $assignedOffice)
             ->count();
         return view('staff.index', compact('thisMonthDocumentCount', 'lastMonthDocumentCount'));
     }

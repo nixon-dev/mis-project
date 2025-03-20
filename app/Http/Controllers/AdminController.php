@@ -27,7 +27,11 @@ class AdminController extends Controller
         $lastMonthDocumentCount = Document::whereMonth('created_at', $lastMonth)
             ->whereYear('created_at', $currentYear)
             ->count();
-        return view('admin.index', compact('thisMonthDocumentCount', 'lastMonthDocumentCount'));
+
+        $staffCount = User::where('role', 'Staff')->count();
+        $adminCount = User::where('role', 'Administrator')->count();
+
+        return view('admin.index', compact('thisMonthDocumentCount', 'lastMonthDocumentCount', 'staffCount', 'adminCount'));
     }
 
 
@@ -308,4 +312,6 @@ class AdminController extends Controller
             return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
     }
+
+    
 }

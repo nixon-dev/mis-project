@@ -55,7 +55,7 @@
 
                                         <div class="form-group">
                                             <label>Date and Time</label>
-                                            <input type="datetime-local" name="history_date" class="form-control" required>
+                                            <input type="datetime-local" onfocus="this.showPicker()" name="history_date" class="form-control" required>
                                         </div>
 
                                         <div class="form-group">
@@ -141,7 +141,7 @@
                                                                 <div class="form-group">
                                                                     <label>Deadline</label>
                                                                     <input type="datetime-local" name="document_deadline"
-                                                                        class="form-control"
+                                                                        class="form-control" onfocus="this.showPicker()"
                                                                         @if ($data->document_deadline != 'No Deadline') value="{{ $data->unformatted_document_deadline }}" @endif>
                                                                 </div>
 

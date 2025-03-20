@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ChangePasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::post('/admin/user/update', [AdminController::class, 'user_update']);
 
     Route::get('/admin/users/delete/{id}', [AdminController::class, 'users_delete']);
+    
+    Route::post('/admin/user/update-password', [ChangePasswordController::class, 'user_update_password']);
 
     Route::get('/admin/office', [AdminController::class, 'office'])->name('admin.office');
 

@@ -95,7 +95,7 @@
                                         <td> {{ $o->office_name }} </td>
                                         <td class="text-center">
                                             <a href="{{ url('/admin/office/' . $o->office_id) }}"
-                                                class="btn btn-danger btn-sm">
+                                                class="btn btn-danger btn-sm" onclick="return confirm('Delete {{ $o->office_name }}?')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                     <path

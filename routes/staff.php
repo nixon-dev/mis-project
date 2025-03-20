@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ChangePasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaffController;
 
@@ -22,6 +23,8 @@ Route::middleware(['auth', 'role:Staff'])->group(function () {
     Route::get('/staff/settings', [StaffController::class, 'settings'])->name('staff.settings');
 
     Route::post('/staff/user/update', [StaffController::class, 'user_update']);
+
+    Route::post('/staff/user/update-password', [ChangePasswordController::class, 'user_update_password']);
 
     Route::post('/staff/document/update-status', [StaffController::class, 'document_update_status']);
 
