@@ -51,7 +51,8 @@
                                 class="fa fa-file-text "></i> <span class="nav-label">Document
                                 Tracking</span></a>
                     </li>
-                    <li class="{{ request()->routeIs(['admin.user-settings', 'admin.users-list', 'admin.office']) ? 'active' : '' }}">
+                    <li
+                        class="{{ request()->routeIs(['admin.user-settings', 'admin.users-list', 'admin.office', 'admin.users-list-pending']) ? 'active' : '' }}">
                         <a href="#" aria-expanded="false" class="text-white"><i class="fa fa-gear"
                                 aria-hidden="true"></i>
                             <span class="nav-label">Settings</span><span class="fa arrow" aria-hidden="true"></span></a>
@@ -59,6 +60,9 @@
 
                             <li class="{{ request()->routeIs('admin.user-settings') ? 'active' : '' }}"><a
                                     href="{{ url('/admin/user-settings') }}">User Settings</a></li>
+
+                            <li class={{ request()->routeIs('admin.users-list-pending') ? 'active' : '' }}><a
+                                    href="{{ url('/admin/users-pending') }}">Pending User List</a></li>
 
                             <li class={{ request()->routeIs('admin.users-list') ? 'active' : '' }}><a
                                     href="{{ url('/admin/users') }}">User List</a></li>

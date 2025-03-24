@@ -23,6 +23,8 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
     Route::get('/admin/users', [AdminController::class, 'users_list'])->name('admin.users-list');
 
+    Route::get('/admin/users-pending', [AdminController::class, 'pending_users_list'])->name('admin.users-list-pending');
+
     Route::get('/admin/users/{id}', [AdminController::class, 'view_users']);
 
     Route::post('/admin/users/update', [AdminController::class, 'users_update']);

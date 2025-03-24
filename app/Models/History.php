@@ -9,5 +9,5 @@ class History extends Model
 {
     use HasFactory;
 
-    protected $table = 'history';
+    protected $table = 'document_history';
 }

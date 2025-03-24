@@ -53,7 +53,7 @@ class StaffController extends Controller
         $action = History::where('document_id', $data->document_id)->get();
 
         foreach ($action as $a) {
-            $a->history_date = Carbon::parse($a->history_date)->format('M d, Y - h:i A');
+            $a->dh_date = Carbon::parse($a->dh_date)->format('M d, Y - h:i A');
         }
 
         if ($data->document_deadline === NULL) {
@@ -146,9 +146,9 @@ class StaffController extends Controller
 
         $query = History::insert([
             'document_id' => $request->input('document_id'),
-            'history_name' => $request->input('history_name'),
-            'history_date' => $request->input('history_date'),
-            'history_action' => $request->input('history_action'),
+            'dh_name' => $request->input('history_name'),
+            'dh_date' => $request->input('history_date'),
+            'dh_action' => $request->input('history_action'),
         ]);
 
         if ($query) {

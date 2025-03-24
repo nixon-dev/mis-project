@@ -243,13 +243,13 @@
                                             <tr>
 
                                                 <td>
-                                                    {{ $a->history_name }}
+                                                    {{ $a->dh_name }}
                                                 </td>
                                                 <td>
-                                                    {{ $a->history_date }}
+                                                    {{ $a->dh_date }}
                                                 </td>
                                                 <td>
-                                                    {{ $a->history_action }}
+                                                    {{ $a->dh_action }}
                                                 </td>
 
                                             </tr>

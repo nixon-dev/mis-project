@@ -50,7 +50,7 @@ class AdminController extends Controller
 
 
         foreach ($action as $a) {
-            $a->history_date = Carbon::parse($a->history_date)->format('M d, Y - h:i A');
+            $a->dh_date = Carbon::parse($a->dh_date)->format('M d, Y - h:i A');
         }
 
         if ($data->document_deadline === NULL) {
@@ -143,9 +143,9 @@ class AdminController extends Controller
 
         $query = History::insert([
             'document_id' => $request->input('document_id'),
-            'history_name' => $request->input('history_name'),
-            'history_date' => $request->input('history_date'),
-            'history_action' => $request->input('history_action'),
+            'dh_name' => $request->input('history_name'),
+            'dh_date' => $request->input('history_date'),
+            'dh_action' => $request->input('history_action'),
         ]);
 
         if ($query) {
@@ -157,10 +157,19 @@ class AdminController extends Controller
 
     public function users_list()
     {
-        $users = User::leftJoin('office', 'office.office_id', '=', 'users.office_id')
+        $users = User::where('role', '!=', 'Guest')->leftJoin('office', 'office.office_id', '=', 'users.office_id')
             ->select('users.*', 'office.office_name')
             ->get();
         return view('admin.users', compact('users'));
+    }
+
+    public function pending_users_list()
+    {
+        $users = User::where('role', '=', 'Guest')
+            ->leftJoin('office', 'office.office_id', '=', 'users.office_id')
+            ->select('users.*', 'office.office_name')
+            ->get();
+        return view('admin.pending-users', compact('users'));
     }
 
     public function view_users($id)
@@ -313,5 +322,5 @@ class AdminController extends Controller
         }
     }
 
-    
+
 }
