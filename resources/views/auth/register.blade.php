@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="icon" type="image/ico" href="{{ asset('img/favicon.ico') }}">
     <title>Register - Management Information System</title>
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -54,9 +55,8 @@
                     <form class="m-t" role="form" action="{{ route('register') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <input type="text" name="name"
-                                class="form-control dark-skin-2 text-white border-secondary" placeholder="Name"
-                                value="{{ old('name') }}" required>
+                            <input type="text" name="name" class="form-control dark-skin-2 text-white border-secondary"
+                                placeholder="Name" value="{{ old('name') }}" required>
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -65,7 +65,7 @@
                         <div class="form-group">
                             <input type="email" name="email"
                                 class="form-control dark-skin-2 text-white border-secondary" placeholder="Email"
-                                value="{{ old('email') }}" required>
+                                value="{{ old('email') }}" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Must be valid email" required>
                             @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

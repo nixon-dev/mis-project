@@ -92,7 +92,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5">.:No Record Found:.</td>
+                                        <td colspan="5" class="text-center">No Pending User Found</td>
                                     </tr>
                                 @endforelse
                             </tbody>

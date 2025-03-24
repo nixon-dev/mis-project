@@ -32,7 +32,7 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::post('/admin/user/update', [AdminController::class, 'user_update']);
 
     Route::get('/admin/users/delete/{id}', [AdminController::class, 'users_delete']);
-    
+
     Route::post('/admin/user/update-password', [ChangePasswordController::class, 'user_update_password']);
 
     Route::get('/admin/office', [AdminController::class, 'office'])->name('admin.office');
@@ -44,5 +44,7 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::post('/admin/document/update-status', [AdminController::class, 'document_update_status']);
 
     Route::post('/admin/update-document-amount', [AdminController::class, 'document_update']);
+
+    Route::get('/admin/history', [AdminController::class, 'history'])->name('admin.history');
 
 });

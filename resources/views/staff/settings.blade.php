@@ -20,7 +20,7 @@
         </div> --}}
     </div>
 
-    <div class="wrapper wrapper-content">
+    <div class="wrapper wrapper-content animated fadeInDown">
         <div class="row">
 
             <div class="col-sm-12">

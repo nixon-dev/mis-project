@@ -9,6 +9,7 @@
 
     <title> @yield('title', 'Management Information System')</title>
 
+    <link rel="icon" type="image/ico" href="{{ asset('img/favicon.ico') }}">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 

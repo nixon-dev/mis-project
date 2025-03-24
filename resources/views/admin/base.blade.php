@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/ico" href="{{ asset('img/favicon.ico') }}">
 
     <title> @yield('title', 'Management Information System')</title>
 
@@ -52,7 +53,7 @@
                                 Tracking</span></a>
                     </li>
                     <li
-                        class="{{ request()->routeIs(['admin.user-settings', 'admin.users-list', 'admin.office', 'admin.users-list-pending']) ? 'active' : '' }}">
+                        class="{{ request()->routeIs(['admin.user-settings', 'admin.users-list', 'admin.office', 'admin.users-list-pending', 'admin.history']) ? 'active' : '' }}">
                         <a href="#" aria-expanded="false" class="text-white"><i class="fa fa-gear"
                                 aria-hidden="true"></i>
                             <span class="nav-label">Settings</span><span class="fa arrow" aria-hidden="true"></span></a>
@@ -69,6 +70,9 @@
 
                             <li class={{ request()->routeIs('admin.office') ? 'active' : '' }}><a
                                     href="{{ url('/admin/office') }}">Office List</a></li>
+
+                            <li class={{ request()->routeIs('admin.history') ? 'active' : '' }}><a
+                                    href="{{ url('/admin/history') }}">History</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -23,3 +23,4 @@ Route::get('/logout', [LogoutController::class, 'logout']);
 
 require __DIR__ . '/admin.php';
 require __DIR__ . '/staff.php';
+require __DIR__ . '/api.php';

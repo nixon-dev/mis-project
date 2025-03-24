@@ -11,9 +11,12 @@ use App\Models\History;
 use App\Models\Office;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\RecordHistory;
 
 class StaffController extends Controller
 {
+    use RecordHistory;
+
     public function index()
     {
 
@@ -114,6 +117,9 @@ class StaffController extends Controller
             'document_deadline' => $request->input('document_deadline'),
         ]);
 
+        $this->recordHistory('Inserted Document', $request->document_title);
+
+
         if ($query) {
             return redirect(url('/staff/document-tracking'))->with('success', 'Add data successfully!');
         } else {
@@ -124,7 +130,11 @@ class StaffController extends Controller
     public function delete_document($id)
     {
 
+        $document_title = Document::where('document_id', $id)->first()->document_title;
+
         $query = Document::where('document_id', $id)->delete();
+
+        $this->recordHistory('Deleted Document', $document_title);
 
         if ($query) {
             return redirect(url('/staff/document-tracking'))->with('success', 'Document deleted successfully!');
@@ -150,6 +160,10 @@ class StaffController extends Controller
             'dh_date' => $request->input('history_date'),
             'dh_action' => $request->input('history_action'),
         ]);
+
+
+        $document_title = Document::where('document_id', $request->input('document_id'))->first()->document_title;
+        $this->recordHistory('Inserted Action for', $document_title);
 
         if ($query) {
             return redirect()->back()->with('success', 'Action added successfull!');

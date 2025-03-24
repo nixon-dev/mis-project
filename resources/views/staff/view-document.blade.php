@@ -174,56 +174,56 @@
                             <div class="col-lg-5">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Origin:</dt>
-                                    <dd>{{ $data->office_name }}</dd>
-                                    <dt>Nature of Document:</dt>
-                                    <dd>{{ $data->document_nature }}</dd>
-                                    <dt>Amount:</dt>
-                                    <dd>₱ {{ number_format($data->amount, 2) }}</dd>
+                                    <dt class="fs-18">Origin:</dt>
+                                    <dd class="fs-16">{{ $data->office_name }}</dd>
+                                    <dt class="fs-18">Nature of Document:</dt>
+                                    <dd class="fs-16">{{ $data->document_nature }}</dd>
+                                    <dt class="fs-18">Amount:</dt>
+                                    <dd class="fs-16">₱ {{ number_format($data->amount, 2) }}</dd>
                                 </dl>
                             </div>
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Document Number:</dt>
-                                    <dd>{{ $data->document_number }}</dd>
-                                    <dt>Deadline:</dt>
-                                    <dd>{{ $data->document_deadline }}</dd>
+                                    <dt class="fs-18">Document Number:</dt>
+                                    <dd class="fs-16">{{ $data->document_number }}</dd>
+                                    <dt class="fs-18">Deadline:</dt>
+                                    <dd class="fs-16">{{ $data->document_deadline }}</dd>
 
                                 </dl>
                             </div>
                             <div class="col-sm-12 row">
                                 <div class="checkbox i-checks pl-3">
-                                    <label><input type="checkbox" onchange="updateStatus('pr', this.checked)"
+                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('pr', this.checked)"
                                             {{ $data->pr == 'true' ? 'checked' : '' }}> PR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
-                                    <label><input type="checkbox" onchange="updateStatus('canvass', this.checked)"
+                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('canvass', this.checked)"
                                             {{ $data->canvass == 'true' ? 'checked' : '' }}> Canvass</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
-                                    <label><input type="checkbox" onchange="updateStatus('abstract', this.checked)"
+                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('abstract', this.checked)"
                                             {{ $data->abstract == 'true' ? 'checked' : '' }}> Abstract</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
-                                    <label><input type="checkbox" onchange="updateStatus('obr', this.checked)"
+                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('obr', this.checked)"
                                             {{ $data->obr == 'true' ? 'checked' : '' }}> OBR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
-                                    <label><input type="checkbox" onchange="updateStatus('po', this.checked)"
+                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('po', this.checked)"
                                             {{ $data->po == 'true' ? 'checked' : '' }}> PO</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
-                                    <label><input type="checkbox" onchange="updateStatus('par', this.checked)"
+                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('par', this.checked)"
                                             {{ $data->par == 'true' ? 'checked' : '' }}> PAR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
-                                    <label><input type="checkbox" onchange="updateStatus('air', this.checked)"
+                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('air', this.checked)"
                                             {{ $data->air == 'true' ? 'checked' : '' }}> AIR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
-                                    <input type="checkbox" onchange="updateStatus('dv', this.checked)"
-                                        {{ $data->dv == 'true' ? 'checked' : '' }}> DV
+                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('dv', this.checked)"
+                                        {{ $data->dv == 'true' ? 'checked' : '' }}> DV</label>
                                 </div>
                             </div>
                         </div>

@@ -8,7 +8,7 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-8">
-            <h2>Users List</h2>
+            <h2>History</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="/admin/dashboard">Admin</a>
@@ -17,7 +17,7 @@
                     Settings
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong>Users</strong>
+                    <strong>History</strong>
                 </li>
             </ol>
         </div>
@@ -40,7 +40,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>Users</h5>
+                        <h5>Activity Log</h5>
 
                         {{-- <a href="{{ url('/add-student-form') }}">Add New Record</a> --}}
 
@@ -58,51 +58,32 @@
                         <table class="table table-bordered table-hover dataTables-example" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Office</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Manage</th>
+                                    <th>Date</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                    <th>Description</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($users as $u)
+                                @forelse ($activities as $a)
                                     <tr>
-                                        <td> {{ $u->name }} </td>
-                                        @if ( $u->role == 'Administrator')
-                                        <td>Every Office</td>
-                                        @elseif ($u->office_id == Null)
-                                        <td>No Assigned Office</td>
-                                        @else
-                                            <td>{{ $u->office_name }}</td>
-                                        @endif
-                                        <td> {{ $u->email }} </td>
-                                        <td> {{ $u->role }} </td>
-                                        <td class="text-center">
-                                            <a href="{{ url('/admin/users/' . $u->id) }}" class="btn btn-danger btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="#fff" class="bi bi-eye" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
-                                                    <path
-                                                        d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
-                                                </svg>
-                                            </a>
-                                        </td>
+                                        <td>{{ $a->created_at->diffForHumans() }}</td>
+                                        <td>{{ $a->history_name }}</td>
+                                        <td>{{ $a->history_action }}</td>
+                                        <td>{{ $a->history_description }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">No User Found</td>
+                                        <td colspan="5" class="text-center">No Activity Found</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th>Date</th>
                                     <th>Name</th>
-                                    <th>Office</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Manage</th>
+                                    <th>Action</th>
+                                    <th>Description</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -125,20 +106,20 @@
     <script>
         $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.dataTables-example').DataTable({
                 pageLength: 10,
                 order: [],
                 responsive: true,
-                initComplete: function() {
+                initComplete: function () {
                     this.api()
-                        .columns([3])
-                        .every(function() {
+                        .columns([2, 1])
+                        .every(function () {
                             var column = this;
 
                             var select = $('<select><option value=""></option></select>')
                                 .appendTo($(column.footer()).empty())
-                                .on('change', function() {
+                                .on('change', function () {
                                     column
                                         .search($(this).val(), {
                                             exact: true
@@ -149,7 +130,7 @@
                                 .data()
                                 .unique()
                                 .sort()
-                                .each(function(d, j) {
+                                .each(function (d, j) {
                                     select.append(
                                         '<option value="' + d + '">' + d + '</option>'
                                     );
