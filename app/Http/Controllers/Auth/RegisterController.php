@@ -6,13 +6,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Auth;
 
 
 class RegisterController extends Controller
 {
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        $user = Auth::user();
+
+        if ($user == null) {
+            return view(view: 'auth.register');
+        }
+
+        if ($user->role === 'Administrator') {
+            return redirect('/admin/dashboard');
+        } elseif ($user->role === 'Staff') {
+            return redirect('/staff/dashboard');
+        } else {
+            return view('auth.register');
+        }
     }
 
     public function register(Request $request)

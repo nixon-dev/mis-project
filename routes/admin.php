@@ -47,4 +47,6 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
     Route::get('/admin/history', [AdminController::class, 'history'])->name('admin.history');
 
+    Route::get('/admin/active-users', [AdminController::class,'active_users'])->name('admin.active-users');
+
 });

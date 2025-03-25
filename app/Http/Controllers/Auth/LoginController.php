@@ -11,7 +11,19 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login');
+        $user = Auth::user();
+
+        if ($user == null) {
+            return view(view: 'auth.login');
+        }
+
+        if ($user->role === 'Administrator') {
+            return redirect('/admin/dashboard');
+        } elseif ($user->role === 'Staff') {
+            return redirect('/staff/dashboard');
+        } else {
+            return view(view: 'auth.login');
+        }
     }
 
     public function login(Request $request)

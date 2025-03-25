@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ActivityLog;
+use App\Models\Sessions;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -13,6 +14,7 @@ use App\Models\Office;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use App\Traits\RecordHistory;
+use Session;
 
 
 class AdminController extends Controller
@@ -26,6 +28,7 @@ class AdminController extends Controller
         $currentYear = Carbon::now()->year;
         $lastMonth = Carbon::now()->subMonth()->month;
 
+
         $thisMonthDocumentCount = Document::whereMonth('created_at', $currentMonth)
             ->whereYear('created_at', $currentYear)
             ->count();
@@ -35,8 +38,9 @@ class AdminController extends Controller
 
         $staffCount = User::where('role', 'Staff')->count();
         $adminCount = User::where('role', 'Administrator')->count();
+        $activeUserCount = Sessions::where('last_activity', '>', Carbon::now()->subMinute(10)->getTimestamp())->count();
 
-        return view('admin.index', compact('thisMonthDocumentCount', 'lastMonthDocumentCount', 'staffCount', 'adminCount'));
+        return view('admin.index', compact('thisMonthDocumentCount', 'lastMonthDocumentCount', 'staffCount', 'adminCount', 'activeUserCount'));
     }
 
 
@@ -313,6 +317,8 @@ class AdminController extends Controller
                 'document_deadline' => $request->document_deadline,
             ]);
 
+        $this->recordHistory('Updated', $request->document_title);
+
         if ($query) {
             return redirect()->back()->with('success', 'Document updated successfully!');
         } else {
@@ -351,4 +357,15 @@ class AdminController extends Controller
         return view('admin.history', compact('activities'));
     }
 
+    public function active_users()
+    {
+
+        $activeUsers = Sessions::where('last_activity', '>', Carbon::now()->subMinute(10)->getTimestamp())
+            ->leftJoin('users', 'users.id', '=', 'sessions.user_id')
+            ->orderBy('last_activity', 'desc')
+            ->get();
+
+        return view('admin.active-users', compact('activeUsers'));
+
+    }
 }

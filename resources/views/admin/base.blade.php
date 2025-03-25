@@ -72,7 +72,10 @@
                                     href="{{ url('/admin/office') }}">Office List</a></li>
 
                             <li class={{ request()->routeIs('admin.history') ? 'active' : '' }}><a
-                                    href="{{ url('/admin/history') }}">History</a></li>
+                                    href="{{ url('/admin/history') }}">Activity Log</a></li>
+
+                            <li class="{{ request()->routeIs('admin.active-users') ? 'active' : '' }}"><a
+                                    href="{{ url('/admin/active-users') }}">Active User</a></li>
                         </ul>
                     </li>
                 </ul>
