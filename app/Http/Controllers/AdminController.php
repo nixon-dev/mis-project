@@ -12,6 +12,7 @@ use App\Models\Document;
 use App\Models\History;
 use App\Models\Office;
 use App\Models\User;
+use App\Models\Items;
 use Illuminate\Database\QueryException;
 use App\Traits\RecordHistory;
 use Session;
@@ -56,6 +57,7 @@ class AdminController extends Controller
         }
 
         $action = History::where('document_id', $data->document_id)->get();
+        $items = Items::where('document_id', $data->document_id)->get();
 
 
         foreach ($action as $a) {
@@ -73,7 +75,7 @@ class AdminController extends Controller
 
 
 
-        return view('admin.view-document', compact('data', 'action'));
+        return view('admin.view-document', compact('data', 'action','items'));
     }
 
     public function document_tracking()

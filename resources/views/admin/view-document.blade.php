@@ -27,138 +27,35 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Add Action</a>
+                {{-- <a data-toggle="modal" href="#action-form" class="btn btn-primary">Add Items</a> --}}
             </div>
-            <div id="modal-form" class="modal fade" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div class="row">
-
-                                <div class="col-sm-12">
-                                    <h3 class="m-t-none m-b">Add Action</h3>
-
-                                    <form role="form" action="{{ url('/admin/insert-document-action') }}" method="POST">
-                                        @csrf()
-
-                                        <div class="form-group d-none">
-                                            <label>Document ID</label>
-                                            <input value="{{ $data->document_id }}" name="document_id" class="form-control"
-                                                type="number" readonly>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Name/Position</label>
-                                            <input type="text" name="history_name" placeholder="" class="form-control"
-                                                required minlength="5">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Date and Time</label>
-                                            <input type="datetime-local" onfocus="this.showPicker()" name="history_date" class="form-control" required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Action Taken/Comments</label>
-                                            <input type="text" name="history_action" class="form-control" required>
-                                        </div>
-
-                                        <div class="form-group text-center">
-                                            <button class="btn btn-sm btn-primary m-t-n-xs w-100"
-                                                type="submit"><strong>Submit</strong>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
 
         </div>
     </div>
 
+    <div class="col-sm-12 mb-3 m-t-10">
+        @if (Session::has('success'))
+        <p class="alert alert-success">{{ Session::get('success') }}</p>
+    @elseif (Session::has('error'))
+        <p class="alert alert-danger">{{ Session::get('error') }}</p>
+    @endif
+    </div>
+    
+
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-9">
             <div class="wrapper wrapper-content animated fadeInDown">
-
-                @if (Session::has('success'))
-                    <p class="alert alert-success">{{ Session::get('success') }}</p>
-                @elseif (Session::has('error'))
-                    <p class="alert alert-danger">{{ Session::get('error') }}</p>
-                @endif
-
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
+                                    <a data-toggle="modal" href="#items-form" class="btn btn-primary btn-xs pull-right m-l-10">Add Items</a>
+                                    
                                     <a data-toggle="modal" href="#amount-form"
                                         class="btn btn-primary btn-xs pull-right m-l-10">Edit Document</a>
-                                    <div id="amount-form" class="modal fade" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-                                                    <div class="row">
-
-                                                        <div class="col-sm-12">
-                                                            <h3 class="m-t-none m-b">Edit Document</h3>
-
-                                                            <form role="form"
-                                                                action="{{ url('/admin/update-document-amount') }}"
-                                                                method="POST">
-                                                                @csrf()
-
-                                                                <div class="form-group d-none">
-                                                                    <label>Document ID</label>
-                                                                    <input value="{{ $data->document_id }}"
-                                                                        name="document_id" class="form-control"
-                                                                        type="number" readonly>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Title</label>
-                                                                    <input type="text" name="document_title"
-                                                                        value="{{ $data->document_title }}"
-                                                                        class="form-control" required minlength="5">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Nature of Document</label>
-                                                                    <input type="text" name="document_nature"
-                                                                        value="{{ $data->document_nature }}"
-                                                                        class="form-control" required>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Amount</label>
-                                                                    <input type="number" name="amount" min="0"
-                                                                        value="{{ $data->amount }}" step=".01"
-                                                                        class="form-control" required>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Deadline</label>
-                                                                    <input type="datetime-local" name="document_deadline"
-                                                                        class="form-control" onfocus="this.showPicker()"
-                                                                        @if ($data->document_deadline != 'No Deadline') value="{{ $data->unformatted_document_deadline }}" @endif>
-                                                                </div>
-
-
-
-                                                                <div class="form-group text-center">
-                                                                    <button class="btn btn-sm btn-primary m-t-n-xs w-100"
-                                                                        type="submit"><strong>Edit</strong>
-                                                                    </button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <a href="{{ url('/admin/delete-document/' . $data->document_id) }}"
                                         class="btn btn-danger btn-xs pull-right"
                                         onclick="return confirm('Delete document?')">Delete Document</a>
@@ -234,30 +131,34 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Date</th>
-                                            <th>Action Taken</th>
+                                            <th>Item No.</th>
+                                            <th>Unit</th>
+                                            <th>Description</th>
+                                            <th>Quantity</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($action as $a)
+                                        @forelse ($items as $i)
                                             <tr>
 
                                                 <td>
-                                                    {{ $a->dh_name }}
+                                                    {{ $loop->iteration }}
                                                 </td>
                                                 <td>
-                                                    {{ $a->dh_date }}
+                                                    {{ $i->di_unit }}
                                                 </td>
                                                 <td>
-                                                    {{ $a->dh_action }}
+                                                    {{ $i->di_description }}
+                                                </td>
+                                                <td>
+                                                    {{ $i->di_quantity }}
                                                 </td>
 
                                             </tr>
 
                                         @empty
                                             <tr class="text-center">
-                                                <td colspan="3 ">No Action Taken</td>
+                                                <td colspan="4">No Items Found</td>
                                             </tr>
                                         @endforelse
 
@@ -268,9 +169,227 @@
                         </div>
                     </div>
                 </div>
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Actions</h5>
+                        <a data-toggle="modal" href="#action-form"
+                        class="btn btn-primary btn-xs pull-right m-l-10">Add Actions</a>
+                        
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Action Taken</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($action as $a)
+                                    <tr>
+
+                                        <td>
+                                            {{ $a->dh_name }}
+                                        </td>
+                                        <td>
+                                            {{ $a->dh_date }}
+                                        </td>
+                                        <td>
+                                            {{ $a->dh_action }}
+                                        </td>
+
+                                    </tr>
+
+                                @empty
+                                    <tr class="text-center">
+                                        <td colspan="3 ">No Action Taken</td>
+                                    </tr>
+                                @endforelse
+
+
+                            </tbody>
+                        </table>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="wrapper wrapper-content">
+                <h4>Attached Documents</h4>
             </div>
         </div>
     </div>
+
+
+{{-- MODALS --}}
+<div id="items-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <h3 class="m-t-none m-b">Add Item</h3>
+
+                        <form role="form" action="{{ url('/admin/document/add-item') }}" method="POST">
+                            @csrf()
+
+                            <div class="form-group d-none">
+                                <label>Document ID</label>
+                                <input value="{{ $data->document_id }}" name="document_id" class="form-control"
+                                    type="number" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Unit</label>
+                                <select class="form-control" name="item_unit" required>
+                                    <option value="Unit">Unit</option>
+                                    <option value="Set">Set</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea name="item_description" class="form-control" required></textarea>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input type="number" name="item_quantity" class="form-control" required>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <button class="btn btn-sm btn-primary m-t-n-xs w-100"
+                                    type="submit"><strong>Submit</strong>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="action-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <h3 class="m-t-none m-b">Add Action</h3>
+
+                        <form role="form" action="{{ url('/admin/insert-document-action') }}" method="POST">
+                            @csrf()
+
+                            <div class="form-group d-none">
+                                <label>Document ID</label>
+                                <input value="{{ $data->document_id }}" name="document_id" class="form-control"
+                                    type="number" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Name/Position</label>
+                                <input type="text" name="history_name" placeholder="" class="form-control"
+                                    required minlength="2">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Date and Time</label>
+                                <input type="datetime-local" onfocus="this.showPicker()" name="history_date" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Action Taken/Comments</label>
+                                <input type="text" name="history_action" class="form-control" required>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <button class="btn btn-sm btn-primary m-t-n-xs w-100"
+                                    type="submit"><strong>Submit</strong>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="amount-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <h3 class="m-t-none m-b">Edit Document</h3>
+
+                        <form role="form"
+                            action="{{ url('/admin/update-document-amount') }}"
+                            method="POST">
+                            @csrf()
+
+                            <div class="form-group d-none">
+                                <label>Document ID</label>
+                                <input value="{{ $data->document_id }}"
+                                    name="document_id" class="form-control"
+                                    type="number" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" name="document_title"
+                                    value="{{ $data->document_title }}"
+                                    class="form-control" required minlength="5">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nature of Document</label>
+                                <input type="text" name="document_nature"
+                                    value="{{ $data->document_nature }}"
+                                    class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Amount</label>
+                                <input type="number" name="amount" min="0"
+                                    value="{{ $data->amount }}" step=".01"
+                                    class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Deadline</label>
+                                <input type="datetime-local" name="document_deadline"
+                                    class="form-control" onfocus="this.showPicker()"
+                                    @if ($data->document_deadline != 'No Deadline')
+                                     value="{{ $data->unformatted_document_deadline }}"
+                                    @endif>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <button class="btn btn-sm btn-primary m-t-n-xs w-100"
+                                    type="submit"><strong>Edit</strong>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @endsection
 
 

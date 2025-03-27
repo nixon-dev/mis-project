@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
@@ -49,4 +50,6 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
     Route::get('/admin/active-users', [AdminController::class,'active_users'])->name('admin.active-users');
 
+    Route::post('/admin/document/add-item', [ItemController::class,'add_item']);
+    
 });

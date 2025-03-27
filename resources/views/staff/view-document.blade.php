@@ -121,7 +121,7 @@
                                                                     <label>Title</label>
                                                                     <input type="text" name="document_title"
                                                                         value="{{ $data->document_title }}"
-                                                                        class="form-control" required minlength="5">
+                                                                        class="form-control" required minlength="2">
                                                                 </div>
 
                                                                 <div class="form-group">
