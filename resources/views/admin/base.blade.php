@@ -44,12 +44,12 @@
                     </li>
 
                     <li class="{{ request()->routeIs('admin.index') ? 'active' : '' }}">
-                        <a href="{{ url('/admin/dashboard') }}" class="text-white"><i class="fa fa-pie-chart"></i>
+                        <a href="{{ route('admin.index') }}" class="text-white"><i class="fa fa-pie-chart"></i>
                             <span class="nav-label">Dashboard</span> </a>
                     </li>
                     <li class="{{ request()->routeIs('admin.document') ? 'active' : '' }}">
-                        <a href="{{ url('/admin/document-tracking') }}" class="text-white"><i
-                                class="fa fa-file-text "></i> <span class="nav-label">Document
+                        <a href="{{ route('admin.document') }}" class="text-white"><i class="fa fa-file-text "></i>
+                            <span class="nav-label">Document
                                 Tracking</span></a>
                     </li>
                     <li
@@ -60,22 +60,22 @@
                         <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
 
                             <li class="{{ request()->routeIs('admin.user-settings') ? 'active' : '' }}"><a
-                                    href="{{ url('/admin/user-settings') }}">User Settings</a></li>
+                                    href="{{ route('admin.user-settings') }}">User Settings</a></li>
 
                             <li class={{ request()->routeIs('admin.users-list-pending') ? 'active' : '' }}><a
-                                    href="{{ url('/admin/users-pending') }}">Pending User List</a></li>
+                                    href="{{ route('admin.users-list-pending') }}">Pending User List</a></li>
 
                             <li class={{ request()->routeIs('admin.users-list') ? 'active' : '' }}><a
-                                    href="{{ url('/admin/users') }}">User List</a></li>
+                                    href="{{ route('admin.users-list') }}">User List</a></li>
 
                             <li class={{ request()->routeIs('admin.office') ? 'active' : '' }}><a
-                                    href="{{ url('/admin/office') }}">Office List</a></li>
+                                    href="{{ route('admin.office') }}">Office List</a></li>
 
                             <li class={{ request()->routeIs('admin.history') ? 'active' : '' }}><a
-                                    href="{{ url('/admin/history') }}">Activity Log</a></li>
+                                    href="{{ route('admin.history') }}">Activity Log</a></li>
 
                             <li class="{{ request()->routeIs('admin.active-users') ? 'active' : '' }}"><a
-                                    href="{{ url('/admin/active-users') }}">Active User</a></li>
+                                    href="{{ route('admin.active-users') }}">Active User</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -83,17 +83,20 @@
             </div>
         </nav>
 
+
+
         <div id="page-wrapper" class="gray-bg">
             <div class="row">
                 <nav class="navbar navbar-static-top dark-skin" role="navigation">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#"><i
-                                class="fa fa-bars"></i> </a>
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-success" href="#"><i
+                                class="fa fa-bars"></i></a>
 
                     </div>
                     <ul class="nav navbar-top-links navbar-right ">
 
-                        <!-- <li class="dropdown">
+
+                        {{-- <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                                 <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
                             </a>
@@ -105,7 +108,8 @@
                                         </a>
                                         <div class="media-body">
                                             <small class="float-right">46h ago</small>
-                                            <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                            <strong>Mike Loreipsum</strong> started following <strong>Monica
+                                                Smith</strong>. <br>
                                             <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
                                         </div>
                                     </div>
@@ -118,7 +122,8 @@
                                         </a>
                                         <div class="media-body ">
                                             <small class="float-right text-navy">5h ago</small>
-                                            <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                            <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica
+                                                Smith</strong>. <br>
                                             <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
                                         </div>
                                     </div>
@@ -145,9 +150,9 @@
                                     </div>
                                 </li>
                             </ul>
-                        </li> -->
+                        </li>
 
-                        <!-- <li class="dropdown">
+                        <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                                 <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
                             </a>
@@ -188,11 +193,11 @@
                                     </div>
                                 </li>
                             </ul>
-                        </li> -->
+                        </li> --}}
 
 
                         <li>
-                            <a href="{{ url('/logout') }}" class="text-white">
+                            <a href="{{ route('logout') }}" class="text-white">
                                 <i class="fa fa-sign-out"></i> Log out
                             </a>
                         </li>
@@ -203,6 +208,8 @@
 
 
             @yield('content')
+
+
 
 
             <div class="footer">

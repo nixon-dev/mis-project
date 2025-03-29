@@ -5,7 +5,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="{{ asset('css/plugins/iCheck/custom.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/plugins/jQueryUI/jquery-ui.css') }}" type="text/css" />
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" rel="stylesheet">
+    <style>
+        .dropzone {
+            background: #e3e6ff;
+            border-radius: 13px;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px dotted #1833FF;
+            margin-top: 50px;
+        }
+    </style>
 @endsection
 
 
@@ -29,19 +40,19 @@
             <div class="title-action">
                 {{-- <a data-toggle="modal" href="#action-form" class="btn btn-primary">Add Items</a> --}}
             </div>
-            
+
 
         </div>
     </div>
 
     <div class="col-sm-12 mb-3 m-t-10">
         @if (Session::has('success'))
-        <p class="alert alert-success">{{ Session::get('success') }}</p>
-    @elseif (Session::has('error'))
-        <p class="alert alert-danger">{{ Session::get('error') }}</p>
-    @endif
+            <p class="alert alert-success">{{ Session::get('success') }}</p>
+        @elseif (Session::has('error'))
+            <p class="alert alert-danger">{{ Session::get('error') }}</p>
+        @endif
     </div>
-    
+
 
     <div class="row">
         <div class="col-lg-9">
@@ -51,11 +62,12 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    <a data-toggle="modal" href="#items-form" class="btn btn-primary btn-xs pull-right m-l-10">Add Items</a>
-                                    
+                                    <a data-toggle="modal" href="#items-form"
+                                        class="btn btn-primary btn-xs pull-right m-l-10">Add Items</a>
+
                                     <a data-toggle="modal" href="#amount-form"
                                         class="btn btn-primary btn-xs pull-right m-l-10">Edit Document</a>
-                                    
+
                                     <a href="{{ url('/admin/delete-document/' . $data->document_id) }}"
                                         class="btn btn-danger btn-xs pull-right"
                                         onclick="return confirm('Delete document?')">Delete Document</a>
@@ -95,15 +107,18 @@
                                             {{ $data->pr == 'true' ? 'checked' : '' }}> PR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
-                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('canvass', this.checked)"
+                                    <label class="fs-16"><input type="checkbox"
+                                            onchange="updateStatus('canvass', this.checked)"
                                             {{ $data->canvass == 'true' ? 'checked' : '' }}> Canvass</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
-                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('abstract', this.checked)"
+                                    <label class="fs-16"><input type="checkbox"
+                                            onchange="updateStatus('abstract', this.checked)"
                                             {{ $data->abstract == 'true' ? 'checked' : '' }}> Abstract</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
-                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('obr', this.checked)"
+                                    <label class="fs-16"><input type="checkbox"
+                                            onchange="updateStatus('obr', this.checked)"
                                             {{ $data->obr == 'true' ? 'checked' : '' }}> OBR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
@@ -111,17 +126,19 @@
                                             {{ $data->po == 'true' ? 'checked' : '' }}> PO</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
-                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('par', this.checked)"
+                                    <label class="fs-16"><input type="checkbox"
+                                            onchange="updateStatus('par', this.checked)"
                                             {{ $data->par == 'true' ? 'checked' : '' }}> PAR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
-                                    <label class="fs-16"><input type="checkbox" onchange="updateStatus('air', this.checked)"
+                                    <label class="fs-16"><input type="checkbox"
+                                            onchange="updateStatus('air', this.checked)"
                                             {{ $data->air == 'true' ? 'checked' : '' }}> AIR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16">
                                         <input type="checkbox" onchange="updateStatus('dv', this.checked)"
-                                        {{ $data->dv == 'true' ? 'checked' : '' }}> DV</label>
+                                            {{ $data->dv == 'true' ? 'checked' : '' }}> DV</label>
                                 </div>
                             </div>
                         </div>
@@ -172,9 +189,9 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5>Actions</h5>
-                        <a data-toggle="modal" href="#action-form"
-                        class="btn btn-primary btn-xs pull-right m-l-10">Add Actions</a>
-                        
+                        <a data-toggle="modal" href="#action-form" class="btn btn-primary btn-xs pull-right m-l-10">Add
+                            Actions</a>
+
                     </div>
                     <div class="ibox-content">
                         <table class="table table-bordered">
@@ -220,53 +237,109 @@
         <div class="col-lg-3">
             <div class="wrapper wrapper-content">
                 <h4>Attached Documents</h4>
+                <ul class="list-group mb-3">
+                    @forelse ($attachments as $attachment)
+                        @php
+                            $icons = [
+                                'pdf' => 'fa-file-pdf-o',
+                                'doc' => 'fa-file-word-o',
+                                'docx' => 'fa-file-word-o',
+                                'xls' => 'fa-file-excel-o',
+                                'xlsx' => 'fa-file-excel-o',
+                                'ppt' => 'fa-file-powerpoint-o',
+                                'pptx' => 'fa-file-powerpoint-o',
+                            ];
+                            $iconClass = $icons[$attachment->da_file_type] ?? 'fa-file';
+
+                            $filename = $attachment->da_name;
+                            $extension = pathinfo($filename, PATHINFO_EXTENSION);
+                            $nameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
+                            $truncatedName = Str::limit($nameWithoutExtension, 10, '..');
+
+                        @endphp
+                        <li class="list-group-item">
+
+                            <a href="{{ route('download_file', ['filename' => $attachment->da_name]) }}"
+                                class="pull-left"><i class="fa {{ $iconClass }}"></i>
+                                {{ $truncatedName }}.{{ $extension }}</a>
+
+                            <a href="{{ route('delete_file', ['filename' => $attachment->da_name]) }}"
+                                onclick="return confirm('Delete attachment?')" class="pull-right text-danger"><i
+                                    class="fa fa-trash"></i></a>
+                        </li>
+                    @empty
+                    @endforelse
+                </ul>
+                <a href="#upload-form" data-toggle="modal" class="btn btn-primary btn-sm w-100">Attach File</a>
             </div>
         </div>
     </div>
 
 
-{{-- MODALS --}}
-<div id="items-form" class="modal fade" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row">
+    {{-- MODALS --}}
+    <div id="items-form" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
 
-                    <div class="col-sm-12">
-                        <h3 class="m-t-none m-b">Add Item</h3>
+                        <div class="col-sm-12">
+                            <h3 class="m-t-none m-b">Add Item</h3>
 
-                        <form role="form" action="{{ url('/admin/document/add-item') }}" method="POST">
-                            @csrf()
+                            <form role="form" action="{{ url('/admin/document/add-item') }}" method="POST">
+                                @csrf()
 
-                            <div class="form-group d-none">
-                                <label>Document ID</label>
-                                <input value="{{ $data->document_id }}" name="document_id" class="form-control"
-                                    type="number" readonly>
-                            </div>
+                                <div class="form-group d-none">
+                                    <label>Document ID</label>
+                                    <input value="{{ $data->document_id }}" name="document_id" class="form-control"
+                                        type="number" readonly>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Unit</label>
-                                <select class="form-control" name="item_unit" required>
-                                    <option value="Unit">Unit</option>
-                                    <option value="Set">Set</option>
-                                </select>
-                            </div>
+                                <div class="form-group">
+                                    <label>Unit</label>
+                                    <select class="form-control" name="item_unit" required>
+                                        <option value="Unit">Unit</option>
+                                        <option value="Set">Set</option>
+                                    </select>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea name="item_description" class="form-control" required></textarea>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea name="item_description" class="form-control" required></textarea>
 
-                            </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Quantity</label>
-                                <input type="number" name="item_quantity" class="form-control" required>
-                            </div>
+                                <div class="form-group">
+                                    <label>Quantity</label>
+                                    <input type="number" name="item_quantity" class="form-control" required>
+                                </div>
 
-                            <div class="form-group text-center">
-                                <button class="btn btn-sm btn-primary m-t-n-xs w-100"
-                                    type="submit"><strong>Submit</strong>
-                                </button>
+                                <div class="form-group text-center">
+                                    <button class="btn btn-sm btn-primary m-t-n-xs w-100"
+                                        type="submit"><strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="upload-form" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 class="m-t-none m-b">Upload File</h3>
+
+                    <div id="dropzone">
+                        <form action="{{ route('upload_file') }}" class="dropzone" id="fileupload"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <input name="document_id" class="d-none" value="{{ $data->document_id }}">
+                            <div class="dz-message">
+                                Drag and Drop your files here<br>
                             </div>
                         </form>
                     </div>
@@ -274,120 +347,111 @@
             </div>
         </div>
     </div>
-</div>
 
+    <div id="action-form" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
 
-<div id="action-form" class="modal fade" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row">
+                        <div class="col-sm-12">
+                            <h3 class="m-t-none m-b">Add Action</h3>
 
-                    <div class="col-sm-12">
-                        <h3 class="m-t-none m-b">Add Action</h3>
+                            <form role="form" action="{{ url('/admin/insert-document-action') }}" method="POST">
+                                @csrf()
 
-                        <form role="form" action="{{ url('/admin/insert-document-action') }}" method="POST">
-                            @csrf()
+                                <div class="form-group d-none">
+                                    <label>Document ID</label>
+                                    <input value="{{ $data->document_id }}" name="document_id" class="form-control"
+                                        type="number" readonly>
+                                </div>
 
-                            <div class="form-group d-none">
-                                <label>Document ID</label>
-                                <input value="{{ $data->document_id }}" name="document_id" class="form-control"
-                                    type="number" readonly>
-                            </div>
+                                <div class="form-group">
+                                    <label>Name/Position</label>
+                                    <input type="text" name="history_name" placeholder="" class="form-control"
+                                        required minlength="2">
+                                </div>
 
-                            <div class="form-group">
-                                <label>Name/Position</label>
-                                <input type="text" name="history_name" placeholder="" class="form-control"
-                                    required minlength="2">
-                            </div>
+                                <div class="form-group">
+                                    <label>Date and Time</label>
+                                    <input type="datetime-local" onfocus="this.showPicker()" name="history_date"
+                                        class="form-control" required>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Date and Time</label>
-                                <input type="datetime-local" onfocus="this.showPicker()" name="history_date" class="form-control" required>
-                            </div>
+                                <div class="form-group">
+                                    <label>Action Taken/Comments</label>
+                                    <input type="text" name="history_action" class="form-control" required>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Action Taken/Comments</label>
-                                <input type="text" name="history_action" class="form-control" required>
-                            </div>
-
-                            <div class="form-group text-center">
-                                <button class="btn btn-sm btn-primary m-t-n-xs w-100"
-                                    type="submit"><strong>Submit</strong>
-                                </button>
-                            </div>
-                        </form>
+                                <div class="form-group text-center">
+                                    <button class="btn btn-sm btn-primary m-t-n-xs w-100"
+                                        type="submit"><strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<div id="amount-form" class="modal fade" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row">
+    <div id="amount-form" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
 
-                    <div class="col-sm-12">
-                        <h3 class="m-t-none m-b">Edit Document</h3>
+                        <div class="col-sm-12">
+                            <h3 class="m-t-none m-b">Edit Document</h3>
 
-                        <form role="form"
-                            action="{{ url('/admin/update-document-amount') }}"
-                            method="POST">
-                            @csrf()
+                            <form role="form" action="{{ url('/admin/update-document-amount') }}" method="POST">
+                                @csrf()
 
-                            <div class="form-group d-none">
-                                <label>Document ID</label>
-                                <input value="{{ $data->document_id }}"
-                                    name="document_id" class="form-control"
-                                    type="number" readonly>
-                            </div>
+                                <div class="form-group d-none">
+                                    <label>Document ID</label>
+                                    <input value="{{ $data->document_id }}" name="document_id" class="form-control"
+                                        type="number" readonly>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Title</label>
-                                <input type="text" name="document_title"
-                                    value="{{ $data->document_title }}"
-                                    class="form-control" required minlength="5">
-                            </div>
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input type="text" name="document_title" value="{{ $data->document_title }}"
+                                        class="form-control" required minlength="5">
+                                </div>
 
-                            <div class="form-group">
-                                <label>Nature of Document</label>
-                                <input type="text" name="document_nature"
-                                    value="{{ $data->document_nature }}"
-                                    class="form-control" required>
-                            </div>
+                                <div class="form-group">
+                                    <label>Nature of Document</label>
+                                    <input type="text" name="document_nature" value="{{ $data->document_nature }}"
+                                        class="form-control" required>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Amount</label>
-                                <input type="number" name="amount" min="0"
-                                    value="{{ $data->amount }}" step=".01"
-                                    class="form-control" required>
-                            </div>
+                                <div class="form-group">
+                                    <label>Amount</label>
+                                    <input type="number" name="amount" min="0" value="{{ $data->amount }}"
+                                        step=".01" class="form-control" required>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Deadline</label>
-                                <input type="datetime-local" name="document_deadline"
-                                    class="form-control" onfocus="this.showPicker()"
-                                    @if ($data->document_deadline != 'No Deadline')
-                                     value="{{ $data->unformatted_document_deadline }}"
-                                    @endif>
-                            </div>
+                                <div class="form-group">
+                                    <label>Deadline</label>
+                                    <input type="datetime-local" name="document_deadline" class="form-control"
+                                        onfocus="this.showPicker()"
+                                        @if ($data->document_deadline != 'No Deadline') value="{{ $data->unformatted_document_deadline }}" @endif>
+                                </div>
 
-                            <div class="form-group text-center">
-                                <button class="btn btn-sm btn-primary m-t-n-xs w-100"
-                                    type="submit"><strong>Edit</strong>
-                                </button>
-                            </div>
-                        </form>
+                                <div class="form-group text-center">
+                                    <button class="btn btn-sm btn-primary m-t-n-xs w-100"
+                                        type="submit"><strong>Edit</strong>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
 @endsection
@@ -436,5 +500,14 @@
                 }
             });
         }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
+    <script>
+        Dropzone.options.fileupload = {
+            acceptedFiles: ".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx",
+            parallelUploads: 3,
+
+        };
     </script>
 @endsection

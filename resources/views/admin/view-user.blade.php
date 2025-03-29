@@ -55,7 +55,7 @@
                             {{ \Carbon\Carbon::parse($info[0]->created_at)->format('M d, Y - h:i A') }}</h4>
                         <h4 class="text-dark">Role: {{ $info[0]->role }}</h4>
                         @if ($info[0]->role == 'Administrator')
-                        @elseif ($info[0]->office_id == Null)
+                        @elseif ($info[0]->office_id == null)
                             <h4 class="text-dark">Office: No Assigned Office</h4>
                         @else
                             <h4 class="text-dark">Office: {{ $info[0]->office_name }}</h4>

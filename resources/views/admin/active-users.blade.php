@@ -14,7 +14,7 @@
             <h2>Active Users List</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard">Admin</a>
+                    <a href="{{ route('admin.index') }}">Admin</a>
                 </li>
                 <li class="breadcrumb-item active">
                     Settings
@@ -44,9 +44,6 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5>Users</h5>
-
-                        {{-- <a href="{{ url('/add-student-form') }}">Add New Record</a> --}}
-
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -71,7 +68,7 @@
                                 @forelse ($activeUsers as $au)
                                     <tr>
                                         <td>
-                                            {{ $au->name ? $au->name : "Guest" }}
+                                            {{ $au->name ? $au->name : 'Guest' }}
                                         </td>
                                         <td>
                                             {{ $au->ip_address }}
@@ -118,20 +115,20 @@
     <script>
         $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.dataTables-example').DataTable({
                 pageLength: 10,
                 order: [],
                 responsive: true,
-                initComplete: function () {
+                initComplete: function() {
                     this.api()
                         .columns([])
-                        .every(function () {
+                        .every(function() {
                             var column = this;
 
                             var select = $('<select><option value=""></option></select>')
                                 .appendTo($(column.footer()).empty())
-                                .on('change', function () {
+                                .on('change', function() {
                                     column
                                         .search($(this).val(), {
                                             exact: true
@@ -142,7 +139,7 @@
                                 .data()
                                 .unique()
                                 .sort()
-                                .each(function (d, j) {
+                                .each(function(d, j) {
                                     select.append(
                                         '<option value="' + d + '">' + d + '</option>'
                                     );

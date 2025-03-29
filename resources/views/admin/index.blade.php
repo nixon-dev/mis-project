@@ -22,85 +22,124 @@
 
     <div class="wrapper wrapper-content">
         <div class="row">
-            <div class="col-lg-3">
-                <div class="ibox ">
-                    <div class="ibox-title">
-                        <div class="ibox-tools">
-                            <span class="label label-success float-right">Count</span>
+            <div class="col-lg-6 row">
+                <div class="col-lg-3">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <div class="ibox-tools">
+                                <span class="label label-success float-right">Count</span>
+                            </div>
+                            <h5>Document</h5>
                         </div>
-                        <h5>Document</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <h1 class="no-margins">{{ $lastMonthDocumentCount }}</h1>
-                        {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
-                        <small>Last Month</small>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">{{ $lastMonthDocumentCount }}</h1>
+                            {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
+                            <small>Last Month</small>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="ibox ">
-                    <div class="ibox-title">
-                        <div class="ibox-tools">
-                            <span class="label label-primary float-right">Count</span>
+                <div class="col-lg-3">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <div class="ibox-tools">
+                                <span class="label label-primary float-right">Count</span>
+                            </div>
+                            <h5>Document</h5>
                         </div>
-                        <h5>Document</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <h1 class="no-margins">{{ $thisMonthDocumentCount }}</h1>
-                        {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
-                        <small>This Month</small>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">{{ $thisMonthDocumentCount }}</h1>
+                            {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
+                            <small>This Month</small>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-3">
-                <div class="ibox ">
-                    <div class="ibox-title">
-                        <div class="ibox-tools">
-                            {{-- <span class="label label-success float-right">Count</span> --}}
+                <div class="col-lg-3">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <div class="ibox-tools">
+                                {{-- <span class="label label-success float-right">Count</span> --}}
+                            </div>
+                            <h5>Visitors</h5>
                         </div>
-                        <h5>Administrator</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <h1 class="no-margins">{{ $adminCount }}</h1>
-                        {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
-                        <small>User</small>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">{{ $activeUserCount }}</h1>
+                            {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
+                            <small>User</small>
+                        </div>
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-3">
-                <div class="ibox ">
-                    <div class="ibox-title">
-                        <div class="ibox-tools">
-                            {{-- <span class="label label-success float-right">Count</span> --}}
+                <div class="ibox">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Activity Logs</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
                         </div>
-                        <h5>Staff</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <h1 class="no-margins">{{ $staffCount }}</h1>
-                        {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
-                        <small>User</small>
+                        <div class="ibox-content no-padding">
+                            <ul class="list-group">
+
+                                @forelse ($logs as $log)
+                                    <li class="list-group-item">
+                                        <p>
+                                            <name class="text-info">{{ $log->history_name }}</name>
+                                            {{ $log->history_action }} {{ $log->history_description }}
+                                        </p>
+                                        <small class="block text-muted"><i class="fa fa-clock-o"></i>
+                                            {{ $log->created_at->diffForHumans() }}</small>
+                                    </li>
+                                @empty
+                                @endforelse
+
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-3">
-                <div class="ibox ">
-                    <div class="ibox-title">
-                        <div class="ibox-tools">
-                            {{-- <span class="label label-success float-right">Count</span> --}}
+                <div class="ibox">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Activity Logs</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
                         </div>
-                        <h5>Visitors</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <h1 class="no-margins">{{ $activeUserCount }}</h1>
-                        {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
-                        <small>User</small>
+                        <div class="ibox-content no-padding">
+                            <ul class="list-group">
+
+                                @forelse ($logs as $log)
+                                    <li class="list-group-item">
+                                        <p>
+                                            <name class="text-info">{{ $log->history_name }}</name>
+                                            {{ $log->history_action }} {{ $log->history_description }}
+                                        </p>
+                                        <small class="block text-muted"><i class="fa fa-clock-o"></i>
+                                            {{ $log->created_at->diffForHumans() }}</small>
+                                    </li>
+                                @empty
+                                @endforelse
+
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection
