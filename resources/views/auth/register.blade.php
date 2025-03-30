@@ -45,7 +45,7 @@
                     Document Tracking System
                 </p>
                 <p>
-                    Prototype
+                    In development
                 </p>
 
             </div>
@@ -55,8 +55,9 @@
                     <form class="m-t" role="form" action="{{ route('register') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control dark-skin-2 text-white border-secondary"
-                                placeholder="Name" value="{{ old('name') }}" required>
+                            <input type="text" name="name"
+                                class="form-control dark-skin-2 text-white border-secondary" placeholder="Name"
+                                value="{{ old('name') }}" required>
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -65,7 +66,8 @@
                         <div class="form-group">
                             <input type="email" name="email"
                                 class="form-control dark-skin-2 text-white border-secondary" placeholder="Email"
-                                value="{{ old('email') }}" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Must be valid email" required>
+                                value="{{ old('email') }}" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                                title="Must be valid email" required>
                             @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -90,9 +92,9 @@
                         </p>
                         <a class="btn btn-sm btn-success block full-width m-b" href="{{ url('/login') }}">Login</a>
                     </form>
-                    <p class="m-t">
-                        <small>Pakaenam si Rhovin &copy; 2025</small>
-                    </p>
+                    {{-- <p class="m-t">
+                        <small>Nickson &copy; 2025</small>
+                    </p> --}}
                 </div>
             </div>
         </div>

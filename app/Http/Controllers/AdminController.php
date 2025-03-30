@@ -38,15 +38,25 @@ class AdminController extends Controller
             ->whereYear('created_at', $currentYear)
             ->count();
 
-        $staffCount = User::where('role', 'Staff')->count();
-        $adminCount = User::where('role', 'Administrator')->count();
+        $userCount = User::where('role', '!=', 'Guest')->count();
         $activeUserCount = Sessions::where('last_activity', '>', Carbon::now()->subMinute(10)->getTimestamp())->count();
+
+        $data = Document::selectRaw("date_format(created_at, '%Y-%m') as month, count(*) as aggregate")
+            ->whereDate('created_at', '>=', now()->subMonth(12))
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->map(function ($item) {
+                $date = \Carbon\Carbon::parse($item->month . '-01'); // Add '-01' to create a valid date
+                $item->month = $date->format('F'); // Format to month name (January, February, etc.)
+                return $item;
+            });
 
 
         $logs = ActivityLog::orderBy('created_at', 'DESC')->take(10)->get();
 
 
-        return view('admin.index', compact('thisMonthDocumentCount', 'lastMonthDocumentCount', 'staffCount', 'adminCount', 'activeUserCount', 'logs'));
+        return view('admin.index', compact('thisMonthDocumentCount', 'lastMonthDocumentCount', 'userCount', 'activeUserCount', 'logs', 'data'));
     }
 
 

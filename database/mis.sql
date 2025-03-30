@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2025 at 09:17 AM
+-- Generation Time: Mar 30, 2025 at 02:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -58,6 +58,7 @@ CREATE TABLE `document` (
   `document_nature` varchar(255) NOT NULL,
   `document_number` varchar(255) NOT NULL,
   `document_deadline` datetime DEFAULT NULL,
+  `document_status` varchar(255) NOT NULL DEFAULT 'Pending',
   `pr` varchar(255) NOT NULL DEFAULT 'false',
   `canvass` varchar(255) NOT NULL DEFAULT 'false',
   `abstract` varchar(255) NOT NULL DEFAULT 'false',
@@ -75,12 +76,36 @@ CREATE TABLE `document` (
 -- Dumping data for table `document`
 --
 
-INSERT INTO `document` (`document_id`, `document_title`, `document_origin`, `document_nature`, `document_number`, `document_deadline`, `pr`, `canvass`, `abstract`, `obr`, `po`, `par`, `air`, `dv`, `amount`, `created_at`, `updated_at`) VALUES
-(2, 'To payment of ICT Equipment and Furniture and Fixtures for the MIS Unit', 2, 'Payment', '250319-00002', '2025-04-01 08:00:00', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 5313.53, '2025-03-19 08:11:24', '2025-03-27 06:02:31'),
-(3, 'To reimburse', 4, 'Payment', '250319-00003', '2025-03-19 00:00:00', 'true', 'true', 'true', 'false', 'false', 'false', 'false', 'false', 0, '2025-03-20 08:11:28', '2025-03-25 01:55:59'),
-(6, 'Eviction Notice of Rhovin John Dulay', 2, 'Eviction Notice', '250320-00001', NULL, 'true', 'true', 'false', 'true', 'true', 'false', 'false', 'false', 3244.42, '2025-03-20 01:36:41', '2025-03-24 06:14:03'),
-(16, 'Converge Bill', 2, 'Payment', '250325-00001', '2025-03-25 09:55:00', 'true', 'true', 'true', 'false', 'true', 'false', 'false', 'false', 1923, '2025-03-25 01:55:24', '2025-03-27 06:44:26'),
-(17, 'To reimburse', 3, 'Payment', '250327-00001', '2025-03-27 13:58:00', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-03-27 05:58:47', '2025-03-27 06:19:01');
+INSERT INTO `document` (`document_id`, `document_title`, `document_origin`, `document_nature`, `document_number`, `document_deadline`, `document_status`, `pr`, `canvass`, `abstract`, `obr`, `po`, `par`, `air`, `dv`, `amount`, `created_at`, `updated_at`) VALUES
+(2, 'To payment of ICT Equipment and Furniture and Fixtures for the MIS Unit', 2, 'Payment', '250319-00002', '2025-04-01 08:00:00', 'Approved', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 5313.53, '2025-02-19 08:11:24', '2025-03-30 07:38:46'),
+(3, 'To reimburse', 4, 'Payment', '250319-00003', '2025-03-19 00:00:00', 'Pending', 'true', 'true', 'true', 'false', 'false', 'false', 'false', 'false', 0, '2025-01-20 08:11:28', '2025-03-30 05:29:52'),
+(6, 'Eviction Notice of Rhovin John Dulay', 2, 'Eviction Notice', '250320-00001', NULL, 'Denied', 'true', 'true', 'false', 'true', 'true', 'false', 'false', 'false', 3244.42, '2025-02-20 01:36:41', '2025-03-30 07:38:38'),
+(16, 'Converge Bill', 2, 'Payment', '250325-00001', '2025-03-25 09:55:00', 'Pending', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 1923, '2025-01-25 01:55:24', '2025-03-30 05:29:44'),
+(17, 'To reimburse', 3, 'Payment', '250327-00001', '2025-03-27 13:58:00', 'Pending', 'true', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-02-27 05:58:47', '2025-03-30 05:29:27'),
+(19, 'Statement of Receipts and Expenditures', 4, 'Financial & Budgeting', '250330-00001', '2025-03-30 13:30:00', 'Pending', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-03-30 05:30:17', '2025-03-30 05:30:17'),
+(20, 'Budget for IT Equipments', 3, 'Financial & Budgeting', '250330-00002', NULL, 'Pending', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-03-30 08:06:36', '2025-03-30 08:06:36');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `document_attachments`
+--
+
+CREATE TABLE `document_attachments` (
+  `da_id` bigint(20) UNSIGNED NOT NULL,
+  `document_id` bigint(20) UNSIGNED NOT NULL,
+  `da_name` varchar(255) NOT NULL,
+  `da_file_type` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `document_attachments`
+--
+
+INSERT INTO `document_attachments` (`da_id`, `document_id`, `da_name`, `da_file_type`) VALUES
+(28, 17, 'Doc1_1743230905_1743231865_1743257221.docx', 'docx'),
+(30, 19, 'ProjectTeamAssignment-Nikko_1743171088_1743320704.docx', 'docx'),
+(31, 20, 'Reports_1743322018.pdf', 'pdf');
 
 -- --------------------------------------------------------
 
@@ -107,7 +132,8 @@ INSERT INTO `document_history` (`dh_id`, `document_id`, `dh_name`, `dh_date`, `d
 (3, 3, 'dasdd', '2025-03-24', 'das', '2025-03-24 08:27:46', '2025-03-24 08:27:46'),
 (4, 16, 'Rhovin John Dulay', '2025-03-25', 'Prepared the documents', '2025-03-25 01:59:33', '2025-03-25 01:59:33'),
 (5, 16, 'Mayor', '2025-03-27', 'Signed PR', '2025-03-27 06:03:29', '2025-03-27 06:03:29'),
-(6, 17, 'Testt', '2025-03-27', 'TEst', '2025-03-27 06:14:23', '2025-03-27 06:14:23');
+(6, 17, 'Testt', '2025-03-27', 'TEst', '2025-03-27 06:14:23', '2025-03-27 06:14:23'),
+(7, 16, 'Vice Mayor', '2025-03-29', 'Signed Canvass', '2025-03-29 09:25:28', '2025-03-29 09:25:28');
 
 -- --------------------------------------------------------
 
@@ -129,7 +155,9 @@ CREATE TABLE `document_items` (
 
 INSERT INTO `document_items` (`di_id`, `document_id`, `di_unit`, `di_description`, `di_quantity`) VALUES
 (1, 16, 'unit', 'Steel Rack Cabinet (Steel Rack Cabinet for equipment storage)', 1),
-(2, 16, 'Set', 'Printer', 3);
+(2, 16, 'Set', 'Printer', 3),
+(3, 16, 'Unit', 'ccv', 6),
+(4, 16, 'Set', 'asd', 1);
 
 -- --------------------------------------------------------
 
@@ -184,7 +212,15 @@ INSERT INTO `history` (`history_id`, `history_name`, `history_action`, `history_
 (16, 'Admin', 'Updated', 'To reimburse', '2025-03-27 06:18:19', '2025-03-27 06:18:19'),
 (17, 'Admin', 'Updated', 'To reimburse', '2025-03-27 06:19:01', '2025-03-27 06:19:01'),
 (18, 'Admin', 'Deleted Document', 'Converge Bill', '2025-03-27 08:04:23', '2025-03-27 08:04:23'),
-(19, 'Admin', 'Added Items', 'Converge Bill', '2025-03-27 08:16:35', '2025-03-27 08:16:35');
+(19, 'Admin', 'Added Items', 'Converge Bill', '2025-03-27 08:16:35', '2025-03-27 08:16:35'),
+(20, 'Admin', 'Inserted Document', 'Statement of Receipts and Expenditures', '2025-03-29 07:31:39', '2025-03-29 07:31:39'),
+(21, 'Admin', 'Deleted Document', 'Statement of Receipts and Expenditures', '2025-03-29 07:34:58', '2025-03-29 07:34:58'),
+(22, 'Rhovin John Dulay', 'Updated', 'Converge Bill', '2025-03-29 09:15:08', '2025-03-29 09:15:08'),
+(23, 'Rhovin John Dulay', 'Added Items', 'Converge Bill', '2025-03-29 09:15:20', '2025-03-29 09:15:20'),
+(24, 'Rhovin John Dulay', 'Added Items', 'Converge Bill', '2025-03-29 09:25:07', '2025-03-29 09:25:07'),
+(25, 'Rhovin John Dulay', 'Inserted Action for', 'Converge Bill', '2025-03-29 09:25:28', '2025-03-29 09:25:28'),
+(26, 'Admin', 'Inserted Document', 'Statement of Receipts and Expenditures', '2025-03-30 05:30:17', '2025-03-30 05:30:17'),
+(27, 'Admin', 'Inserted Document', 'Budget for IT Equipments', '2025-03-30 08:06:36', '2025-03-30 08:06:36');
 
 -- --------------------------------------------------------
 
@@ -295,8 +331,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('9eyT8xqhzs25o2dGI0Hfz85w60oOQRmhyIkKEtAJ', 3, '192.168.100.56', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiOFl2endFZG1tTTZ0cGpITnRzcGJsMlNJcnhhSmhYMlM2d0wxR2tNRiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjM6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwL2FkbWluL2RvY3VtZW50LXRyYWNraW5nLzI1MDMyNS0wMDAwMSI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjM7fQ==', 1743063395),
-('Ti4r4ur1wXPCcCV2rii0cqzcj4PC6qRGqh9j8FOO', 4, '192.168.100.59', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiOG1zVG0wbDBKTVE3SGJXN1g1VW45czFYOFJlMzR1TzJBNVVYWkxTTiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjM6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwL3N0YWZmL2RvY3VtZW50LXRyYWNraW5nLzI1MDMyNS0wMDAwMSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjQ7fQ==', 1743055409);
+('fs8oGsheKsP1mQpQIdVU5xcOxmn9qMXzri6A1DRH', 3, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 OPR/117.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoic0tIQVhDdEtKT0RRdExhQnkyMWZLckJucHZXQ0RQMWwyRTlLU2NmNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kb2N1bWVudC10cmFja2luZyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjM7fQ==', 1743336108);
 
 -- --------------------------------------------------------
 
@@ -322,9 +357,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `office_id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 2, 'Rhovin John Dulay', 'rhovin.dulay@gmail.com', NULL, '$2y$12$3EWCkLKX4ZSl1dO8H9a4LuGUnM8bKKAuFQStBfiZDWOGZ4.TSAT7.', 'Staff', 'vlJWVkmx9kZ0a8rUKkl8Wird2VFgOVmnLvutWObTbQT7abpc1kOOfpgfisIb', '2025-03-16 23:21:29', '2025-03-25 02:08:22'),
+(1, 2, 'Rhovin John Dulay', 'rhovin.dulay@gmail.com', NULL, '$2y$12$3EWCkLKX4ZSl1dO8H9a4LuGUnM8bKKAuFQStBfiZDWOGZ4.TSAT7.', 'Staff', 'V7SlVZPuO2OZL42Ch9VnFYaooJixSATdmdpwbWE2FOqlrNBftjkTHMQ3174n', '2025-03-16 23:21:29', '2025-03-30 11:47:50'),
 (2, NULL, 'MIS', 'misofficediffun@gmail.com', NULL, '$2y$12$7H52v3F5tfXxzYWA/fNLB.7YSxiaWlYu6NpiLdp4iyB.SYFuLdJ9.', 'Administrator', NULL, NULL, NULL),
-(3, 2, 'Admin', 'admin@gmail.com', NULL, '$2y$12$80JzF8KP3MpIKjs11BE1.eWXPDeGQ06nZv7T4cwgFwp2GKYTaX8k6', 'Administrator', 'NGf5m6xT56G7lyPYIVN3IZaXjrKoz3NejvBqhJooJ2MrbrzNNGJIuqPp3ipQ', NULL, '2025-03-25 02:08:46'),
+(3, 2, 'Admin', 'admin@gmail.com', NULL, '$2y$12$80JzF8KP3MpIKjs11BE1.eWXPDeGQ06nZv7T4cwgFwp2GKYTaX8k6', 'Administrator', 'BaZa01RsUxN3ivgALRDZ6xJuOHyE7GPda5V3QaZnhF3F6UaZ6IRB2AqjZM5c', NULL, '2025-03-30 09:42:55'),
 (4, 2, 'staff', 'staff@gmail.com', NULL, '$2y$12$XItCEqQJU4Pp4q23xYm24Ohzcb/WExVK5aWma0IGNJkZPnccIR/ie', 'Staff', NULL, '2025-03-18 21:48:31', '2025-03-18 22:42:41');
 
 --
@@ -349,6 +384,12 @@ ALTER TABLE `cache_locks`
 ALTER TABLE `document`
   ADD PRIMARY KEY (`document_id`),
   ADD KEY `office` (`document_origin`);
+
+--
+-- Indexes for table `document_attachments`
+--
+ALTER TABLE `document_attachments`
+  ADD PRIMARY KEY (`da_id`);
 
 --
 -- Indexes for table `document_history`
@@ -430,19 +471,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `document`
 --
 ALTER TABLE `document`
-  MODIFY `document_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `document_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `document_attachments`
+--
+ALTER TABLE `document_attachments`
+  MODIFY `da_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `document_history`
 --
 ALTER TABLE `document_history`
-  MODIFY `dh_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `dh_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `document_items`
 --
 ALTER TABLE `document_items`
-  MODIFY `di_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `di_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -454,7 +501,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `history_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `history_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `jobs`

@@ -55,6 +55,19 @@
 .yellow {
     background: #fadd39;
 }
+
+.green {
+    background: #73f50c;
+}
+
+.color {
+    background: #11101a;
+    background: #2f2e3f;
+    background: #5851d5;
+    background: #ff9652;
+    background: #fff92f;
+}
+
 .border-radius-3 {
     border-radius: 3%;
 }

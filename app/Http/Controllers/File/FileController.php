@@ -30,7 +30,7 @@ class FileController extends Controller
         // $sanitizedFileName = str_replace(['..', '/', '\\'], '', $sanitizedFileName);
         $fileName = $fileName . '_' . time() . '.' . $extension;
 
-        $file->storeAs('files', $fileName);
+        $file->storeAs('files', $fileName, 'public');
 
         Attachmments::insert([
             'document_id' => $request->document_id,
@@ -49,11 +49,11 @@ class FileController extends Controller
     {
 
         $filePath = 'files/' . $filename;
-        if (!Storage::disk('local')->exists($filePath)) {
+        if (!Storage::disk('public')->exists($filePath)) {
             abort(404, 'File not found');
         }
 
-        return Storage::disk('local')->download($filePath, $filename);
+        return Storage::disk('public')->download($filePath, $filename);
 
     }
 
@@ -65,8 +65,8 @@ class FileController extends Controller
         if ($role == 'Administrator' || $role == 'Staff') {
             $filePath = 'files/' . $filename;
 
-            if (Storage::disk('local')->exists($filePath)) {
-                Storage::disk('local')->delete($filePath);
+            if (Storage::disk('public')->exists($filePath)) {
+                Storage::disk('public')->delete($filePath);
 
                 Attachmments::where('da_name', $filename)->delete();
 

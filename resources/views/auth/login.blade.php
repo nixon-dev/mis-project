@@ -43,7 +43,7 @@
                     Document Tracking System
                 </p>
                 <p>
-                    Prototype
+                    In development
                 </p>
 
             </div>
@@ -76,9 +76,9 @@
                             an
                             account</a>
                     </form>
-                    <p class="m-t">
-                        <small>Pakaenam si Rhovin &copy; 2025</small>
-                    </p>
+                    {{-- <p class="m-t">
+                        <small>Nickson &copy; 2025</small>
+                    </p> --}}
                 </div>
             </div>
         </div>

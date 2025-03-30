@@ -9,6 +9,7 @@ use App\Models\Items;
 use App\Traits\RecordHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class DocumentController extends Controller
@@ -162,8 +163,7 @@ class DocumentController extends Controller
         } else {
             return redirect()->back()->with('error', 'Error: Failed to add item.');
         }
-
-
-
     }
+
+
 }

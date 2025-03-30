@@ -47,29 +47,35 @@
                         <a href="{{ url('/staff/dashboard') }}" class="text-white"><i class="fa fa-pie-chart"></i>
                             <span class="nav-label">Dashboard</span> </a>
                     </li>
-                    <li class="{{ request()->routeIs('staff.document') ? 'active' : '' }}">
+
+                    {{-- <li class="{{ request()->routeIs('staff.document') ? 'active' : '' }}">
                         <a href="{{ url('/staff/document-tracking') }}" class="text-white"><i
                                 class="fa fa-file-text "></i> <span class="nav-label">Document
                                 Tracking</span></a>
-                    </li>
-                    <li class="{{ request()->routeIs('staff.settings') ? 'active' : '' }}">
-                        <a href="{{ url('/staff/settings') }}" class="text-white"><i class="fa fa-gear "></i>
-                            <span class="nav-label">Settings</span></a>
-                    </li>
-                    {{-- <li
-                        class="{{ request()->routeIs(['staff.personal-setting', 'staff.users-list']) ? 'active' : '' }}">
+                    </li> --}}
+
+                    <li
+                        class="{{ request()->routeIs(['staff.document-pending', 'staff.document-denied', 'staff.document-approved']) ? 'active' : '' }}">
                         <a href="#" aria-expanded="false" class="text-white"><i class="fa fa-gear"
                                 aria-hidden="true"></i>
-                            <span class="nav-label">Settings</span><span class="fa arrow" aria-hidden="true"></span></a>
+                            <span class="nav-label">Document Tracking</span><span class="fa arrow"
+                                aria-hidden="true"></span></a>
                         <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
 
-                            <li class="{{ request()->routeIs('staff.personal-setting') ? 'active' : '' }}"><a
-                                    href="{{ url('/staff/personal-settings') }}">Personal Settings</a></li>
-                            <li class="{{ request()->routeIs('staff.users-list') ? 'active' : '' }}"><a
-                                    href="{{ url('/staff/users-list') }}">User List</a></li>
+                            <li class="{{ request()->routeIs('staff.document-pending') ? 'active' : '' }}"><a
+                                    href="{{ route('staff.document-pending') }}">Pending</a></li>
+                            <li class="{{ request()->routeIs('staff.document-pending') ? 'active' : '' }}"><a
+                                    href="{{ route('staff.document-approved') }}">Approved</a></li>
+                            <li class="{{ request()->routeIs('staff.document-pending') ? 'active' : '' }}"><a
+                                    href="{{ route('staff.document-denied') }}">Denied</a></li>
 
                         </ul>
-                    </li> --}}
+                    </li>
+                    <li class="{{ request()->routeIs('staff.settings') ? 'active' : '' }}">
+                        <a href="{{ route('staff.settings') }}" class="text-white"><i class="fa fa-gear "></i>
+                            <span class="nav-label">Settings</span></a>
+                    </li>
+
                 </ul>
 
             </div>

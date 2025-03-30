@@ -6,6 +6,7 @@
     <link href="https://cdn.datatables.net/responsive/3.0.4/css/responsive.bootstrap4.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+
 @endsection
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -56,7 +57,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Nature of Document</label>
-                                            <input type="text" name="document_nature" placeholder="" class="form-control">
+                                            <input type="text" name="document_nature" placeholder=""
+                                                class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label>Document No.</label>
@@ -130,10 +132,8 @@
                                     <th>Origin</th>
                                     <th>Nature</th>
                                     <th>No.</th>
-
-                                    <th>Amount</th>
-
-                                    <th>View</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">View</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -143,13 +143,23 @@
                                         <td class="wp-20"> {{ $d->office_name }} </td>
                                         <td class="wp-10"> {{ $d->document_nature }} </td>
                                         <td class="wp-10"> {{ $d->document_number }} </td>
-                                        <td class="wp-10"><span class="pull-left">₱</span> <span
-                                                class="pull-right">{{ number_format($d->amount, 2) }}</span> </td>
+                                        {{-- <td class="wp-10"><span class="pull-left">₱</span> <span
+                                                class="pull-right">{{ number_format($d->amount, 2) }}</span> </td> --}}
+                                        @php
+                                            $statusClass = match ($d->document_status) {
+                                                'Approved' => 'success',
+                                                'Denied' => 'danger',
+                                                default => 'primary',
+                                            };
+                                        @endphp
+                                        <td class="wp-10 text-center">
+                                            <span class="label label-{{ $statusClass }}">{{ $d->document_status }}</span>
+                                        </td>
                                         <td class="wp-10 text-center">
                                             <a href="{{ url('/admin/document-tracking/' . $d->document_number) }}"
-                                                class="btn btn-primary btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff"
-                                                    class="bi bi-eye" viewBox="0 0 16 16">
+                                                class="btn btn-success btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="#000" class="bi bi-eye" viewBox="0 0 16 16">
                                                     <path
                                                         d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
                                                     <path
@@ -170,8 +180,8 @@
                                     <th>Origin</th>
                                     <th>Nature</th>
                                     <th>No.</th>
-                                    <th>Amount</th>
-                                    <th>View</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">View</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -182,7 +192,7 @@
                     </div>
                 </div>
             </div>
-           
+
         </div>
 
 
@@ -194,13 +204,10 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}"></script>
     <script src="https://cdn.datatables.net/responsive/3.0.4/js/responsive.bootstrap4.js"></script>
-    <script src="https://cdn.datatables.net/responsive/3.0.4/js/dataTables.responsive.js"></script>
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#mySelect').select2({
-                placeholder: "Select an option...",
+                placeholder: "Select Office",
                 allowClear: true
             });
         });
@@ -210,59 +217,60 @@
     <script>
         $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#documentTable').DataTable({
                 pageLength: 10,
                 order: [],
                 responsive: true,
+                columnDefs: [{
+                    'orderable': false,
+                    'targets': [4, 5]
+                }],
                 // dom: '<"html5buttons"B>lTfgitp',
                 buttons: [{
-                    extend: 'copy'
-                },
-                {
-                    extend: 'csv'
-                },
-                {
-                    extend: 'excel',
-                    title: 'ExampleFile'
-                },
-                {
-                    extend: 'pdf',
-                    title: 'ExampleFile'
-                },
+                        extend: 'copy'
+                    },
+                    {
+                        extend: 'csv'
+                    },
+                    {
+                        extend: 'excel',
+                        title: 'ExampleFile'
+                    },
+                    {
+                        extend: 'pdf',
+                        title: 'ExampleFile'
+                    },
 
-                {
-                    extend: 'print',
-                    customize: function (win) {
-                        $(win.document.body).addClass('white-bg');
-                        $(win.document.body).css('font-size', '10px');
+                    {
+                        extend: 'print',
+                        customize: function(win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
 
-                        $(win.document.body).find('table')
-                            .addClass('compact')
-                            .css('font-size', 'inherit');
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
                     }
-                }
                 ],
-                initComplete: function () {
+                initComplete: function() {
                     this.api()
                         .columns([1, 2])
-                        .every(function () {
+                        .every(function() {
                             var column = this;
-
                             var select = $('<select><option value=""></option></select>')
                                 .appendTo($(column.footer()).empty())
-                                .on('change', function () {
+                                .on('change', function() {
                                     column
-                                        .search($(this).val(), {
-                                            exact: true
-                                        })
+                                        .search($(this).val())
                                         .draw();
                                 });
                             column
                                 .data()
                                 .unique()
                                 .sort()
-                                .each(function (d, j) {
+                                .each(function(d, j) {
                                     select.append(
                                         '<option value="' + d + '">' + d + '</option>'
                                     );

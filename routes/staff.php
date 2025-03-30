@@ -13,6 +13,12 @@ Route::middleware(['auth', 'role:Staff'])->group(function () {
 
     Route::get('/staff/document-tracking', [StaffController::class, 'document_tracking'])->name('staff.document');
 
+    Route::get('/staff/document/pending', [StaffController::class, 'document_pending'])->name('staff.document-pending');
+
+    Route::get('/staff/document/approved', [StaffController::class, 'document_approved'])->name('staff.document-approved');
+
+    Route::get('/staff/document/denied', [StaffController::class, 'document_denied'])->name('staff.document-denied');
+
     Route::get('/staff/document-tracking/{id}', [StaffController::class, 'view_document'])->name('staff.view-document');
 
     Route::post('/staff/insert-document', [DocumentController::class, 'insert_document'])->name('staff.document-insert');

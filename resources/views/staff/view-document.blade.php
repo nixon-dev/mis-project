@@ -69,10 +69,18 @@
                                         class="btn btn-primary btn-xs pull-right m-l-10">Edit Document</a>
                                     <h2 class="font-bold">{{ $data->document_title }}</h2>
                                 </div>
-                                {{-- <dl class="dl-horizontal">
+                                <dl class="dl-horizontal">
                                     <dt>Status:</dt>
-                                    <dd><span class="label label-primary">Active</span></dd>
-                                </dl> --}}
+                                    <dd>
+                                        @if ($data->document_status == 'Approved')
+                                            <span class="label label-success">{{ $data->document_status }}</span>
+                                        @elseif ($data->document_status == 'Denied')
+                                            <span class="label label-danger">{{ $data->document_status }}</span>
+                                        @else
+                                            <span class="label label-primary">{{ $data->document_status }}</span>
+                                        @endif
+                                    </dd>
+                                </dl>
                             </div>
                         </div>
                         <div class="row">
