@@ -71,6 +71,21 @@
 
                         </ul>
                     </li>
+
+                    {{-- THIS APPEARS IF STAFF IS ASSIGNED TO BUDGET OFFICE --}}
+                    <div class="d-none">
+                        {{ $budgetOffice = \App\Models\Settings::where('id', '1')->first()->budget_office }}
+                    </div>
+
+                    @if (Auth::user()->office_id == $budgetOffice)
+                        <li class="{{ request()->routeIs('budget.pending') ? 'active' : '' }}">
+                            <a href="{{ route('budget.pending') }}" class="text-white"><i class="fa fa-file-text"></i>
+                                Pending Documents</a>
+                        </li>
+                    @endif
+
+
+
                     <li class="{{ request()->routeIs('staff.settings') ? 'active' : '' }}">
                         <a href="{{ route('staff.settings') }}" class="text-white"><i class="fa fa-gear "></i>
                             <span class="nav-label">Settings</span></a>

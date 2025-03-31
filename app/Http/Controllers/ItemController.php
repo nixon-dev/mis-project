@@ -37,9 +37,5 @@ class ItemController extends Controller
         } else {
             return redirect()->back()->with('error', 'Error: Failed to add item.');
         }
-
-
-
     }
-
 }

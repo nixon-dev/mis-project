@@ -38,7 +38,13 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                {{-- <a data-toggle="modal" href="#action-form" class="btn btn-primary">Add Items</a> --}}
+                @if ($checkIfSent == '0')
+                    <a href="{{ route('budget.submit', ['id' => $data->document_id]) }}" class="btn btn-primary">Submit to
+                        Budget Office</a>
+                @else
+                    <button href="#" class="btn btn-primary" disabled>Submit to
+                        Budget Office</button>
+                @endif
             </div>
 
 
@@ -108,41 +114,41 @@
                             <div class="col-sm-12 row">
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox" onchange="updateStatus('pr', this.checked)"
-                                            {{ $data->pr == 'true' ? 'checked' : '' }}> PR</label>
+                                            {{ $data->pr == 'true' ? 'checked' : '' }} disabled> PR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox"
                                             onchange="updateStatus('canvass', this.checked)"
-                                            {{ $data->canvass == 'true' ? 'checked' : '' }}> Canvass</label>
+                                            {{ $data->canvass == 'true' ? 'checked' : '' }} disabled> Canvass</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox"
                                             onchange="updateStatus('abstract', this.checked)"
-                                            {{ $data->abstract == 'true' ? 'checked' : '' }}> Abstract</label>
+                                            {{ $data->abstract == 'true' ? 'checked' : '' }} disabled> Abstract</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox"
                                             onchange="updateStatus('obr', this.checked)"
-                                            {{ $data->obr == 'true' ? 'checked' : '' }}> OBR</label>
+                                            {{ $data->obr == 'true' ? 'checked' : '' }} disabled> OBR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox" onchange="updateStatus('po', this.checked)"
-                                            {{ $data->po == 'true' ? 'checked' : '' }}> PO</label>
+                                            {{ $data->po == 'true' ? 'checked' : '' }} disabled> PO</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox"
                                             onchange="updateStatus('par', this.checked)"
-                                            {{ $data->par == 'true' ? 'checked' : '' }}> PAR</label>
+                                            {{ $data->par == 'true' ? 'checked' : '' }} disabled> PAR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox"
                                             onchange="updateStatus('air', this.checked)"
-                                            {{ $data->air == 'true' ? 'checked' : '' }}> AIR</label>
+                                            {{ $data->air == 'true' ? 'checked' : '' }} disabled> AIR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16">
                                         <input type="checkbox" onchange="updateStatus('dv', this.checked)"
-                                            {{ $data->dv == 'true' ? 'checked' : '' }}> DV</label>
+                                            {{ $data->dv == 'true' ? 'checked' : '' }} disabled> DV</label>
                                 </div>
                             </div>
                         </div>

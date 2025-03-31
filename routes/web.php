@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
-
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
 
@@ -36,3 +36,4 @@ require __DIR__ . '/admin.php';
 require __DIR__ . '/staff.php';
 require __DIR__ . '/api.php';
 require __DIR__ . '/file.php';
+require __DIR__ . '/budget.php';

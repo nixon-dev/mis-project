@@ -1,4 +1,4 @@
-@extends('admin.base')
+@extends('staff.base')
 @section('title', 'View Document - Management Information System')
 
 @section('css')
@@ -6,17 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/plugins/iCheck/custom.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/plugins/jQueryUI/jquery-ui.css') }}" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" rel="stylesheet">
-    <style>
-        .dropzone {
-            background: #e3e6ff;
-            border-radius: 13px;
-            max-width: 550px;
-            margin-left: auto;
-            margin-right: auto;
-            border: 2px dotted #1833FF;
-            margin-top: 50px;
-        }
-    </style>
+
 @endsection
 
 
@@ -26,10 +16,10 @@
             <h2>View Document</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard">Admin</a>
+                    <a href="{{ route('staff.index') }}">Staff</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="/admin/document-tracking">Document Tracking</a>
+                    <a href="{{ route('budget.pending') }}">Pending Document</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>{{ $data->document_number }}</strong>
@@ -38,7 +28,7 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                {{-- <a data-toggle="modal" href="#action-form" class="btn btn-primary">Add Items</a> --}}
+                {{-- <a href="{{ route('budget.action', ['id' => $data->document_id]) }}" class="btn btn-primary">Take Action</a> --}}
             </div>
 
 
@@ -62,15 +52,6 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    <a data-toggle="modal" href="#items-form"
-                                        class="btn btn-primary btn-xs pull-right m-l-10">Add Items</a>
-
-                                    <a data-toggle="modal" href="#amount-form"
-                                        class="btn btn-primary btn-xs pull-right m-l-10">Edit Document</a>
-
-                                    <a href="{{ url('/admin/delete-document/' . $data->document_id) }}"
-                                        class="btn btn-danger btn-xs pull-right"
-                                        onclick="return confirm('Delete document?')">Delete Document</a>
                                     <h2 class="font-bold">{{ $data->document_title }}</h2>
                                 </div>
                                 <dl class="dl-horizontal">
@@ -202,7 +183,7 @@
 
                     </div>
                     <div class="ibox-content">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="action-table">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -276,88 +257,17 @@
                                     class="fa fa-trash"></i></a>
                         </li>
                     @empty
-                    <li class="list-group-item">
-                        No Attached File
-                    </li>
+                        <li class="list-group-item">No Attached File</li>
                     @endforelse
                 </ul>
-                <a href="#upload-form" data-toggle="modal" class="btn btn-primary btn-sm w-100">Attach File</a>
+
             </div>
         </div>
     </div>
 
 
     {{-- MODALS --}}
-    <div id="items-form" class="modal fade" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
 
-                        <div class="col-sm-12">
-                            <h3 class="m-t-none m-b">Add Item</h3>
-
-                            <form role="form" action="{{ url('/admin/document/add-item') }}" method="POST">
-                                @csrf()
-
-                                <div class="form-group d-none">
-                                    <label>Document ID</label>
-                                    <input value="{{ $data->document_id }}" name="document_id" class="form-control"
-                                        type="number" readonly>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Unit</label>
-                                    <select class="form-control" name="item_unit" required>
-                                        <option value="Unit">Unit</option>
-                                        <option value="Set">Set</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Description</label>
-                                    <textarea name="item_description" class="form-control" required></textarea>
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Quantity</label>
-                                    <input type="number" name="item_quantity" class="form-control" required>
-                                </div>
-
-                                <div class="form-group text-center">
-                                    <button class="btn btn-sm btn-primary m-t-n-xs w-100"
-                                        type="submit"><strong>Submit</strong>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="upload-form" class="modal fade" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <h3 class="m-t-none m-b">Upload File</h3>
-
-                    <div id="dropzone">
-                        <form action="{{ route('upload_file') }}" class="dropzone" id="fileupload"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <input name="document_id" class="d-none" value="{{ $data->document_id }}">
-                            <div class="dz-message">
-                                Drag and Drop your files here<br>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div id="action-form" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
@@ -368,7 +278,7 @@
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Add Action</h3>
 
-                            <form role="form" action="{{ url('/admin/insert-document-action') }}" method="POST">
+                            <form role="form" action="{{ route('staff.document-insert-action') }}" method="POST">
                                 @csrf()
 
                                 <div class="form-group d-none">
@@ -406,65 +316,6 @@
             </div>
         </div>
     </div>
-
-
-    <div id="amount-form" class="modal fade" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-
-                        <div class="col-sm-12">
-                            <h3 class="m-t-none m-b">Edit Document</h3>
-
-                            <form role="form" action="{{ url('/admin/update-document-amount') }}" method="POST">
-                                @csrf()
-
-                                <div class="form-group d-none">
-                                    <label>Document ID</label>
-                                    <input value="{{ $data->document_id }}" name="document_id" class="form-control"
-                                        type="number" readonly>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Title</label>
-                                    <input type="text" name="document_title" value="{{ $data->document_title }}"
-                                        class="form-control" required minlength="5">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Nature of Document</label>
-                                    <input type="text" name="document_nature" value="{{ $data->document_nature }}"
-                                        class="form-control" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Amount</label>
-                                    <input type="number" name="amount" min="0" value="{{ $data->amount }}"
-                                        step=".01" class="form-control" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Deadline</label>
-                                    <input type="datetime-local" name="document_deadline" class="form-control"
-                                        onfocus="this.showPicker()"
-                                        @if ($data->document_deadline != 'No Deadline') value="{{ $data->unformatted_document_deadline }}" @endif>
-                                </div>
-
-                                <div class="form-group text-center">
-                                    <button class="btn btn-sm btn-primary m-t-n-xs w-100"
-                                        type="submit"><strong>Edit</strong>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 @endsection
 
 
@@ -496,7 +347,7 @@
 
             $.ajax({
                 method: 'POST',
-                url: '/admin/document/update-status',
+                url: '{{ route('staff.document-update-status') }}',
                 data: {
                     'document_id': document_id,
                     'item_column': itemId,
@@ -505,20 +356,40 @@
                 },
                 success: function(response) {
                     console.log("Success:", response);
+                    reloadActionHistory();
                 },
                 error: function(xhr) {
                     console.error("Error:", xhr.responseText);
                 }
             });
         }
+
+        function reloadActionHistory() {
+            $.ajax({
+                url: '{{ route('budget.reload', ['id' => $data->document_id]) }}',
+                type: 'GET',
+                success: function(response) {
+                    console.log(response);
+
+                    let tableBody = $('#action-table tbody'); // Select the table body
+                    tableBody.empty(); 
+
+                    response.forEach(function(action) {
+                        let row = `
+                    <tr>
+                        <td>${action.dh_name}</td>
+                        <td>${action.dh_date}</td>
+                        <td>${action.dh_action}</td>
+                    </tr>
+                `;
+                        tableBody.append(row);
+                    });
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        }
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
-    <script>
-        Dropzone.options.fileupload = {
-            acceptedFiles: ".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx",
-            parallelUploads: 3,
-
-        };
-    </script>
 @endsection

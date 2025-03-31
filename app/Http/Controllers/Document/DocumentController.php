@@ -132,6 +132,20 @@ class DocumentController extends Controller
             Document::where('document_id', $request->document_id)
                 ->update([$columnName => $request->item_status]);
 
+            $name = Auth::user()->name;
+            $column = strtoupper($columnName);
+            if ($request->item_status == 'true') {
+                $action = 'Signed ' . $column;
+            } else {
+                $action = 'Unsigned ' . $column;
+            }
+            History::insert([
+                'document_id' => $request->document_id,
+                'dh_name' => $name,
+                'dh_action' => $action,
+            ]);
+            
+
             return response()->json(['success' => true, 'message' => 'Status updated successfully']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
@@ -164,6 +178,4 @@ class DocumentController extends Controller
             return redirect()->back()->with('error', 'Error: Failed to add item.');
         }
     }
-
-
 }

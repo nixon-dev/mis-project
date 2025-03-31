@@ -47,8 +47,8 @@ class AdminController extends Controller
             ->orderBy('month')
             ->get()
             ->map(function ($item) {
-                $date = \Carbon\Carbon::parse($item->month . '-01'); // Add '-01' to create a valid date
-                $item->month = $date->format('F'); // Format to month name (January, February, etc.)
+                $date = \Carbon\Carbon::parse($item->month . '-01');
+                $item->month = $date->format('F'); 
                 return $item;
             });
 

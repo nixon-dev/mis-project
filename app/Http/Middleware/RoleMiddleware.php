@@ -31,4 +31,5 @@ class RoleMiddleware
         $request->session()->regenerateToken();
         return redirect('/login')->with('error', "Access Denied.");
     }
+
 }

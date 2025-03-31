@@ -48,8 +48,16 @@
     background: #f84a65;
 }
 
+.text-red {
+    color: #f84a65;
+}
+
 .purple {
     background: #9121fe;
+}
+
+.text-purple {
+    color: #9121fe;
 }
 
 .yellow {

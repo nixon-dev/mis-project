@@ -13,11 +13,7 @@
                 </li>
             </ol>
         </div>
-        {{-- <div class="col-sm-4">
-            <div class="title-action">
-                <a href="" class="btn btn-primary">This is action area</a>
-            </div>
-        </div> --}}
+ 
     </div>
 
     <div class="wrapper wrapper-content">
@@ -28,13 +24,11 @@
                         <div class="ibox ">
                             <div class="ibox-title">
                                 <div class="ibox-tools">
-                                    {{-- <span class="label label-success float-right">Count</span> --}}
                                 </div>
                                 <h5>Document</h5>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">{{ $lastMonthDocumentCount }}</h1>
-                                {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
                                 <small>Last Month</small>
                             </div>
                         </div>
@@ -43,13 +37,11 @@
                         <div class="ibox ">
                             <div class="ibox-title">
                                 <div class="ibox-tools">
-                                    {{-- <span class="label label-primary float-right">Count</span> --}}
                                 </div>
                                 <h5>Document</h5>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">{{ $thisMonthDocumentCount }}</h1>
-                                {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
                                 <small>This Month</small>
                             </div>
                         </div>
@@ -59,13 +51,11 @@
                         <div class="ibox ">
                             <div class="ibox-title">
                                 <div class="ibox-tools">
-                                    {{-- <span class="label label-success float-right">Count</span> --}}
                                 </div>
                                 <h5>Visitors</h5>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">{{ $activeUserCount }}</h1>
-                                {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
                                 <small>User</small>
                             </div>
                         </div>
@@ -75,13 +65,11 @@
                         <div class="ibox ">
                             <div class="ibox-title">
                                 <div class="ibox-tools">
-                                    {{-- <span class="label label-success float-right">Count</span> --}}
                                 </div>
                                 <h5>Users</h5>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">{{ $userCount }}</h1>
-                                {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
                                 <small>&nbsp;</small>
                             </div>
                         </div>
@@ -128,8 +116,9 @@
                                 @forelse ($logs as $log)
                                     <li class="list-group-item">
                                         <p>
-                                            <name class="text-info">{{ $log->history_name }}</name>
-                                            {{ $log->history_action }} {{ $log->history_description }}
+                                            <name class="text-purple">{{ $log->history_name }}</name> - 
+                                            {{ $log->history_action }} 
+                                            <strong>{{ $log->history_description }}</strong>
                                         </p>
                                         <small class="block text-muted"><i class="fa fa-clock-o"></i>
                                             {{ $log->created_at->diffForHumans() }}</small>
@@ -162,8 +151,8 @@
             type: 'line',
             data: data,
             options: {
-                maintainAspectRatio: false, // Important: allows setting custom dimensions
-                responsive: true, // Important: disables responsiveness
+                maintainAspectRatio: false,
+                responsive: true,
                 plugins: {
                     title: {
                         display: true,

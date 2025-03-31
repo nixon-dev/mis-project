@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use App\Models\Document;
 use App\Models\History;
 use App\Models\Office;
+use App\Models\PendingDocx;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\RecordHistory;
@@ -35,7 +36,22 @@ class StaffController extends Controller
             ->whereYear('created_at', $currentYear)
             ->where('document_origin', $assignedOffice)
             ->count();
-        return view('staff.index', compact('thisMonthDocumentCount', 'lastMonthDocumentCount'));
+
+        $office = Office::where('office_id', $assignedOffice)->first();
+
+        $data = Document::selectRaw("date_format(created_at, '%Y-%m') as month, count(*) as aggregate")
+            ->whereDate('created_at', '>=', now()->subMonth(12))
+            ->where('document_origin', $assignedOffice)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->map(function ($item) {
+                $date = \Carbon\Carbon::parse($item->month . '-01');
+                $item->month = $date->format('F');
+                return $item;
+            });
+
+        return view('staff.index', compact('thisMonthDocumentCount', 'lastMonthDocumentCount', 'data', 'office'));
     }
 
 
@@ -71,7 +87,9 @@ class StaffController extends Controller
             $data->unformatted_document_deadline = $unformatted_deadline->format('Y-m-d H:i');
         }
 
-        return view('staff.view-document', compact('data', 'action', 'items', 'attachments'));
+        $checkIfSent = PendingDocx::where('document_id', $data->document_id)->count();
+        
+        return view('staff.view-document', compact('data', 'action', 'items', 'attachments', 'checkIfSent'));
     }
 
     public function document_tracking()
@@ -136,7 +154,7 @@ class StaffController extends Controller
         foreach ($data as $d) {
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
-        return view('staff.document-pending', compact('data', 'office', 'documentId'));
+        return view('staff.document.pending', compact('data', 'office', 'documentId'));
     }
 
     public function document_approved()
@@ -169,7 +187,7 @@ class StaffController extends Controller
         foreach ($data as $d) {
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
-        return view('staff.document-approved', compact('data', 'office', 'documentId'));
+        return view('staff.document.approved', compact('data', 'office', 'documentId'));
     }
 
     public function document_denied()
@@ -202,7 +220,7 @@ class StaffController extends Controller
         foreach ($data as $d) {
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
-        return view('staff.document-denied', compact('data', 'office', 'documentId'));
+        return view('staff.document.denied', compact('data', 'office', 'documentId'));
     }
 
     public function settings()
@@ -226,6 +244,4 @@ class StaffController extends Controller
             return redirect()->back()->with('error', 'Error: Update Failed');
         }
     }
-
-
 }
