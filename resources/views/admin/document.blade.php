@@ -60,11 +60,7 @@
                                             <input type="text" name="document_nature" placeholder=""
                                                 class="form-control">
                                         </div>
-                                        <div class="form-group">
-                                            <label>Document No.</label>
-                                            <input type="text" name="document_number" placeholder=""
-                                                value="{{ $documentId }}" class="form-control" readonly>
-                                        </div>
+
                                         <div class="form-group">
                                             <label>Deadline</label>
                                             <input type="datetime-local" name="document_deadline" class="form-control"
@@ -143,13 +139,12 @@
                                         <td class="wp-20"> {{ $d->office_name }} </td>
                                         <td class="wp-10"> {{ $d->document_nature }} </td>
                                         <td class="wp-10"> {{ $d->document_number }} </td>
-                                        {{-- <td class="wp-10"><span class="pull-left">₱</span> <span
-                                                class="pull-right">{{ number_format($d->amount, 2) }}</span> </td> --}}
                                         @php
                                             $statusClass = match ($d->document_status) {
                                                 'Approved' => 'success',
                                                 'Denied' => 'danger',
-                                                default => 'primary',
+                                                'Pending' => 'primary',
+                                                default => 'info',
                                             };
                                         @endphp
                                         <td class="wp-10 text-center">

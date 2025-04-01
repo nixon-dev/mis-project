@@ -132,8 +132,10 @@
                                                     <span class="label label-success">{{ $d->document_status }}</span>
                                                 @elseif ($d->document_status == 'Denied')
                                                     <span class="label label-danger">{{ $d->document_status }}</span>
-                                                @else
+                                                @elseif ($d->document_status == 'Pending')
                                                     <span class="label label-primary">{{ $d->document_status }}</span>
+                                                @else
+                                                    <span class="label label-info">{{ $d->document_status }}</span>
                                                 @endif
                                             </td>
                                             <td class="wp-30"> {{ $d->document_title }} </td>

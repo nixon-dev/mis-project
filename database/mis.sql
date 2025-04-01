@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2025 at 02:02 PM
+-- Generation Time: Apr 01, 2025 at 04:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -54,11 +54,11 @@ CREATE TABLE `cache_locks` (
 CREATE TABLE `document` (
   `document_id` bigint(20) UNSIGNED NOT NULL,
   `document_title` varchar(255) NOT NULL,
-  `document_origin` int(255) NOT NULL,
+  `document_origin` bigint(20) UNSIGNED NOT NULL,
   `document_nature` varchar(255) NOT NULL,
   `document_number` varchar(255) NOT NULL,
   `document_deadline` datetime DEFAULT NULL,
-  `document_status` varchar(255) NOT NULL DEFAULT 'Pending',
+  `document_status` varchar(255) NOT NULL DEFAULT 'Draft',
   `pr` varchar(255) NOT NULL DEFAULT 'false',
   `canvass` varchar(255) NOT NULL DEFAULT 'false',
   `abstract` varchar(255) NOT NULL DEFAULT 'false',
@@ -77,13 +77,21 @@ CREATE TABLE `document` (
 --
 
 INSERT INTO `document` (`document_id`, `document_title`, `document_origin`, `document_nature`, `document_number`, `document_deadline`, `document_status`, `pr`, `canvass`, `abstract`, `obr`, `po`, `par`, `air`, `dv`, `amount`, `created_at`, `updated_at`) VALUES
-(2, 'To payment of ICT Equipment and Furniture and Fixtures for the MIS Unit', 2, 'Payment', '250319-00002', '2025-04-01 08:00:00', 'Approved', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 5313.53, '2025-02-19 08:11:24', '2025-03-30 07:38:46'),
+(2, 'To payment of ICT Equipment and Furniture and Fixtures for the MIS Unit', 2, 'Payment', '250319-00002', '2025-04-01 08:00:00', 'Approved', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 5313.53, '2025-02-19 08:11:24', '2025-04-01 13:48:58'),
 (3, 'To reimburse', 4, 'Payment', '250319-00003', '2025-03-19 00:00:00', 'Pending', 'true', 'true', 'true', 'false', 'false', 'false', 'false', 'false', 0, '2025-01-20 08:11:28', '2025-03-30 05:29:52'),
 (6, 'Eviction Notice of Rhovin John Dulay', 2, 'Eviction Notice', '250320-00001', NULL, 'Denied', 'true', 'true', 'false', 'true', 'true', 'false', 'false', 'false', 3244.42, '2025-02-20 01:36:41', '2025-03-30 07:38:38'),
 (16, 'Converge Bill', 2, 'Payment', '250325-00001', '2025-03-25 09:55:00', 'Pending', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 1923, '2025-01-25 01:55:24', '2025-03-30 05:29:44'),
 (17, 'To reimburse', 3, 'Payment', '250327-00001', '2025-03-27 13:58:00', 'Pending', 'true', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-02-27 05:58:47', '2025-03-30 05:29:27'),
 (19, 'Statement of Receipts and Expenditures', 4, 'Financial & Budgeting', '250330-00001', '2025-03-30 13:30:00', 'Pending', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-03-30 05:30:17', '2025-03-30 05:30:17'),
-(20, 'Budget for IT Equipments', 3, 'Financial & Budgeting', '250330-00002', NULL, 'Pending', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-03-30 08:06:36', '2025-03-30 08:06:36');
+(20, 'Budget for IT Equipments', 3, 'Financial & Budgeting', '250330-00002', NULL, 'Pending', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-03-30 08:06:36', '2025-03-30 08:06:36'),
+(22, 'The Temporary Name of a Fake Document', 1, 'Fake Document', '250331-00001', NULL, 'Approved', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 899250, '2025-01-06 06:47:46', '2025-04-01 10:20:05'),
+(23, 'A fake document title', 1, 'Fake Document', '250401-00001', NULL, 'Denied', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-03-11 06:59:32', '2025-04-01 10:20:33'),
+(24, 'Just another fake document', 1, 'Fake Document', '250401-00002', NULL, 'Pending', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 07:37:49', '2025-04-01 07:37:49'),
+(25, '250401-00003', 1, 'Test', '250401-00003', NULL, 'Denied', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-02-05 07:43:50', '2025-04-01 11:01:42'),
+(26, '250401-00004 <- should be', 1, 'Test', '250401-00004', NULL, 'Denied', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 07:44:07', '2025-04-01 10:34:58'),
+(27, 'Test if Origin Office is working', 1, 'Test', '250401-00005', NULL, 'Approved', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-02-13 07:56:51', '2025-04-01 13:52:26'),
+(28, 'To payment of Fake Equipment and Fake Furniture and Fake Fixtures for the Fake Office', 1, 'Fake Document', '250401-00006', NULL, 'Approved', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 10:21:37', '2025-04-01 13:20:39'),
+(29, 'Fake Draft Document', 1, 'Fake Document', '250401-00007', NULL, 'Denied', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 13:14:44', '2025-04-01 14:01:06');
 
 -- --------------------------------------------------------
 
@@ -103,9 +111,8 @@ CREATE TABLE `document_attachments` (
 --
 
 INSERT INTO `document_attachments` (`da_id`, `document_id`, `da_name`, `da_file_type`) VALUES
-(28, 17, 'Doc1_1743230905_1743231865_1743257221.docx', 'docx'),
-(30, 19, 'ProjectTeamAssignment-Nikko_1743171088_1743320704.docx', 'docx'),
-(31, 20, 'Reports_1743322018.pdf', 'pdf');
+(32, 20, 'file-sample_100kB_1743385718.docx', 'docx'),
+(33, 22, 'index_1743169502_1743463148.docx', 'docx');
 
 -- --------------------------------------------------------
 
@@ -117,7 +124,7 @@ CREATE TABLE `document_history` (
   `dh_id` bigint(20) UNSIGNED NOT NULL,
   `document_id` int(255) NOT NULL,
   `dh_name` varchar(255) NOT NULL,
-  `dh_date` date NOT NULL,
+  `dh_date` datetime NOT NULL DEFAULT current_timestamp(),
   `dh_action` text NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp()
@@ -128,12 +135,24 @@ CREATE TABLE `document_history` (
 --
 
 INSERT INTO `document_history` (`dh_id`, `document_id`, `dh_name`, `dh_date`, `dh_action`, `created_at`, `updated_at`) VALUES
-(2, 3, 'zxccz', '2025-03-24', 'zxc', NULL, NULL),
-(3, 3, 'dasdd', '2025-03-24', 'das', '2025-03-24 08:27:46', '2025-03-24 08:27:46'),
-(4, 16, 'Rhovin John Dulay', '2025-03-25', 'Prepared the documents', '2025-03-25 01:59:33', '2025-03-25 01:59:33'),
-(5, 16, 'Mayor', '2025-03-27', 'Signed PR', '2025-03-27 06:03:29', '2025-03-27 06:03:29'),
-(6, 17, 'Testt', '2025-03-27', 'TEst', '2025-03-27 06:14:23', '2025-03-27 06:14:23'),
-(7, 16, 'Vice Mayor', '2025-03-29', 'Signed Canvass', '2025-03-29 09:25:28', '2025-03-29 09:25:28');
+(4, 16, 'Rhovin John Dulay', '2025-03-25 00:00:00', 'Prepared the documents', '2025-03-25 01:59:33', '2025-03-25 01:59:33'),
+(5, 16, 'Mayor', '2025-03-27 00:00:00', 'Signed PR', '2025-03-27 06:03:29', '2025-03-27 06:03:29'),
+(6, 17, 'Testt', '2025-03-27 00:00:00', 'TEst', '2025-03-27 06:14:23', '2025-03-27 06:14:23'),
+(7, 16, 'Vice Mayor', '2025-03-29 00:00:00', 'Signed Canvass', '2025-03-29 09:25:28', '2025-03-29 09:25:28'),
+(32, 22, 'Rhovin John Dulay', '2025-03-31 16:13:26', 'Signed PR', '2025-03-31 08:13:26', '2025-03-31 08:13:26'),
+(33, 22, 'Rhovin John Dulay', '2025-03-31 16:13:28', 'Signed CANVASS', '2025-03-31 08:13:28', '2025-03-31 08:13:28'),
+(34, 22, 'Rhovin John Dulay', '2025-03-31 16:13:31', 'Signed ABSTRACT', '2025-03-31 08:13:31', '2025-03-31 08:13:31'),
+(35, 22, 'Rhovin John Dulay', '2025-03-31 16:13:34', 'Signed OBR', '2025-03-31 08:13:34', '2025-03-31 08:13:34'),
+(36, 2, 'Budget Office Staff', '2025-03-31 16:35:29', 'Unsigned PR', '2025-03-31 08:35:29', '2025-03-31 08:35:29'),
+(37, 2, 'Budget Office Staff', '2025-03-31 16:35:30', 'Signed PR', '2025-03-31 08:35:30', '2025-03-31 08:35:30'),
+(38, 2, 'Budget Office Staff', '2025-03-31 16:35:36', 'Unsigned CANVASS', '2025-03-31 08:35:36', '2025-03-31 08:35:36'),
+(39, 2, 'Budget Office Staff', '2025-03-31 16:35:36', 'Signed CANVASS', '2025-03-31 08:35:36', '2025-03-31 08:35:36'),
+(40, 22, 'Rhovin John Dulay', '2025-04-01 07:18:17', 'Signed PO', '2025-03-31 23:18:17', '2025-03-31 23:18:17'),
+(41, 22, 'Rhovin John Dulay', '2025-04-01 15:19:48', 'Signed PAR', '2025-04-01 07:19:48', '2025-04-01 07:19:48'),
+(42, 22, 'Rhovin John Dulay', '2025-04-01 15:19:50', 'Signed AIR', '2025-04-01 07:19:50', '2025-04-01 07:19:50'),
+(43, 22, 'Rhovin John Dulay', '2025-04-01 15:19:51', 'Signed DV', '2025-04-01 07:19:51', '2025-04-01 07:19:51'),
+(44, 29, 'Admin', '2025-04-01 22:01:06', 'Signed PR', '2025-04-01 14:01:06', '2025-04-01 14:01:06'),
+(45, 29, 'Admin', '2025-04-01 22:01:06', 'Unsigned PR', '2025-04-01 14:01:06', '2025-04-01 14:01:06');
 
 -- --------------------------------------------------------
 
@@ -146,34 +165,55 @@ CREATE TABLE `document_items` (
   `document_id` bigint(20) UNSIGNED NOT NULL,
   `di_unit` varchar(255) NOT NULL,
   `di_description` text NOT NULL,
-  `di_quantity` int(255) NOT NULL
+  `di_quantity` int(255) NOT NULL,
+  `di_unit_price` float NOT NULL DEFAULT 0,
+  `di_total_amount` float NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `document_items`
 --
 
-INSERT INTO `document_items` (`di_id`, `document_id`, `di_unit`, `di_description`, `di_quantity`) VALUES
-(1, 16, 'unit', 'Steel Rack Cabinet (Steel Rack Cabinet for equipment storage)', 1),
-(2, 16, 'Set', 'Printer', 3),
-(3, 16, 'Unit', 'ccv', 6),
-(4, 16, 'Set', 'asd', 1);
+INSERT INTO `document_items` (`di_id`, `document_id`, `di_unit`, `di_description`, `di_quantity`, `di_unit_price`, `di_total_amount`) VALUES
+(1, 16, 'unit', 'Steel Rack Cabinet (Steel Rack Cabinet for equipment storage)', 1, 0, 0),
+(2, 16, 'Set', 'Printer', 3, 0, 0),
+(3, 16, 'Unit', 'ccv', 6, 0, 0),
+(4, 16, 'Set', 'asd', 1, 0, 0),
+(5, 20, 'Set', 'Dulay', 8, 0, 0),
+(6, 2, 'Unit', 'Keyboard', 2, 0, 0),
+(13, 22, 'Unit', 'Fake Item', 23, 250, 5750),
+(14, 22, 'Unit', 'Another Fake Item', 41, 3500, 143500),
+(15, 22, 'Unit', 'Another One', 300, 2500, 750000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
+-- Table structure for table `document_pending`
 --
 
-CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `document_pending` (
+  `dp_id` bigint(20) UNSIGNED NOT NULL,
+  `document_id` bigint(20) UNSIGNED NOT NULL,
+  `dp_status` varchar(255) NOT NULL DEFAULT 'Pending',
+  `dp_remarks` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `document_pending`
+--
+
+INSERT INTO `document_pending` (`dp_id`, `document_id`, `dp_status`, `dp_remarks`, `created_at`, `updated_at`) VALUES
+(1, 22, 'Approved', 'Document Approved', '2025-04-01 13:47:15', '2025-04-01 13:47:36'),
+(3, 16, 'Pending', NULL, '2025-04-01 13:44:15', '2025-04-01 13:48:05'),
+(4, 2, 'Approved', NULL, '2025-04-01 07:25:15', '2025-04-01 13:48:58'),
+(5, 23, 'Denied', 'No attached file', '2025-04-01 07:25:15', '2025-04-01 07:36:47'),
+(6, 26, 'Denied', 'Fake Document', '2025-04-01 10:20:59', '2025-04-01 10:34:58'),
+(7, 25, 'Denied', 'Fake Documents', '2025-04-01 11:00:49', '2025-04-01 11:01:42'),
+(8, 28, 'Approved', 'ZXC', '2025-04-01 13:20:19', '2025-04-01 13:20:39'),
+(10, 29, 'Denied', 'Fake', '2025-04-01 13:42:06', '2025-04-01 13:51:53'),
+(11, 27, 'Approved', 'Test Approve', '2025-04-01 13:52:13', '2025-04-01 13:52:26');
 
 -- --------------------------------------------------------
 
@@ -220,42 +260,27 @@ INSERT INTO `history` (`history_id`, `history_name`, `history_action`, `history_
 (24, 'Rhovin John Dulay', 'Added Items', 'Converge Bill', '2025-03-29 09:25:07', '2025-03-29 09:25:07'),
 (25, 'Rhovin John Dulay', 'Inserted Action for', 'Converge Bill', '2025-03-29 09:25:28', '2025-03-29 09:25:28'),
 (26, 'Admin', 'Inserted Document', 'Statement of Receipts and Expenditures', '2025-03-30 05:30:17', '2025-03-30 05:30:17'),
-(27, 'Admin', 'Inserted Document', 'Budget for IT Equipments', '2025-03-30 08:06:36', '2025-03-30 08:06:36');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jobs`
---
-
-CREATE TABLE `jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `queue` varchar(255) NOT NULL,
-  `payload` longtext NOT NULL,
-  `attempts` tinyint(3) UNSIGNED NOT NULL,
-  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
-  `available_at` int(10) UNSIGNED NOT NULL,
-  `created_at` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `job_batches`
---
-
-CREATE TABLE `job_batches` (
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `total_jobs` int(11) NOT NULL,
-  `pending_jobs` int(11) NOT NULL,
-  `failed_jobs` int(11) NOT NULL,
-  `failed_job_ids` longtext NOT NULL,
-  `options` mediumtext DEFAULT NULL,
-  `cancelled_at` int(11) DEFAULT NULL,
-  `created_at` int(11) NOT NULL,
-  `finished_at` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(27, 'Admin', 'Inserted Document', 'Budget for IT Equipments', '2025-03-30 08:06:36', '2025-03-30 08:06:36'),
+(28, 'Rhovin John Dulay', 'Inserted Document', 'Eviction Notice of Rhovin John Dulay', '2025-03-31 00:50:11', '2025-03-31 00:50:11'),
+(29, 'Admin', 'Deleted Document', 'Eviction Notice of Rhovin John Dulay', '2025-03-31 01:47:08', '2025-03-31 01:47:08'),
+(30, 'Admin', 'Added Items for', 'Budget for IT Equipments', '2025-03-31 03:20:04', '2025-03-31 03:20:04'),
+(31, 'MIS', 'Added Items for', 'To payment of ICT Equipment and Furniture and Fixtures for the MIS Unit', '2025-03-31 03:35:41', '2025-03-31 03:35:41'),
+(32, 'Rhovin John Dulay', 'Inserted Document', 'The Temporary Name of a Fake Document', '2025-03-31 06:47:46', '2025-03-31 06:47:46'),
+(33, 'Rhovin John Dulay', 'Added Items for', 'The Temporary Name of a Fake Document', '2025-03-31 23:11:16', '2025-03-31 23:11:16'),
+(34, 'Rhovin John Dulay', 'Added Items for', 'The Temporary Name of a Fake Document', '2025-03-31 23:16:20', '2025-03-31 23:16:20'),
+(35, 'Rhovin John Dulay', 'Added Items for', 'The Temporary Name of a Fake Document', '2025-03-31 23:16:49', '2025-03-31 23:16:49'),
+(36, 'Rhovin John Dulay', 'Added Items for', 'The Temporary Name of a Fake Document', '2025-03-31 23:17:38', '2025-03-31 23:17:38'),
+(37, 'Rhovin John Dulay', 'Added Items for', 'The Temporary Name of a Fake Document', '2025-03-31 23:40:47', '2025-03-31 23:40:47'),
+(38, 'Rhovin John Dulay', 'Added Items for', 'The Temporary Name of a Fake Document', '2025-03-31 23:47:28', '2025-03-31 23:47:28'),
+(39, 'Rhovin John Dulay', 'Added Items for', 'The Temporary Name of a Fake Document', '2025-03-31 23:47:53', '2025-03-31 23:47:53'),
+(40, 'Rhovin John Dulay', 'Added Items for', 'The Temporary Name of a Fake Document', '2025-03-31 23:48:17', '2025-03-31 23:48:17'),
+(41, 'Rhovin John Dulay', 'Inserted Document', 'A fake document title', '2025-04-01 06:59:32', '2025-04-01 06:59:32'),
+(42, 'Rhovin John Dulay', 'Inserted Document', 'Just another fake document', '2025-04-01 07:37:49', '2025-04-01 07:37:49'),
+(43, 'Rhovin John Dulay', 'Inserted Document', '250401-00003', '2025-04-01 07:43:50', '2025-04-01 07:43:50'),
+(44, 'Rhovin John Dulay', 'Inserted Document', '250401-00004 <- should be', '2025-04-01 07:44:07', '2025-04-01 07:44:07'),
+(45, 'Rhovin John Dulay', 'Inserted Document', 'Test if Origin Office is working', '2025-04-01 07:56:51', '2025-04-01 07:56:51'),
+(46, 'Rhovin John Dulay', 'Inserted Document', 'To payment of Fake Equipment and Fake Furniture and Fake Fixtures for the Fake Office', '2025-04-01 10:21:37', '2025-04-01 10:21:37'),
+(47, 'Rhovin John Dulay', 'Inserted Document', 'Fake Draft Document', '2025-04-01 13:14:44', '2025-04-01 13:14:44');
 
 -- --------------------------------------------------------
 
@@ -282,11 +307,40 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `document_id` bigint(20) UNSIGNED NOT NULL,
+  `remarks` text DEFAULT NULL,
+  `type` varchar(255) NOT NULL,
+  `created_by` bigint(20) UNSIGNED NOT NULL,
+  `read_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `document_id`, `remarks`, `type`, `created_by`, `read_at`, `created_at`, `updated_at`) VALUES
+(1, 26, 'Fake Document', 'Denied', 1, '2025-04-01 21:21:20', '2025-04-01 10:34:58', '2025-04-01 13:21:20'),
+(2, 25, 'Fake Documents', 'Denied', 1, '2025-04-01 21:21:18', '2025-04-01 11:01:42', '2025-04-01 13:21:18'),
+(3, 28, 'ZXC', 'Approved', 1, '2025-04-01 21:21:17', '2025-04-01 13:20:39', '2025-04-01 13:21:17'),
+(4, 2, NULL, 'Approved', 1, NULL, '2025-04-01 13:48:58', '2025-04-01 13:48:58'),
+(5, 29, 'Fake', 'Denied', 1, NULL, '2025-04-01 13:51:53', '2025-04-01 13:51:53'),
+(6, 27, 'Test Approve', 'Approved', 1, NULL, '2025-04-01 13:52:26', '2025-04-01 13:52:26');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `office`
 --
 
 CREATE TABLE `office` (
-  `office_id` int(255) NOT NULL,
+  `office_id` bigint(20) UNSIGNED NOT NULL,
   `office_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -295,8 +349,9 @@ CREATE TABLE `office` (
 --
 
 INSERT INTO `office` (`office_id`, `office_name`) VALUES
+(1, 'Budget Office'),
 (2, 'Management Information System Office'),
-(3, 'Budget Office'),
+(3, 'Procurement Office'),
 (4, 'Accounting Office');
 
 -- --------------------------------------------------------
@@ -331,7 +386,25 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('fs8oGsheKsP1mQpQIdVU5xcOxmn9qMXzri6A1DRH', 3, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 OPR/117.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoic0tIQVhDdEtKT0RRdExhQnkyMWZLckJucHZXQ0RQMWwyRTlLU2NmNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kb2N1bWVudC10cmFja2luZyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjM7fQ==', 1743336108);
+('p1D8wbiOlixzMtNTIYofM9xIKGu0OJ4iLwkKNA1V', 3, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 OPR/117.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVWEyZER5VFZQSnYzendqVnhaZno0NzdCWWQ2dVMxRnh5ZmU0Q2daNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTozO30=', 1743516293);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `setting`
+--
+
+CREATE TABLE `setting` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `budget_office` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `setting`
+--
+
+INSERT INTO `setting` (`id`, `budget_office`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -341,7 +414,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `office_id` int(255) UNSIGNED DEFAULT NULL,
+  `office_id` bigint(20) UNSIGNED DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -357,10 +430,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `office_id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 2, 'Rhovin John Dulay', 'rhovin.dulay@gmail.com', NULL, '$2y$12$3EWCkLKX4ZSl1dO8H9a4LuGUnM8bKKAuFQStBfiZDWOGZ4.TSAT7.', 'Staff', 'V7SlVZPuO2OZL42Ch9VnFYaooJixSATdmdpwbWE2FOqlrNBftjkTHMQ3174n', '2025-03-16 23:21:29', '2025-03-30 11:47:50'),
+(1, 1, 'Rhovin John Dulay', 'rhovin.dulay@gmail.com', NULL, '$2y$12$3EWCkLKX4ZSl1dO8H9a4LuGUnM8bKKAuFQStBfiZDWOGZ4.TSAT7.', 'Staff', 'Ae1Y2MTuOEa0cwHhYWyFKFvHIpFDfgV8ytDGOr49mqocdDnRyhhtVGkxXKkD', '2025-03-16 23:21:29', '2025-04-01 13:55:48'),
 (2, NULL, 'MIS', 'misofficediffun@gmail.com', NULL, '$2y$12$7H52v3F5tfXxzYWA/fNLB.7YSxiaWlYu6NpiLdp4iyB.SYFuLdJ9.', 'Administrator', NULL, NULL, NULL),
-(3, 2, 'Admin', 'admin@gmail.com', NULL, '$2y$12$80JzF8KP3MpIKjs11BE1.eWXPDeGQ06nZv7T4cwgFwp2GKYTaX8k6', 'Administrator', 'BaZa01RsUxN3ivgALRDZ6xJuOHyE7GPda5V3QaZnhF3F6UaZ6IRB2AqjZM5c', NULL, '2025-03-30 09:42:55'),
-(4, 2, 'staff', 'staff@gmail.com', NULL, '$2y$12$XItCEqQJU4Pp4q23xYm24Ohzcb/WExVK5aWma0IGNJkZPnccIR/ie', 'Staff', NULL, '2025-03-18 21:48:31', '2025-03-18 22:42:41');
+(3, 2, 'Admin', 'admin@gmail.com', NULL, '$2y$12$80JzF8KP3MpIKjs11BE1.eWXPDeGQ06nZv7T4cwgFwp2GKYTaX8k6', 'Administrator', '7MmuHHHLJxnaA7gHP4mjuGAfsABmhsm9IURXZjhSpyXFnxJaYFxd9lb7MfBr', NULL, '2025-04-01 13:37:35'),
+(4, 2, 'staff', 'staff@gmail.com', NULL, '$2y$12$XItCEqQJU4Pp4q23xYm24Ohzcb/WExVK5aWma0IGNJkZPnccIR/ie', 'Staff', NULL, '2025-03-18 21:48:31', '2025-03-18 22:42:41'),
+(6, 2, 'MIS Staff', 'mis@gmail.com', NULL, '$2y$12$ftUBwuWNyg/xAKCaWDQ.9.5hkyglWt7DhrtyCVm6WcOuXRZs2sUby', 'Staff', NULL, '2025-03-31 08:02:45', '2025-03-31 08:06:09'),
+(7, 1, 'Budget Office Staff', 'budget@gmail.com', NULL, '$2y$12$uShTBamTeFaooK6xBn/CiOahMxGo9USmMHerYEgds95cLUxrpl.k6', 'Staff', NULL, '2025-03-31 08:15:06', '2025-03-31 08:15:33');
 
 --
 -- Indexes for dumped tables
@@ -405,11 +480,10 @@ ALTER TABLE `document_items`
   ADD KEY `Document Items` (`document_id`);
 
 --
--- Indexes for table `failed_jobs`
+-- Indexes for table `document_pending`
 --
-ALTER TABLE `failed_jobs`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+ALTER TABLE `document_pending`
+  ADD PRIMARY KEY (`dp_id`);
 
 --
 -- Indexes for table `history`
@@ -418,23 +492,17 @@ ALTER TABLE `history`
   ADD PRIMARY KEY (`history_id`);
 
 --
--- Indexes for table `jobs`
---
-ALTER TABLE `jobs`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `jobs_queue_index` (`queue`);
-
---
--- Indexes for table `job_batches`
---
-ALTER TABLE `job_batches`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `notifications_ibfk_1` (`document_id`);
 
 --
 -- Indexes for table `office`
@@ -457,11 +525,18 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
+-- Indexes for table `setting`
+--
+ALTER TABLE `setting`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD KEY `office_id` (`office_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -471,43 +546,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `document`
 --
 ALTER TABLE `document`
-  MODIFY `document_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `document_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `document_attachments`
 --
 ALTER TABLE `document_attachments`
-  MODIFY `da_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `da_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `document_history`
 --
 ALTER TABLE `document_history`
-  MODIFY `dh_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `dh_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `document_items`
 --
 ALTER TABLE `document_items`
-  MODIFY `di_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `di_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `failed_jobs`
+-- AUTO_INCREMENT for table `document_pending`
 --
-ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `document_pending`
+  MODIFY `dp_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `history_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
---
--- AUTO_INCREMENT for table `jobs`
---
-ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `history_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -516,16 +585,28 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `office`
 --
 ALTER TABLE `office`
-  MODIFY `office_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `office_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `setting`
+--
+ALTER TABLE `setting`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -535,13 +616,25 @@ ALTER TABLE `users`
 -- Constraints for table `document`
 --
 ALTER TABLE `document`
-  ADD CONSTRAINT `office` FOREIGN KEY (`document_origin`) REFERENCES `office` (`office_id`);
+  ADD CONSTRAINT `document_ibfk_1` FOREIGN KEY (`document_origin`) REFERENCES `office` (`office_id`);
 
 --
 -- Constraints for table `document_items`
 --
 ALTER TABLE `document_items`
   ADD CONSTRAINT `Document Items` FOREIGN KEY (`document_id`) REFERENCES `document` (`document_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `document` (`document_id`);
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`office_id`) REFERENCES `office` (`office_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

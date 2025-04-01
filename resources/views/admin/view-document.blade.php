@@ -38,7 +38,13 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                {{-- <a data-toggle="modal" href="#action-form" class="btn btn-primary">Add Items</a> --}}
+                {{-- @if ($checkIfSent == '0')
+                    <a href="{{ route('budget.submit', ['id' => $data->document_id]) }}" class="btn btn-primary">Submit to
+                        Budget Office</a>
+                @else
+                    <button href="#" class="btn btn-primary" disabled>Submit to
+                        Budget Office</button>
+                @endif --}}
             </div>
 
 
@@ -62,29 +68,48 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    <a data-toggle="modal" href="#items-form"
+                                    {{-- <a data-toggle="modal" href="#items-form"
                                         class="btn btn-primary btn-xs pull-right m-l-10">Add Items</a>
 
                                     <a data-toggle="modal" href="#amount-form"
-                                        class="btn btn-primary btn-xs pull-right m-l-10">Edit Document</a>
+                                        class="btn btn-primary btn-xs pull-right m-l-10">Edit Document</a> --}}
 
                                     <a href="{{ url('/admin/delete-document/' . $data->document_id) }}"
                                         class="btn btn-danger btn-xs pull-right"
                                         onclick="return confirm('Delete document?')">Delete Document</a>
                                     <h2 class="font-bold">{{ $data->document_title }}</h2>
                                 </div>
-                                <dl class="dl-horizontal">
-                                    <dt>Status:</dt>
-                                    <dd>
-                                        @if ($data->document_status == 'Approved')
-                                            <span class="label label-success">{{ $data->document_status }}</span>
-                                        @elseif ($data->document_status == 'Denied')
-                                            <span class="label label-danger">{{ $data->document_status }}</span>
-                                        @else
-                                            <span class="label label-primary">{{ $data->document_status }}</span>
-                                        @endif
-                                    </dd>
-                                </dl>
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <dl class="dl-horizontal">
+                                            <dt class="fs-18">Status:</dt>
+                                            <dd class="fs-16">
+                                                @php
+                                                    $status = match ($data->document_status) {
+                                                        'Approve' => 'success',
+                                                        'Denied' => 'danger',
+                                                        'Pending' => 'primary',
+                                                        default => 'info',
+                                                    };
+                                                @endphp
+                                                <span
+                                                    class="label label-{{ $status }}">{{ $data->document_status }}</span>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <dl class="dl-horizontal">
+
+                                            @if ($pendingDocx)
+                                                <dt class="fs-18">Remarks</dt>
+                                                <dd class="fs-16">
+                                                    {{ $pendingDocx->dp_remarks }}
+                                                </dd>
+                                            @endif
+                                        </dl>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -112,41 +137,41 @@
                             <div class="col-sm-12 row">
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox" onchange="updateStatus('pr', this.checked)"
-                                            {{ $data->pr == 'true' ? 'checked' : '' }}> PR</label>
+                                            {{ $data->pr == 'true' ? 'checked' : '' }} disabled> PR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox"
                                             onchange="updateStatus('canvass', this.checked)"
-                                            {{ $data->canvass == 'true' ? 'checked' : '' }}> Canvass</label>
+                                            {{ $data->canvass == 'true' ? 'checked' : '' }} disabled> Canvass</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox"
                                             onchange="updateStatus('abstract', this.checked)"
-                                            {{ $data->abstract == 'true' ? 'checked' : '' }}> Abstract</label>
+                                            {{ $data->abstract == 'true' ? 'checked' : '' }} disabled> Abstract</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox"
                                             onchange="updateStatus('obr', this.checked)"
-                                            {{ $data->obr == 'true' ? 'checked' : '' }}> OBR</label>
+                                            {{ $data->obr == 'true' ? 'checked' : '' }} disabled> OBR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox" onchange="updateStatus('po', this.checked)"
-                                            {{ $data->po == 'true' ? 'checked' : '' }}> PO</label>
+                                            {{ $data->po == 'true' ? 'checked' : '' }} disabled> PO</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox"
                                             onchange="updateStatus('par', this.checked)"
-                                            {{ $data->par == 'true' ? 'checked' : '' }}> PAR</label>
+                                            {{ $data->par == 'true' ? 'checked' : '' }} disabled> PAR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16"><input type="checkbox"
                                             onchange="updateStatus('air', this.checked)"
-                                            {{ $data->air == 'true' ? 'checked' : '' }}> AIR</label>
+                                            {{ $data->air == 'true' ? 'checked' : '' }} disabled> AIR</label>
                                 </div>
                                 <div class="checkbox i-checks pl-3">
                                     <label class="fs-16">
                                         <input type="checkbox" onchange="updateStatus('dv', this.checked)"
-                                            {{ $data->dv == 'true' ? 'checked' : '' }}> DV</label>
+                                            {{ $data->dv == 'true' ? 'checked' : '' }} disabled> DV</label>
                                 </div>
                             </div>
                         </div>
@@ -197,8 +222,8 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5>Actions</h5>
-                        <a data-toggle="modal" href="#action-form" class="btn btn-primary btn-xs pull-right m-l-10">Add
-                            Actions</a>
+                        {{-- <a data-toggle="modal" href="#action-form" class="btn btn-primary btn-xs pull-right m-l-10">Add
+                            Actions</a> --}}
 
                     </div>
                     <div class="ibox-content">
@@ -276,12 +301,12 @@
                                     class="fa fa-trash"></i></a>
                         </li>
                     @empty
-                    <li class="list-group-item">
-                        No Attached File
-                    </li>
+                        <li class="list-group-item">
+                            No Attached File
+                        </li>
                     @endforelse
                 </ul>
-                <a href="#upload-form" data-toggle="modal" class="btn btn-primary btn-sm w-100">Attach File</a>
+                {{-- <a href="#upload-form" data-toggle="modal" class="btn btn-primary btn-sm w-100">Attach File</a> --}}
             </div>
         </div>
     </div>

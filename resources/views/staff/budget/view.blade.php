@@ -56,18 +56,38 @@
                                 <div class="m-b-md">
                                     <h2 class="font-bold">{{ $data->document_title }}</h2>
                                 </div>
-                                <dl class="dl-horizontal">
-                                    <dt>Status:</dt>
-                                    <dd>
-                                        @if ($data->document_status == 'Approved')
-                                            <span class="label label-success">{{ $data->document_status }}</span>
-                                        @elseif ($data->document_status == 'Denied')
-                                            <span class="label label-danger">{{ $data->document_status }}</span>
-                                        @else
-                                            <span class="label label-primary">{{ $data->document_status }}</span>
-                                        @endif
-                                    </dd>
-                                </dl>
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <dl class="dl-horizontal">
+                                            <dt class="fs-18">Status:</dt>
+                                            <dd class="fs-16">
+                                                @php
+                                                    $status = match ($data->document_status) {
+                                                        'Approve' => 'success',
+                                                        'Denied' => 'danger',
+                                                        'Pending' => 'primary',
+                                                        default => 'info',
+                                                    };
+                                                @endphp
+                                                <span
+                                                    class="label label-{{ $status }}">{{ $data->document_status }}</span>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <dl class="dl-horizontal">
+
+                                            @if ($pendingDocx)
+                                                <dt class="fs-18">Remarks</dt>
+                                                <dd class="fs-16">
+                                                    {{ $pendingDocx->dp_remarks }}
+                                                </dd>
+                                            @endif
+                                        </dl>
+                                    </div>
+
+                                </div>
+
                             </div>
                         </div>
                         <div class="row">

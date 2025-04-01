@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ActivityLog;
 use App\Models\Attachmments;
+use App\Models\PendingDocx;
 use App\Models\Sessions;
 use Auth;
 use Illuminate\Http\Request;
@@ -38,6 +39,18 @@ class AdminController extends Controller
             ->whereYear('created_at', $currentYear)
             ->count();
 
+        $pendingCount = Document::where('document_status', 'Pending')
+            ->count();
+
+        $approvedCount = Document::where('document_status', 'Approved')
+            ->count();
+
+        $deniedCount = Document::where('document_status', 'Denied')
+            ->count();
+
+        $documents = Document::orderBy('created_at', 'DESC')->take(5)->get();
+
+
         $userCount = User::where('role', '!=', 'Guest')->count();
         $activeUserCount = Sessions::where('last_activity', '>', Carbon::now()->subMinute(10)->getTimestamp())->count();
 
@@ -52,11 +65,16 @@ class AdminController extends Controller
                 return $item;
             });
 
+        $activeUsers = Sessions::where('last_activity', '>', Carbon::now()->subMinute(10)->getTimestamp())
+            ->leftJoin('users', 'users.id', '=', 'sessions.user_id')
+            ->orderBy('last_activity', 'desc')
+            ->get();
+
 
         $logs = ActivityLog::orderBy('created_at', 'DESC')->take(10)->get();
 
 
-        return view('admin.index', compact('thisMonthDocumentCount', 'lastMonthDocumentCount', 'userCount', 'activeUserCount', 'logs', 'data'));
+        return view('admin.index', compact('thisMonthDocumentCount', 'lastMonthDocumentCount', 'userCount', 'activeUserCount', 'logs', 'data', 'pendingCount', 'deniedCount', 'approvedCount', 'documents', 'activeUsers'));
     }
 
 
@@ -89,10 +107,12 @@ class AdminController extends Controller
         }
 
 
+        $checkIfSent = PendingDocx::where('document_id', $data->document_id)->count();
+        $pendingDocx = PendingDocx::where('document_id', $data->document_id)->first();
 
 
 
-        return view('admin.view-document', compact('data', 'action', 'items', 'attachments'));
+        return view('admin.view-document', compact('data', 'action', 'items', 'attachments', 'checkIfSent', 'pendingDocx'));
     }
 
     public function document_tracking()

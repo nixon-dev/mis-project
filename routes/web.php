@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\ApiController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\LoginController;
@@ -31,6 +32,8 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+
+Route::get('/mark-read/{id}', [ApiController::class, 'mark_read'])->name('mark.read');
 
 require __DIR__ . '/admin.php';
 require __DIR__ . '/staff.php';
