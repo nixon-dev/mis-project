@@ -48,7 +48,7 @@ class AdminController extends Controller
             ->get()
             ->map(function ($item) {
                 $date = \Carbon\Carbon::parse($item->month . '-01');
-                $item->month = $date->format('F'); 
+                $item->month = $date->format('F');
                 return $item;
             });
 
@@ -104,26 +104,11 @@ class AdminController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        $today = Carbon::now()->format('ymd');
-        $prefix = $today . '-';
-
-        $latestId = Document::where('document_number', 'like', $prefix . '%')
-            ->max('document_number');
-
-        if ($latestId) {
-            $lastCount = (int) substr($latestId, strlen($prefix));
-            $newCount = $lastCount + 1;
-        } else {
-            $newCount = 1;
-        }
-        $formattedCount = str_pad($newCount, 5, '0', STR_PAD_LEFT);
-
-        $documentId = $prefix . $formattedCount;
 
         foreach ($data as $d) {
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
-        return view('admin.document', compact('data', 'office', 'documentId'));
+        return view('admin.document', compact('data', 'office'));
     }
 
 

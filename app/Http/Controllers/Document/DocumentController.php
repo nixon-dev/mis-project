@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\History;
 use App\Models\Items;
 use App\Traits\RecordHistory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -20,14 +21,31 @@ class DocumentController extends Controller
     {
         $request->validate([
             'document_title' => 'required|string',
-            'document_origin' => 'required|numeric',
         ]);
+
+        $today = Carbon::now()->format('ymd');
+        $prefix = $today . '-';
+
+        $latestId = Document::where('document_number', 'like', $prefix . '%')
+            ->max('document_number');
+
+        if ($latestId) {
+            $lastCount = (int) substr($latestId, strlen($prefix));
+            $newCount = $lastCount + 1;
+        } else {
+            $newCount = 1;
+        }
+        $formattedCount = str_pad($newCount, 5, '0', STR_PAD_LEFT);
+
+        $documentId = $prefix . $formattedCount;
+
+        $assignedOffice = Auth::user()->office_id;
 
         $query = Document::insert([
             'document_title' => $request->input('document_title'),
-            'document_origin' => $request->input('document_origin'),
+            'document_origin' => $assignedOffice,
             'document_nature' => $request->input('document_nature'),
-            'document_number' => $request->input('document_number'),
+            'document_number' => $documentId,
             'document_deadline' => $request->input('document_deadline'),
         ]);
 
@@ -144,7 +162,7 @@ class DocumentController extends Controller
                 'dh_name' => $name,
                 'dh_action' => $action,
             ]);
-            
+
 
             return response()->json(['success' => true, 'message' => 'Status updated successfully']);
         } catch (\Exception $e) {
@@ -167,7 +185,15 @@ class DocumentController extends Controller
             'di_unit' => $request->item_unit,
             'di_description' => $request->item_description,
             'di_quantity' => $request->item_quantity,
+            'di_unit_price' => $request->item_unit_price,
+            'di_total_amount' => $request->item_total_amount
         ]);
+
+        $oldAmount = Document::where('document_id', $request->document_id)->first()->amount;
+
+        $newAmount = $oldAmount + $request->item_total_amount;
+
+        Document::where('document_id', $request->document_id)->update(['amount' => $newAmount]);
 
         $document_title = Document::where('document_id', $request->document_id)->first()->document_title;
         $this->recordHistory('Added Items for', $document_title);

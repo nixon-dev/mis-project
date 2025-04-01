@@ -29,6 +29,8 @@
         <div class="col-sm-4">
             <div class="title-action">
                 {{-- <a href="{{ route('budget.action', ['id' => $data->document_id]) }}" class="btn btn-primary">Take Action</a> --}}
+                <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Document Action</a>
+
             </div>
 
 
@@ -137,10 +139,14 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Item No.</th>
-                                            <th>Unit</th>
-                                            <th>Description</th>
-                                            <th>Quantity</th>
+                                        <tr>
+                                            <th class="wp-10">Item No.</th>
+                                            <th class="wp-10">Unit</th>
+                                            <th class="wp-30">Description</th>
+                                            <th class="wp-10">Quantity</th>
+                                            <th class="wp-20">Unit Price</th>
+                                            <th class="wp-20">Total Amount</th>
+                                        </tr>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -159,12 +165,18 @@
                                                 <td>
                                                     {{ $i->di_quantity }}
                                                 </td>
+                                                <td>
+                                                    {{ $i->di_unit_price }}
+                                                </td>
+                                                <td>
+                                                    {{ $i->di_total_amount }}
+                                                </td>
 
                                             </tr>
 
                                         @empty
                                             <tr class="text-center">
-                                                <td colspan="4">No Items Found</td>
+                                                <td colspan="6">No Items Found</td>
                                             </tr>
                                         @endforelse
 
@@ -183,7 +195,7 @@
 
                     </div>
                     <div class="ibox-content">
-                        <table class="table table-bordered" id="action-table">
+                        <table class="table table-bordered table-hover" id="action-table">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -268,6 +280,50 @@
 
     {{-- MODALS --}}
 
+
+    <div id="modal-form" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <h3 class="m-t-none m-b">Document Action</h3>
+
+                            <form role="form" action="{{ route('budget.action') }}" method="POST">
+                                @csrf()
+
+                                <div class="form-group d-none">
+                                    <label>Document ID</label>
+                                    <input value="{{ $data->document_id }}" name="document_id" class="form-control"
+                                        type="number" readonly>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Action</label>
+                                    <select name="review_action" class="form-control m-b">
+                                        <option value="Approved">Approve</option>
+                                        <option value="Denied">Deny</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Remarks</label>
+                                    <textarea name="review_remarks" class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <button class="btn btn-sm btn-primary m-t-n-xs w-100"
+                                        type="submit"><strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="action-form" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
@@ -372,7 +428,7 @@
                     console.log(response);
 
                     let tableBody = $('#action-table tbody'); // Select the table body
-                    tableBody.empty(); 
+                    tableBody.empty();
 
                     response.forEach(function(action) {
                         let row = `

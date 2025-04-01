@@ -88,7 +88,7 @@ class StaffController extends Controller
         }
 
         $checkIfSent = PendingDocx::where('document_id', $data->document_id)->count();
-        
+
         return view('staff.view-document', compact('data', 'action', 'items', 'attachments', 'checkIfSent'));
     }
 
@@ -102,32 +102,18 @@ class StaffController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        $today = Carbon::now()->format('ymd');
-        $prefix = $today . '-';
 
-        $latestId = Document::where('document_number', 'like', $prefix . '%')
-            ->max('document_number');
-
-        if ($latestId) {
-            $lastCount = (int) substr($latestId, strlen($prefix));
-            $newCount = $lastCount + 1;
-        } else {
-            $newCount = 1;
-        }
-        $formattedCount = str_pad($newCount, 5, '0', STR_PAD_LEFT);
-
-        $documentId = $prefix . $formattedCount;
 
         foreach ($data as $d) {
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
-        return view('staff.document', compact('data', 'office', 'documentId'));
+        return view('staff.document', compact('data', 'office'));
     }
 
     public function document_pending()
     {
         $assigned_office = Auth::user()->office_id;
-        $office = Office::orderBy('office_name', 'ASC')->get();
+        $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
         $data = Document::where('document_origin', $assigned_office)
             ->where('document_status', 'Pending')
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
@@ -135,32 +121,17 @@ class StaffController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        $today = Carbon::now()->format('ymd');
-        $prefix = $today . '-';
 
-        $latestId = Document::where('document_number', 'like', $prefix . '%')
-            ->max('document_number');
-
-        if ($latestId) {
-            $lastCount = (int) substr($latestId, strlen($prefix));
-            $newCount = $lastCount + 1;
-        } else {
-            $newCount = 1;
-        }
-        $formattedCount = str_pad($newCount, 5, '0', STR_PAD_LEFT);
-
-        $documentId = $prefix . $formattedCount;
 
         foreach ($data as $d) {
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
-        return view('staff.document.pending', compact('data', 'office', 'documentId'));
+        return view('staff.document.pending', compact('data', 'officeName'));
     }
 
     public function document_approved()
     {
         $assigned_office = Auth::user()->office_id;
-        $office = Office::orderBy('office_name', 'ASC')->get();
         $data = Document::where('document_origin', $assigned_office)
             ->where('document_status', 'Approved')
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
@@ -168,32 +139,17 @@ class StaffController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        $today = Carbon::now()->format('ymd');
-        $prefix = $today . '-';
-
-        $latestId = Document::where('document_number', 'like', $prefix . '%')
-            ->max('document_number');
-
-        if ($latestId) {
-            $lastCount = (int) substr($latestId, strlen($prefix));
-            $newCount = $lastCount + 1;
-        } else {
-            $newCount = 1;
-        }
-        $formattedCount = str_pad($newCount, 5, '0', STR_PAD_LEFT);
-
-        $documentId = $prefix . $formattedCount;
+        $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
 
         foreach ($data as $d) {
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
-        return view('staff.document.approved', compact('data', 'office', 'documentId'));
+        return view('staff.document.approved', compact('data', 'officeName'));
     }
 
     public function document_denied()
     {
         $assigned_office = Auth::user()->office_id;
-        $office = Office::orderBy('office_name', 'ASC')->get();
         $data = Document::where('document_origin', $assigned_office)
             ->where('document_status', 'Denied')
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
@@ -201,26 +157,10 @@ class StaffController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        $today = Carbon::now()->format('ymd');
-        $prefix = $today . '-';
-
-        $latestId = Document::where('document_number', 'like', $prefix . '%')
-            ->max('document_number');
-
-        if ($latestId) {
-            $lastCount = (int) substr($latestId, strlen($prefix));
-            $newCount = $lastCount + 1;
-        } else {
-            $newCount = 1;
-        }
-        $formattedCount = str_pad($newCount, 5, '0', STR_PAD_LEFT);
-
-        $documentId = $prefix . $formattedCount;
-
         foreach ($data as $d) {
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
-        return view('staff.document.denied', compact('data', 'office', 'documentId'));
+        return view('staff.document.denied', compact('data'));
     }
 
     public function settings()

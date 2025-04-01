@@ -79,4 +79,31 @@ class BudgetController extends Controller
         $action = History::where('document_id', $id)->get();
         return response()->json($action);
     }
+
+    public function action(Request $request)
+    {
+        $request->validate([
+            'document_id' => 'required|numeric',
+            'review_action' => 'required|string',
+        ]);
+
+        $query = PendingDocx::where('document_id', $request->document_id)
+            ->update([
+                'dp_status' => $request->review_action,
+                'dp_remarks' => $request->review_remarks,
+            ]);
+
+        if ($query) {
+            Document::where('document_id', $request->document_id)
+                ->update([
+                    'document_status' => $request->review_action
+                ]);
+
+
+            return redirect()->back()->with('success', 'Document action taken successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Error: Failed to take action');
+        }
+
+    }
 }

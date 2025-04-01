@@ -29,8 +29,21 @@
                     <a href="{{ route('staff.index') }}">Staff</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ route('staff.document') }}">Document Tracking</a>
+                    Document Tracking
                 </li>
+                @if ($data->document_status == 'Approved')
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('staff.document-approved') }}">Approved</a>
+                    </li>
+                @elseif ($data->document_status == 'Denied')
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('staff.document-denied') }}">Denied</a>
+                    </li>
+                @else
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('staff.document-pending') }}">Pending</a>
+                    </li>
+                @endif
                 <li class="breadcrumb-item active">
                     <strong>{{ $data->document_number }}</strong>
                 </li>
@@ -158,10 +171,12 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Item No.</th>
-                                            <th>Unit</th>
-                                            <th>Description</th>
-                                            <th>Quantity</th>
+                                            <th class="wp-10">Item No.</th>
+                                            <th class="wp-10">Unit</th>
+                                            <th class="wp-40">Description</th>
+                                            <th class="wp-10 text-center">Quantity</th>
+                                            <th class="wp-10">Unit Price</th>
+                                            <th class="wp-10">Total Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -177,15 +192,24 @@
                                                 <td>
                                                     {{ $i->di_description }}
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     {{ $i->di_quantity }}
                                                 </td>
+                                                <td>
+                                                    <span class="pull-left">₱</span> <span
+                                                        class="pull-right">{{ number_format($i->di_unit_price, 2) }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="pull-left">₱</span> <span
+                                                        class="pull-right">{{ number_format($i->di_total_amount, 2) }}</span>
+                                                </td>
+
 
                                             </tr>
 
                                         @empty
                                             <tr class="text-center">
-                                                <td colspan="4">No Items Found</td>
+                                                <td colspan="6">No Items Found</td>
                                             </tr>
                                         @endforelse
 
@@ -322,8 +346,23 @@
 
                                 <div class="form-group">
                                     <label>Quantity</label>
-                                    <input type="number" name="item_quantity" class="form-control" required>
+                                    <input type="number" name="item_quantity" id="item_quantity" class="form-control"
+                                        required>
                                 </div>
+
+                                <div class="form-group">
+                                    <label>Unit Price</label>
+                                    <input type="number" name="item_unit_price" step="0.01" id="item_unit_price"
+                                        class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Total Amount</label>
+                                    <input type="text" name="item_total_amount" id="item_total_amount"
+                                        class="form-control" required readonly>
+                                </div>
+
+
 
                                 <div class="form-group text-center">
                                     <button class="btn btn-sm btn-primary m-t-n-xs w-100"
@@ -520,5 +559,21 @@
             parallelUploads: 3,
 
         };
+    </script>
+    <script>
+        const itemQuantity = document.getElementById('item_quantity');
+        const itemUnitPrice = document.getElementById('item_unit_price');
+        const itemTotalAmount = document.getElementById('item_total_amount');
+
+        itemQuantity.addEventListener('input', updateTotalPrice);
+        itemUnitPrice.addEventListener('input', updateTotalPrice);
+
+        function updateTotalPrice() {
+            const quantity = parseFloat(itemQuantity.value) || 0;
+            const price = parseFloat(itemUnitPrice.value) || 0;
+            const total = quantity * price;
+
+            itemTotalAmount.value = total.toFixed(2);
+        }
     </script>
 @endsection

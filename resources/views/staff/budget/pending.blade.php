@@ -20,7 +20,7 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                {{-- <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Add Document</a> --}}
+                {{-- <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Document Action</a> --}}
             </div>
 
         </div>
@@ -70,23 +70,17 @@
                             <table id="documentTable" class="table table-bordered table-responsive table-hover">
                                 <thead>
                                     <tr>
+                                        <th class="wp-10 text-center">Status</th>
                                         <th class="wp-30">Title</th>
                                         <th class="wp-30">Origin</th>
                                         <th class="wp-10">Nature</th>
                                         <th class="wp-20">No.</th>
-
-                                        <th class="wp-10 text-center">Status</th>
-
                                         <th class="wp-10 text-center">View</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($data as $d)
                                         <tr>
-                                            <td class="wp-30"> {{ $d->document_title }} </td>
-                                            <td class="wp-30"> {{ $d->office_name }} </td>
-                                            <td class="wp-10"> {{ $d->document_nature }} </td>
-                                            <td class="wp-10"> {{ $d->document_number }} </td>
                                             <td class="wp-10 text-center">
                                                 @if ($d->document_status == 'Approved')
                                                     <span class="label label-success">{{ $d->document_status }}</span>
@@ -96,6 +90,10 @@
                                                     <span class="label label-primary">{{ $d->document_status }}</span>
                                                 @endif
                                             </td>
+                                            <td class="wp-30"> {{ $d->document_title }} </td>
+                                            <td class="wp-30"> {{ $d->office_name }} </td>
+                                            <td class="wp-10"> {{ $d->document_nature }} </td>
+                                            <td class="wp-10"> {{ $d->document_number }} </td>
                                             <td class="wp-10 text-center">
                                                 <a href="{{ route('budget.view', ['id' => $d->document_number]) }}"
                                                     class="btn btn-primary btn-sm">
@@ -117,11 +115,12 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
+
+                                        <th class="text-center">Status</th>
                                         <th>Title</th>
                                         <th>Origin</th>
                                         <th>Nature</th>
                                         <th>No.</th>
-                                        <th class="text-center">Amount</th>
                                         <th class="text-center">View</th>
                                     </tr>
                                 </tfoot>
@@ -190,7 +189,7 @@
                 ],
                 initComplete: function() {
                     this.api()
-                        .columns([1, 2])
+                        .columns([2, 3])
                         .every(function() {
                             var column = this;
 

@@ -11,6 +11,8 @@ Route::middleware(['auth', 'role:Staff'])->group(function () {
 
     Route::get('/staff/pending-documents/view/{id}', [BudgetController::class, 'view'])->name('budget.view');
 
-    Route::get('/staff/budget/reload/{id}', [BudgetController::class,'reload_table'])->name('budget.reload');
+    Route::get('/staff/budget/reload/{id}', [BudgetController::class, 'reload_table'])->name('budget.reload');
+
+    Route::post('/staff/budget/action', [BudgetController::class, 'action'])->name('budget.action');
 
 });
