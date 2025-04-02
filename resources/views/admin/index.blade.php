@@ -40,16 +40,16 @@
                     <div class="col">
                         <div class=" m-l-md">
                             <span class="h5 font-bold m-t block">{{ $pendingCount }}</span>
-                            <small class="text-muted m-b block">Pending Document</small>
+                            <small class="text-muted m-b block">Pending</small>
                         </div>
                     </div>
                     <div class="col">
                         <span class="h5 font-bold m-t block">{{ $approvedCount }}</span>
-                        <small class="text-muted m-b block">Approved Document</small>
+                        <small class="text-muted m-b block">Approved</small>
                     </div>
                     <div class="col">
                         <span class="h5 font-bold m-t block">{{ $deniedCount }}</span>
-                        <small class="text-muted m-b block">Denied Document</small>
+                        <small class="text-muted m-b block">Denied</small>
                     </div>
                 </div>
                 <div class="row text-center">
@@ -177,7 +177,7 @@
                                 @forelse ($logs as $log)
                                     <li class="list-group-item">
                                         <p>
-                                            <name class="text-purple">{{ $log->history_name }}</name> -
+                                            <name class="text-dark">{{ $log->history_name }}</name> -
                                             {{ $log->history_action }}
                                             <strong>{{ $log->history_description }}</strong>
                                         </p>

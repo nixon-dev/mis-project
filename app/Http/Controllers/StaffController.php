@@ -12,6 +12,7 @@ use App\Models\Document;
 use App\Models\History;
 use App\Models\Office;
 use App\Models\PendingDocx;
+use App\Models\Units;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\RecordHistory;
@@ -118,7 +119,9 @@ class StaffController extends Controller
 
         $checkIfSent = PendingDocx::where('document_id', $data->document_id)->count();
 
-        return view('staff.view-document', compact('data', 'action', 'items', 'attachments', 'checkIfSent', 'pendingDocx'));
+        $units = Units::get();
+
+        return view('staff.view-document', compact('data', 'action', 'items', 'attachments', 'checkIfSent', 'pendingDocx', 'units'));
     }
 
     public function document_tracking()

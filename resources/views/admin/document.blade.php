@@ -23,7 +23,7 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Add Document</a>
+                {{-- <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Add Document</a> --}}
             </div>
             <div id="modal-form" class="modal fade" aria-hidden="true">
                 <div class="modal-dialog">

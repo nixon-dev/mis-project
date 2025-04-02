@@ -52,4 +52,12 @@ Route::middleware(['auth', 'role:Administrator'])->prefix('admin')->group(functi
 
     Route::post('/document/add-item', [DocumentController::class, 'document_insert_item'])->name('admin.document-insert-item');
 
+    Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
+
+    Route::get('/units', [AdminController::class, 'units'])->name('admin.units');
+
+    Route::get('/units/delete/{id}', [AdminController::class, 'units_delete'])->name('admin.units-delete');
+
+    Route::post('/units/add', [AdminController::class,'units_add'])->name('admin.units-add');
+
 });

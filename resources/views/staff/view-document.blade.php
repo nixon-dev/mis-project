@@ -352,8 +352,11 @@
                                 <div class="form-group">
                                     <label>Unit</label>
                                     <select class="form-control" name="item_unit" required>
-                                        <option value="Unit">Unit</option>
-                                        <option value="Set">Set</option>
+                                        @forelse ($units as $unit)
+                                            <option value="{{ $unit->unit_name }}">{{ $unit->unit_name }}</option>
+                                        @empty
+                                        <option disabled>No Unit Found, Ask Administrator</option>
+                                        @endforelse
                                     </select>
                                 </div>
 

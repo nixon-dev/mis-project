@@ -14,6 +14,7 @@ use App\Models\History;
 use App\Models\Office;
 use App\Models\User;
 use App\Models\Items;
+use App\Models\Units;
 use Illuminate\Database\QueryException;
 use App\Traits\RecordHistory;
 use Illuminate\Support\Facades\Storage;
@@ -276,6 +277,48 @@ class AdminController extends Controller
             ->get();
 
         return view('admin.active-users', compact('activeUsers'));
+    }
 
+    public function settings()
+    {
+
+        return view('admin.settings.index');
+    }
+
+    public function units()
+    {
+
+        $units = Units::orderBy('unit_name', 'ASC')->get();
+
+        return view('admin.units', compact('units'));
+    }
+
+    public function units_delete($id)
+    {
+
+        $query  = Units::where('unit_id', $id)->delete();
+
+        if ($query) {
+            return back()->with('success', 'Unit deleted successfully!');
+        } else {
+            return back()->with('error', 'Error: Failed to delete unit.');
+        }
+    }
+
+    public function units_add(Request $request)
+    {
+        $request->validate([
+            'unit_name' => 'required|string',
+        ]);
+
+        $query = Units::insert([
+            'unit_name' => $request->unit_name,
+        ]);
+
+        if ($query) {
+            return back()->with('success','Unit added successfully!');
+        } else {
+            return back()->with('error', 'Error: Failed to add unit.');
+        }
     }
 }

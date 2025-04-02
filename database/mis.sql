@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2025 at 04:05 PM
+-- Generation Time: Apr 02, 2025 at 10:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -86,7 +86,7 @@ INSERT INTO `document` (`document_id`, `document_title`, `document_origin`, `doc
 (20, 'Budget for IT Equipments', 3, 'Financial & Budgeting', '250330-00002', NULL, 'Pending', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-03-30 08:06:36', '2025-03-30 08:06:36'),
 (22, 'The Temporary Name of a Fake Document', 1, 'Fake Document', '250331-00001', NULL, 'Approved', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 899250, '2025-01-06 06:47:46', '2025-04-01 10:20:05'),
 (23, 'A fake document title', 1, 'Fake Document', '250401-00001', NULL, 'Denied', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-03-11 06:59:32', '2025-04-01 10:20:33'),
-(24, 'Just another fake document', 1, 'Fake Document', '250401-00002', NULL, 'Pending', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 07:37:49', '2025-04-01 07:37:49'),
+(24, 'Just another fake document', 1, 'Fake Document', '250401-00002', NULL, 'Pending', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 07:37:49', '2025-04-02 02:52:23'),
 (25, '250401-00003', 1, 'Test', '250401-00003', NULL, 'Denied', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-02-05 07:43:50', '2025-04-01 11:01:42'),
 (26, '250401-00004 <- should be', 1, 'Test', '250401-00004', NULL, 'Denied', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 07:44:07', '2025-04-01 10:34:58'),
 (27, 'Test if Origin Office is working', 1, 'Test', '250401-00005', NULL, 'Approved', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-02-13 07:56:51', '2025-04-01 13:52:26'),
@@ -213,7 +213,8 @@ INSERT INTO `document_pending` (`dp_id`, `document_id`, `dp_status`, `dp_remarks
 (7, 25, 'Denied', 'Fake Documents', '2025-04-01 11:00:49', '2025-04-01 11:01:42'),
 (8, 28, 'Approved', 'ZXC', '2025-04-01 13:20:19', '2025-04-01 13:20:39'),
 (10, 29, 'Denied', 'Fake', '2025-04-01 13:42:06', '2025-04-01 13:51:53'),
-(11, 27, 'Approved', 'Test Approve', '2025-04-01 13:52:13', '2025-04-01 13:52:26');
+(11, 27, 'Approved', 'Test Approve', '2025-04-01 13:52:13', '2025-04-01 13:52:26'),
+(12, 24, 'Pending', NULL, '2025-04-02 02:52:23', '2025-04-02 02:52:23');
 
 -- --------------------------------------------------------
 
@@ -386,7 +387,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('p1D8wbiOlixzMtNTIYofM9xIKGu0OJ4iLwkKNA1V', 3, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 OPR/117.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVWEyZER5VFZQSnYzendqVnhaZno0NzdCWWQ2dVMxRnh5ZmU0Q2daNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTozO30=', 1743516293);
+('XqoaOCEybG0F6WJHdQOFmtmqZQRfSifQ5RINmdKp', 1, '192.168.100.56', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoieUZnd0JoSXlyakNaOUdnbktMUm12aHVVdjhoSUh5bEhaOTRoRHRXcSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjM6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwL3N0YWZmL2RvY3VtZW50LXRyYWNraW5nLzI1MDQwMS0wMDAwMiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1743564333);
 
 -- --------------------------------------------------------
 
@@ -405,6 +406,26 @@ CREATE TABLE `setting` (
 
 INSERT INTO `setting` (`id`, `budget_office`) VALUES
 (1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `units`
+--
+
+CREATE TABLE `units` (
+  `unit_id` bigint(20) UNSIGNED NOT NULL,
+  `unit_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `units`
+--
+
+INSERT INTO `units` (`unit_id`, `unit_name`) VALUES
+(1, 'Unit'),
+(2, 'Set'),
+(4, 'Liter');
 
 -- --------------------------------------------------------
 
@@ -432,7 +453,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `office_id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Rhovin John Dulay', 'rhovin.dulay@gmail.com', NULL, '$2y$12$3EWCkLKX4ZSl1dO8H9a4LuGUnM8bKKAuFQStBfiZDWOGZ4.TSAT7.', 'Staff', 'Ae1Y2MTuOEa0cwHhYWyFKFvHIpFDfgV8ytDGOr49mqocdDnRyhhtVGkxXKkD', '2025-03-16 23:21:29', '2025-04-01 13:55:48'),
 (2, NULL, 'MIS', 'misofficediffun@gmail.com', NULL, '$2y$12$7H52v3F5tfXxzYWA/fNLB.7YSxiaWlYu6NpiLdp4iyB.SYFuLdJ9.', 'Administrator', NULL, NULL, NULL),
-(3, 2, 'Admin', 'admin@gmail.com', NULL, '$2y$12$80JzF8KP3MpIKjs11BE1.eWXPDeGQ06nZv7T4cwgFwp2GKYTaX8k6', 'Administrator', '7MmuHHHLJxnaA7gHP4mjuGAfsABmhsm9IURXZjhSpyXFnxJaYFxd9lb7MfBr', NULL, '2025-04-01 13:37:35'),
+(3, 2, 'Admin', 'admin@gmail.com', NULL, '$2y$12$80JzF8KP3MpIKjs11BE1.eWXPDeGQ06nZv7T4cwgFwp2GKYTaX8k6', 'Administrator', 'hbMkKa7kht4WsXDnnhxjM9EeLtehapPzjsmO7U26q4SMGeRtudaKL9acmyTb', NULL, '2025-04-02 02:46:31'),
 (4, 2, 'staff', 'staff@gmail.com', NULL, '$2y$12$XItCEqQJU4Pp4q23xYm24Ohzcb/WExVK5aWma0IGNJkZPnccIR/ie', 'Staff', NULL, '2025-03-18 21:48:31', '2025-03-18 22:42:41'),
 (6, 2, 'MIS Staff', 'mis@gmail.com', NULL, '$2y$12$ftUBwuWNyg/xAKCaWDQ.9.5hkyglWt7DhrtyCVm6WcOuXRZs2sUby', 'Staff', NULL, '2025-03-31 08:02:45', '2025-03-31 08:06:09'),
 (7, 1, 'Budget Office Staff', 'budget@gmail.com', NULL, '$2y$12$uShTBamTeFaooK6xBn/CiOahMxGo9USmMHerYEgds95cLUxrpl.k6', 'Staff', NULL, '2025-03-31 08:15:06', '2025-03-31 08:15:33');
@@ -531,6 +552,12 @@ ALTER TABLE `setting`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `units`
+--
+ALTER TABLE `units`
+  ADD PRIMARY KEY (`unit_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -570,7 +597,7 @@ ALTER TABLE `document_items`
 -- AUTO_INCREMENT for table `document_pending`
 --
 ALTER TABLE `document_pending`
-  MODIFY `dp_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `dp_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `history`
@@ -601,6 +628,12 @@ ALTER TABLE `office`
 --
 ALTER TABLE `setting`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `units`
+--
+ALTER TABLE `units`
+  MODIFY `unit_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
