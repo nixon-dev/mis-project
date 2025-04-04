@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2025 at 10:39 AM
+-- Generation Time: Apr 04, 2025 at 03:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -91,7 +91,8 @@ INSERT INTO `document` (`document_id`, `document_title`, `document_origin`, `doc
 (26, '250401-00004 <- should be', 1, 'Test', '250401-00004', NULL, 'Denied', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 07:44:07', '2025-04-01 10:34:58'),
 (27, 'Test if Origin Office is working', 1, 'Test', '250401-00005', NULL, 'Approved', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-02-13 07:56:51', '2025-04-01 13:52:26'),
 (28, 'To payment of Fake Equipment and Fake Furniture and Fake Fixtures for the Fake Office', 1, 'Fake Document', '250401-00006', NULL, 'Approved', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 10:21:37', '2025-04-01 13:20:39'),
-(29, 'Fake Draft Document', 1, 'Fake Document', '250401-00007', NULL, 'Denied', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 13:14:44', '2025-04-01 14:01:06');
+(29, 'Fake Draft Document', 1, 'Fake Document', '250401-00007', NULL, 'Denied', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 13:14:44', '2025-04-01 14:01:06'),
+(30, 'fsdggfhg', 2, 'gf', '250403-00001', NULL, 'Approved', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 3600, '2025-04-03 08:03:33', '2025-04-03 08:06:07');
 
 -- --------------------------------------------------------
 
@@ -152,7 +153,8 @@ INSERT INTO `document_history` (`dh_id`, `document_id`, `dh_name`, `dh_date`, `d
 (42, 22, 'Rhovin John Dulay', '2025-04-01 15:19:50', 'Signed AIR', '2025-04-01 07:19:50', '2025-04-01 07:19:50'),
 (43, 22, 'Rhovin John Dulay', '2025-04-01 15:19:51', 'Signed DV', '2025-04-01 07:19:51', '2025-04-01 07:19:51'),
 (44, 29, 'Admin', '2025-04-01 22:01:06', 'Signed PR', '2025-04-01 14:01:06', '2025-04-01 14:01:06'),
-(45, 29, 'Admin', '2025-04-01 22:01:06', 'Unsigned PR', '2025-04-01 14:01:06', '2025-04-01 14:01:06');
+(45, 29, 'Admin', '2025-04-01 22:01:06', 'Unsigned PR', '2025-04-01 14:01:06', '2025-04-01 14:01:06'),
+(46, 30, 'gfgf', '2025-04-03 16:04:00', 'Prepared Documents', '2025-04-03 08:04:30', '2025-04-03 08:04:30');
 
 -- --------------------------------------------------------
 
@@ -183,7 +185,9 @@ INSERT INTO `document_items` (`di_id`, `document_id`, `di_unit`, `di_description
 (6, 2, 'Unit', 'Keyboard', 2, 0, 0),
 (13, 22, 'Unit', 'Fake Item', 23, 250, 5750),
 (14, 22, 'Unit', 'Another Fake Item', 41, 3500, 143500),
-(15, 22, 'Unit', 'Another One', 300, 2500, 750000);
+(15, 22, 'Unit', 'Another One', 300, 2500, 750000),
+(16, 30, 'Unit', 'keyb', 2, 300, 600),
+(17, 30, 'Unit', 'jhgjh', 3, 1000, 3000);
 
 -- --------------------------------------------------------
 
@@ -214,7 +218,8 @@ INSERT INTO `document_pending` (`dp_id`, `document_id`, `dp_status`, `dp_remarks
 (8, 28, 'Approved', 'ZXC', '2025-04-01 13:20:19', '2025-04-01 13:20:39'),
 (10, 29, 'Denied', 'Fake', '2025-04-01 13:42:06', '2025-04-01 13:51:53'),
 (11, 27, 'Approved', 'Test Approve', '2025-04-01 13:52:13', '2025-04-01 13:52:26'),
-(12, 24, 'Pending', NULL, '2025-04-02 02:52:23', '2025-04-02 02:52:23');
+(12, 24, 'Pending', NULL, '2025-04-02 02:52:23', '2025-04-02 02:52:23'),
+(13, 30, 'Approved', 'ok', '2025-04-03 08:05:16', '2025-04-03 08:06:07');
 
 -- --------------------------------------------------------
 
@@ -281,7 +286,11 @@ INSERT INTO `history` (`history_id`, `history_name`, `history_action`, `history_
 (44, 'Rhovin John Dulay', 'Inserted Document', '250401-00004 <- should be', '2025-04-01 07:44:07', '2025-04-01 07:44:07'),
 (45, 'Rhovin John Dulay', 'Inserted Document', 'Test if Origin Office is working', '2025-04-01 07:56:51', '2025-04-01 07:56:51'),
 (46, 'Rhovin John Dulay', 'Inserted Document', 'To payment of Fake Equipment and Fake Furniture and Fake Fixtures for the Fake Office', '2025-04-01 10:21:37', '2025-04-01 10:21:37'),
-(47, 'Rhovin John Dulay', 'Inserted Document', 'Fake Draft Document', '2025-04-01 13:14:44', '2025-04-01 13:14:44');
+(47, 'Rhovin John Dulay', 'Inserted Document', 'Fake Draft Document', '2025-04-01 13:14:44', '2025-04-01 13:14:44'),
+(48, 'staff', 'Inserted Document', 'fsdggfhg', '2025-04-03 08:03:33', '2025-04-03 08:03:33'),
+(49, 'staff', 'Added Items for', 'fsdggfhg', '2025-04-03 08:04:01', '2025-04-03 08:04:01'),
+(50, 'staff', 'Added Items for', 'fsdggfhg', '2025-04-03 08:04:15', '2025-04-03 08:04:15'),
+(51, 'staff', 'Inserted Action for', 'fsdggfhg', '2025-04-03 08:04:30', '2025-04-03 08:04:30');
 
 -- --------------------------------------------------------
 
@@ -332,7 +341,8 @@ INSERT INTO `notifications` (`id`, `document_id`, `remarks`, `type`, `created_by
 (3, 28, 'ZXC', 'Approved', 1, '2025-04-01 21:21:17', '2025-04-01 13:20:39', '2025-04-01 13:21:17'),
 (4, 2, NULL, 'Approved', 1, NULL, '2025-04-01 13:48:58', '2025-04-01 13:48:58'),
 (5, 29, 'Fake', 'Denied', 1, NULL, '2025-04-01 13:51:53', '2025-04-01 13:51:53'),
-(6, 27, 'Test Approve', 'Approved', 1, NULL, '2025-04-01 13:52:26', '2025-04-01 13:52:26');
+(6, 27, 'Test Approve', 'Approved', 1, NULL, '2025-04-01 13:52:26', '2025-04-01 13:52:26'),
+(7, 30, 'ok', 'Approved', 7, NULL, '2025-04-03 08:06:07', '2025-04-03 08:06:07');
 
 -- --------------------------------------------------------
 
@@ -387,7 +397,10 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('XqoaOCEybG0F6WJHdQOFmtmqZQRfSifQ5RINmdKp', 1, '192.168.100.56', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoieUZnd0JoSXlyakNaOUdnbktMUm12aHVVdjhoSUh5bEhaOTRoRHRXcSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjM6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwL3N0YWZmL2RvY3VtZW50LXRyYWNraW5nLzI1MDQwMS0wMDAwMiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1743564333);
+('0Rn6SzXK7CmCYS7ws0G8EOvXDF1ZdApLKD38L1Zc', NULL, '192.168.100.56', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYnFtTVNsRU1EQWxSR0h4QnBhN05Cb2VzcjJ3QVA3U2lnTkpLMmdJMSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjY6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1743667114),
+('e0P8O4dUlyDdQy8JI50h8s1MUZDSs6AX1S8BnApK', 1, '192.168.100.56', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiQ1pIdHZSZUtvaVpKT2FmdkNJZ0oyM3NrUXZVVXdTeWdxNE5yaHBUciI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Njg6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwL3N0YWZmL3BlbmRpbmctZG9jdW1lbnRzL3ZpZXcvMjUwMzI1LTAwMDAxIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1743667276),
+('G7Dgufhy6Zn7kpgq5ckS4KRmAXei289yrm7j5hQN', NULL, '192.168.100.59', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSFQ3NTdpM0JCdGMyU29qR0RzZVY4cEVaWlV4YldLcFJ0ZE5laEJOZyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1743667709),
+('jTX0OUraXHxSWGgaBe0xja6aXPrcjrlipLnk7KVS', 1, '192.168.100.56', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMG5ucjN4Y1JUSHljZlJjbW1USWxqNnFybUhkTjBzZURWcmlFZGRLOCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwL3N0YWZmL2Rhc2hib2FyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1743725815);
 
 -- --------------------------------------------------------
 
@@ -425,7 +438,8 @@ CREATE TABLE `units` (
 INSERT INTO `units` (`unit_id`, `unit_name`) VALUES
 (1, 'Unit'),
 (2, 'Set'),
-(4, 'Liter');
+(4, 'Liter'),
+(6, 'Gallon');
 
 -- --------------------------------------------------------
 
@@ -453,7 +467,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `office_id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Rhovin John Dulay', 'rhovin.dulay@gmail.com', NULL, '$2y$12$3EWCkLKX4ZSl1dO8H9a4LuGUnM8bKKAuFQStBfiZDWOGZ4.TSAT7.', 'Staff', 'Ae1Y2MTuOEa0cwHhYWyFKFvHIpFDfgV8ytDGOr49mqocdDnRyhhtVGkxXKkD', '2025-03-16 23:21:29', '2025-04-01 13:55:48'),
 (2, NULL, 'MIS', 'misofficediffun@gmail.com', NULL, '$2y$12$7H52v3F5tfXxzYWA/fNLB.7YSxiaWlYu6NpiLdp4iyB.SYFuLdJ9.', 'Administrator', NULL, NULL, NULL),
-(3, 2, 'Admin', 'admin@gmail.com', NULL, '$2y$12$80JzF8KP3MpIKjs11BE1.eWXPDeGQ06nZv7T4cwgFwp2GKYTaX8k6', 'Administrator', 'hbMkKa7kht4WsXDnnhxjM9EeLtehapPzjsmO7U26q4SMGeRtudaKL9acmyTb', NULL, '2025-04-02 02:46:31'),
+(3, 2, 'Admin', 'admin@gmail.com', NULL, '$2y$12$80JzF8KP3MpIKjs11BE1.eWXPDeGQ06nZv7T4cwgFwp2GKYTaX8k6', 'Administrator', 'Psn8BtUQQeiqcUN0GyC9xIv4ratnP4Ya1SG91LTN6cK5xmvCSKPshQRT6jAG', NULL, '2025-04-03 08:00:58'),
 (4, 2, 'staff', 'staff@gmail.com', NULL, '$2y$12$XItCEqQJU4Pp4q23xYm24Ohzcb/WExVK5aWma0IGNJkZPnccIR/ie', 'Staff', NULL, '2025-03-18 21:48:31', '2025-03-18 22:42:41'),
 (6, 2, 'MIS Staff', 'mis@gmail.com', NULL, '$2y$12$ftUBwuWNyg/xAKCaWDQ.9.5hkyglWt7DhrtyCVm6WcOuXRZs2sUby', 'Staff', NULL, '2025-03-31 08:02:45', '2025-03-31 08:06:09'),
 (7, 1, 'Budget Office Staff', 'budget@gmail.com', NULL, '$2y$12$uShTBamTeFaooK6xBn/CiOahMxGo9USmMHerYEgds95cLUxrpl.k6', 'Staff', NULL, '2025-03-31 08:15:06', '2025-03-31 08:15:33');
@@ -573,7 +587,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `document`
 --
 ALTER TABLE `document`
-  MODIFY `document_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `document_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `document_attachments`
@@ -585,25 +599,25 @@ ALTER TABLE `document_attachments`
 -- AUTO_INCREMENT for table `document_history`
 --
 ALTER TABLE `document_history`
-  MODIFY `dh_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `dh_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `document_items`
 --
 ALTER TABLE `document_items`
-  MODIFY `di_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `di_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `document_pending`
 --
 ALTER TABLE `document_pending`
-  MODIFY `dp_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `dp_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `history_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `history_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -615,7 +629,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `office`
@@ -633,7 +647,7 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-  MODIFY `unit_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `unit_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`

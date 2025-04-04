@@ -71,6 +71,9 @@
                             <li class={{ request()->routeIs('admin.office') ? 'active' : '' }}><a
                                     href="{{ route('admin.office') }}">Office List</a></li>
 
+                            <li class={{ request()->routeIs('admin.units') ? 'active' : '' }}><a
+                                    href="{{ route('admin.units') }}">Unit List</a></li>
+
                             <li class={{ request()->routeIs('admin.history') ? 'active' : '' }}><a
                                     href="{{ route('admin.history') }}">Activity Log</a></li>
 

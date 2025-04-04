@@ -1,0 +1,87 @@
+Create cards on dashboard of staff, that shows the total amount of all documents.
+
+Prevent staff from editing the documents after submitting to budget.
+
+Add responsibility center (Staff add this when adding documents)
+
+Capital Outlay
+Motor Vehicles : 1-07-06-010
+Office Equipment : 1-07-05-020
+Furnitures & Equipment : 1-07-07-010
+I.T & Comm. Equipment : 1-07-05-030
+Technology Equipment : 1-07-05-032
+Books : 1-07-07-020
+
+Responsibility Center
+Municipal Mayor's Office : 1011
+Municipal Tourism Office : 1012
+Municipal Disaster Risk & Mgt. Office : 1017
+Municipal Vice Mayor / SB Office : 1021
+Municipal Planning & Deveelopment Office : 1041
+Municipal Civil Registrar's Office : 1051
+Municipal Budget Office : 1071
+Municipal Accounting Office : 1081
+Municipal Treasurer's Office : 1091
+Municipal Assessor's Office : 1101
+Municipal Health Office : 4411
+Municipal Social Welfare & Development Office : 7611 
+Municipal Agriculture OFfice : 8711
+Municipal Evnrionment & Natural Resources Office : 8731
+Municipal Engineering Office : 8751
+
+Maintenance & Other Operating Expenses
+5-02-01-010 : Travelling Expenses - Local
+5-02-01-020 : Travelling Expenses - Foreign
+5-02-01-010 : Training Expenses
+5-02-01-010 : Scholarship Expenses
+5-02-03-010 : Office Supplies Expenses
+5-02-03-030 : Non-Accountable Forms Expenses
+5-02-03-020 : Accountable Forms Expenes
+5-02-03-040 : Animal/Zoological Supplies Expenses
+5-02-03-050 : Food Supplies Expenses
+5-02-03-060 : Welfare Goods Expenses
+5-02-03-070 : Drugs and Medicine Expenses
+5-02-03-080 : Medical, Dental & Lab. Supplies
+5-02-03-090 : Fuel, Oil and Lubricants Expenses
+5-02-03-100 : Agricultural & Marine Supplies Exp.
+5-02-03-110 : Textbooks and INdustrial Materials Exp.
+5-02-03-120 : Military, Police and Traffic Supplies Exp.
+5-02-03-990 : Other Supplies and Materials Exp.
+5-02-04-010-A : Chemical and Filtering Supplies Exp.
+5-02-04-010-B : Water Expenses
+5-02-04-020 : Electricity Expenses
+5-02-05-010 : Postages and Courier Expenses
+5-02-05-020 : Telephone Expenses
+5-02-05-030 : Internet Subscription Expenses
+5-02-05-040 : Cable, Satellite, Telegraph & Radio
+5-02-99-010 : Advertising Expenses
+5-02-06-010 : Awards/Rewards Expenses
+5-02-09-010 : Generation, Tranmission & Dist.
+5-02-99-050 : Rent Expenses
+5-02-99-030 : Representation Expenses
+5-02-99-070 : Subscription Expenses
+5-02-07-010 : Survey Expenses
+5-02-06-020 : Prizes
+5-02-11-010-A : Legal Services
+5-02-11-010-B : Consultancy Services
+5-02-11-010-C : Environment/Sanitary Services
+5-02-12-990 : Other Professional Services
+5-02-12-020 : Janitorial Services
+5-02-12-030 : Security Services
+5-02-11-990 : Other Professional Services
+5-02-13-040 : RM Building and Other Structures
+5-02-13-070 : RM Furnitures and Fixtures
+5-02-13-050 : RM Machinery and Equipments
+5-02-13-060 : RM Transportation Equipment
+5-02-13-030 : RM Infrastructure Assets
+5-02-10-010 : Confidential Expenses
+5-02-10-020 : Intelligence Expenses
+5-02-10-030 : Extraordinary & Miscellaneous Exp.
+5-02-16-010 : Taxes, Duties and License
+5-02-16-020 : Fidelity Bond Premiums
+5-02-16-030 : Insurance Expenses 
+5-03-01-040 : Bank Charges
+5-03-01-050 : Commitment Fees
+5-03-01-990 : Other Financial Charges
+5-03-01-020 : Interest Expenses
+5-02-99-990 : Other Main. & Operating Exp.
