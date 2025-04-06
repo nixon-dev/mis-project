@@ -78,81 +78,132 @@
 
     <div class="wrapper wrapper-content">
         <div class="row">
-            @if ($notifications->isEmpty())
-            @else
-                <div class="col-lg-12">
-                    <div class="ibox">
+            <div class="col-lg-9 row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Notifications</h5>
-                            <div class="ibox-tools">
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-
-                                <a class="close-link">
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            </div>
+                            <span class="label label-primary pull-right">Today</span>
+                            <h5>Total Budget</h5>
                         </div>
                         <div class="ibox-content">
-                            <div class="ibox-content">
-                                @forelse ($notifications as $notif)
-                                    <div class="alert alert-{{ $notif->type == 'Approved' ? 'success' : 'danger' }}">
-                                        <a class="alert-link pull-right"
-                                            href="{{ route('mark.read', ['id' => $notif->notif_id]) }}">Mark as
-                                            read</a>
-                                        <strong>{{ $notif->type }}</strong>:
-                                        <a class="text-purple"
-                                            href="{{ route('staff.view-document', ['id' => $notif->document_number]) }}">{{ $notif->document_title }}</a>
-                                        ({{ $notif->name }})
-                                        -
-                                        {{ $notif->notif_created_at = Carbon\Carbon::parse($notif->notif_created_at)->diffForHumans() }}
-
-                                    </div>
-                                @empty
-                                @endforelse
-
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h1 class="no-margins">₱ {{ number_format($totalBudget, 2) }}</h1>
+                                    <div class="font-bold text-purple">Overall</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h1 class="no-margins">₱ {{ number_format($thisMonthBudget, 2) }}</h1>
+                                    <div class="font-bold text-purple">This Month</div>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-            @endif
+
+                @if (Auth::user()->office_id == $budgetOfficeId)
+                    <div class="col-lg-6">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Pending Documents</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h1 class="no-margins font-bold"><i class="fa fa-file-text-o"></i>
+                                            {{ $pendingDocxCount }}</h1>
+                                        <div class="font-bold text-purple">&nbsp;</div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+
+                @if ($notifications->isEmpty())
+                @else
+                    <div class="col-lg-12">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h5>Notifications</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="ibox-content">
+                                    @forelse ($notifications as $notif)
+                                        <div class="alert alert-{{ $notif->type == 'Approved' ? 'success' : 'danger' }}">
+                                            <a class="alert-link pull-right"
+                                                href="{{ route('mark.read', ['id' => $notif->notif_id]) }}">Mark as
+                                                read</a>
+                                            <strong>{{ $notif->type }}</strong>:
+                                            <a class="text-purple"
+                                                href="{{ route('staff.view-document', ['id' => $notif->document_number]) }}">{{ $notif->document_title }}</a>
+                                            ({{ $notif->name }})
+                                            -
+                                            {{ $notif->notif_created_at = Carbon\Carbon::parse($notif->notif_created_at)->diffForHumans() }}
+
+                                        </div>
+                                    @empty
+                                    @endforelse
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                @endif
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        asdasd
+                    </div>
+                </div>
+            </div>
+
         </div>
+    @endsection
+    @section('script')
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const data = {
+                labels: @json($data->pluck('month')),
+                datasets: [{
+                    label: {{ Js::from($office->office_name) }},
+                    backgroundColor: 'rgb(248, 74, 101, 0.7)',
+                    borderColor: 'rgba(248, 74, 101, 1)',
+                    data: @json($data->pluck('aggregate')),
+                }]
+            };
 
-    </div>
-@endsection
-@section('script')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const data = {
-            labels: @json($data->pluck('month')),
-            datasets: [{
-                label: {{ Js::from($office->office_name) }},
-                backgroundColor: 'rgb(248, 74, 101, 0.7)',
-                borderColor: 'rgba(248, 74, 101, 1)',
-                data: @json($data->pluck('aggregate')),
-            }]
-        };
-
-        const config = {
-            type: 'line',
-            data: data,
-            options: {
-                maintainAspectRatio: false,
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Documents in the last 12 months'
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Documents in the last 12 months'
+                        },
                     },
-                },
-            }
+                }
 
-        };
-        const myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-        );
-    </script>
-@endsection
+            };
+            const myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+            );
+        </script>
+    @endsection

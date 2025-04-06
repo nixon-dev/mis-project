@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attachmments;
 use App\Models\Items;
 use App\Models\Notifications;
+use App\Models\Settings;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,7 @@ class StaffController extends Controller
     {
 
         $assignedOffice = Auth::user()->office_id;
+        $budgetOfficeId = Settings::where('id', 1)->first()->budget_office;
 
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
@@ -53,6 +55,17 @@ class StaffController extends Controller
             ->where('document_status', 'Denied')
             ->count();
 
+        $totalBudget = Document::where('document_origin', $assignedOffice)
+            ->where('document_status', 'Approved')
+            ->sum('amount');
+
+        $thisMonthBudget = Document::where('document_origin', $assignedOffice)
+            ->where('document_status', 'Approved')
+            ->whereMonth('created_at', $currentMonth)
+            ->sum('amount');
+
+        $pendingDocxCount = PendingDocx::where('dp_status', 'Pending')->count();
+
         $office = Office::where('office_id', $assignedOffice)->first();
 
         $notifications = Notifications::leftJoin('document', 'document.document_id', '=', 'notifications.document_id')
@@ -79,7 +92,7 @@ class StaffController extends Controller
                 return $item;
             });
 
-        return view('staff.index', compact('data', 'office', 'notifications', 'pendingCount', 'deniedCount', 'approvedCount', 'officeName', 'thisMonthDocumentCount', 'lastMonthDocumentCount', 'documents'));
+        return view('staff.index', compact('data', 'budgetOfficeId','office', 'notifications', 'pendingCount', 'deniedCount', 'approvedCount', 'officeName', 'thisMonthDocumentCount', 'lastMonthDocumentCount', 'documents', 'totalBudget', 'thisMonthBudget', 'pendingDocxCount'));
     }
 
 

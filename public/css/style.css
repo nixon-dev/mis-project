@@ -5036,6 +5036,8 @@ code {
     background-color: #ffffff;
     color: inherit;
     padding: 15px 20px 20px 20px;
+    margin-left: 1px;
+    margin-right: 1px;
     border-color: transparent;
     border-image: none;
     border-style: ridge;
