@@ -7,31 +7,35 @@
             <form class="m-t" role="form" action="{{ route('register') }}" method="POST">
                 @csrf
                 <div class="form-group">
+                    <label>Name</label>
                     <input type="text" name="name" class="form-control dark-skin-2 text-white border-secondary"
-                        placeholder="Name" value="{{ old('name') }}" required>
+                        value="{{ old('name') }}" required>
                     @error('name')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
 
                 </div>
                 <div class="form-group">
+                    <label>Email</label>
                     <input type="email" name="email" class="form-control dark-skin-2 text-white border-secondary"
-                        placeholder="Email" value="{{ old('email') }}" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                        value="{{ old('email') }}" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
                         title="Must be valid email" required>
                     @error('email')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label>Password</label>
                     <input type="password" name="password" class="form-control dark-skin-2 text-white border-secondary"
-                        placeholder="Password" required minlength="6">
+                        required minlength="6">
                     @error('password')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label>Confirm Password</label>
                     <input type="password" name="password_confirmation"
-                        class="form-control dark-skin-2 text-white border-secondary" placeholder="Confirm Password" required
+                        class="form-control dark-skin-2 text-white border-secondary" required
                         minlength="6">
                 </div>
                 <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
