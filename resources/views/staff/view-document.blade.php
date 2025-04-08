@@ -541,7 +541,7 @@
         $(document).ready(function() {
             $('.i-checks').on('ifChanged', function(event) {
                 let checkbox = $(this).find('input[type="checkbox"]');
-                let itemId = checkbox.attr('onchange').match(/'([^']+)'/)[1]; // Extract 'air' or 'dv'
+                let itemId = checkbox.attr('onchange').match(/'([^']+)'/)[1];
                 let isChecked = checkbox.prop('checked');
 
                 updateStatus(itemId, isChecked);

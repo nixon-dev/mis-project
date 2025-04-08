@@ -200,9 +200,15 @@ class AdminController extends Controller
         $query = User::where('id', $request->id)->update(['name' => $request->name]);
 
         if ($query) {
-            return redirect()->back()->with('success', 'Personal information updated successfully!');
+            return response()->json([
+                'success' => true,
+                'message' => 'Personal information updated successfully!',
+            ]);
         } else {
-            return redirect()->back()->with('error', 'Error: Update Failed');
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: Update Failed',
+            ]);
         }
     }
 
@@ -260,29 +266,17 @@ class AdminController extends Controller
 
     public function history(Request $request)
     {
-
-
         $activities = ActivityLog::orderBy('created_at', 'desc')->get();
-
-
         return view('admin.history', compact('activities'));
     }
 
     public function active_users()
     {
-
         $activeUsers = Sessions::where('last_activity', '>', Carbon::now()->subMinute(10)->getTimestamp())
             ->leftJoin('users', 'users.id', '=', 'sessions.user_id')
             ->orderBy('last_activity', 'desc')
             ->get();
-
         return view('admin.active-users', compact('activeUsers'));
-    }
-
-    public function settings()
-    {
-
-        return view('admin.settings.index');
     }
 
     public function units()

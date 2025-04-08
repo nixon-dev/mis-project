@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ChangePasswordController extends Controller
 {
@@ -22,15 +22,23 @@ class ChangePasswordController extends Controller
         $user = Auth::user();
 
         if (!Hash::check($request->old_password, $user->password)) {
-            return redirect()->back()->with('error', 'Error: Old password did not match our record.');
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: Old password did not match our record.',
+            ]);
         }
 
         $user->password = Hash::make($request->new_password);
         if ($user->save()) {
-            Auth::logout();
-            return redirect(url('/login'))->with('success', 'Password updated successfully. Please Log in with your new password');
+            return response()->json([
+                'success' => true,
+                'message' => 'Password changed successfully!',
+            ]); 
         } else {
-            return redirect()->back()->with('error', 'Error: Failed to update password.');
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: Failed to update password.',
+            ]);
         }
     }
 }
