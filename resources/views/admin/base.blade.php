@@ -52,6 +52,10 @@
                             <span class="nav-label">Document
                                 Tracking</span></a>
                     </li>
+                    <li class="{{ request()->routeIs('admin.new-settings') ? 'active' : '' }}">
+                        <a href="{{ route('admin.new-settings') }}" class="text-white"><i class="fa fa-cogs "></i>
+                            <span class="nav-label">New Settings</span></a>
+                    </li>
                     <li
                         class="{{ request()->routeIs(['admin.user-settings', 'admin.users-list', 'admin.office', 'admin.users-list-pending', 'admin.history']) ? 'active' : '' }}">
                         <a href="#" aria-expanded="false" class="text-white"><i class="fa fa-gear"

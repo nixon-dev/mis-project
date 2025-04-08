@@ -18,42 +18,14 @@
                 </li>
             </ol>
         </div>
-        <div class="col-sm-4">
-            <div class="title-action">
-                {{-- <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Document Action</a> --}}
-            </div>
-
-        </div>
     </div>
-
     <div class="wrapper wrapper-content animated fadeInDown">
-
-
-        @if (Session::has('success'))
-            <p class="alert alert-success">{{ Session::get('success') }}</p>
-        @elseif (Session::has('error'))
-            <p class="alert alert-danger">{{ Session::get('error') }}</p>
-        @endif
-
-
-        @if ($errors->any())
-            <div class="col-sm-12">
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        @endif
-
+        @include('components.alert')
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5>Pending Document</h5>
-                        {{-- <a href="{{ url('/add-student-form') }}">Add New Record</a> --}}
 
                         <div class="ibox-tools">
                             <a class="collapse-link">
@@ -97,13 +69,7 @@
                                             <td class="wp-10 text-center">
                                                 <a href="{{ route('budget.view', ['id' => $d->document_number]) }}"
                                                     class="btn btn-primary btn-sm">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="#fff" class="bi bi-eye" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
-                                                        <path
-                                                            d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
-                                                    </svg>
+                                                    <i class="fa fa-eye"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -115,7 +81,6 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-
                                         <th class="text-center">Status</th>
                                         <th>Title</th>
                                         <th>Origin</th>
@@ -130,9 +95,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 @endsection
 

@@ -65,11 +65,7 @@
     </div>
 
     <div class="col-sm-12 mb-3 m-t-10">
-        @if (Session::has('success'))
-            <p class="alert alert-success">{{ Session::get('success') }}</p>
-        @elseif (Session::has('error'))
-            <p class="alert alert-danger">{{ Session::get('error') }}</p>
-        @endif
+        @include('components.message')
     </div>
 
 
@@ -82,10 +78,10 @@
                             <div class="col-lg-12">
                                 <div class="m-b-md">
                                     <a data-toggle="modal" href="#items-form"
-                                        class="btn btn-primary btn-xs pull-right m-l-10">Add Items</a>
-
+                                        class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Add Items</a>
                                     <a data-toggle="modal" href="#amount-form"
-                                        class="btn btn-primary btn-xs pull-right m-l-10">Edit Document</a>
+                                        class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Edit Document</a>
+
                                     <h2 class="font-bold">{{ $data->document_title }}</h2>
                                 </div>
                                 <div class="row">
@@ -112,7 +108,7 @@
                                             @if ($pendingDocx)
                                                 <dt class="fs-18">Remarks</dt>
                                                 <dd class="fs-16">
-                                                    {{ $pendingDocx->dp_remarks }}
+                                                    {{ $pendingDocx->dp_remarks ?? 'N/A' }}
                                                 </dd>
                                             @endif
                                         </dl>
@@ -242,7 +238,8 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5>Actions</h5>
-                        <a data-toggle="modal" href="#action-form" class="btn btn-primary btn-xs pull-right m-l-10">Add
+                        <a data-toggle="modal" href="#action-form"
+                            class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Add
                             Actions</a>
 
                     </div>
@@ -324,7 +321,7 @@
                         <li class="list-group-item">No Attached File</li>
                     @endforelse
                 </ul>
-                <a href="#upload-form" data-toggle="modal" class="btn btn-primary btn-sm w-100">Attach File</a>
+                <a href="#upload-form" data-toggle="modal" class="btn btn-primary btn-sm w-100 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Attach File</a>
             </div>
         </div>
     </div>
@@ -355,7 +352,7 @@
                                         @forelse ($units as $unit)
                                             <option value="{{ $unit->unit_name }}">{{ $unit->unit_name }}</option>
                                         @empty
-                                        <option disabled>No Unit Found, Ask Administrator</option>
+                                            <option disabled>No Unit Found, Ask Administrator</option>
                                         @endforelse
                                     </select>
                                 </div>

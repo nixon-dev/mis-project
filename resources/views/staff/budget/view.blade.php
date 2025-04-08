@@ -28,24 +28,14 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                {{-- <a href="{{ route('budget.action', ['id' => $data->document_id]) }}" class="btn btn-primary">Take Action</a> --}}
                 <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Document Action</a>
-
             </div>
-
-
         </div>
     </div>
 
     <div class="col-sm-12 mb-3 m-t-10">
-        @if (Session::has('success'))
-            <p class="alert alert-success">{{ Session::get('success') }}</p>
-        @elseif (Session::has('error'))
-            <p class="alert alert-danger">{{ Session::get('error') }}</p>
-        @endif
+        @include('components.message')
     </div>
-
-
     <div class="row">
         <div class="col-lg-9">
             <div class="wrapper wrapper-content animated fadeInDown">
@@ -159,7 +149,6 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                        <tr>
                                             <th class="wp-10">Item No.</th>
                                             <th class="wp-10">Unit</th>
                                             <th class="wp-30">Description</th>
@@ -167,12 +156,10 @@
                                             <th class="wp-20">Unit Price</th>
                                             <th class="wp-20">Total Amount</th>
                                         </tr>
-                                        </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($items as $i)
                                             <tr>
-
                                                 <td>
                                                     {{ $loop->iteration }}
                                                 </td>
@@ -191,16 +178,12 @@
                                                 <td>
                                                     {{ $i->di_total_amount }}
                                                 </td>
-
                                             </tr>
-
                                         @empty
                                             <tr class="text-center">
                                                 <td colspan="6">No Items Found</td>
                                             </tr>
                                         @endforelse
-
-
                                     </tbody>
                                 </table>
                             </div>
@@ -212,7 +195,6 @@
                         <h5>Actions</h5>
                         <a data-toggle="modal" href="#action-form" class="btn btn-primary btn-xs pull-right m-l-10">Add
                             Actions</a>
-
                     </div>
                     <div class="ibox-content">
                         <table class="table table-bordered table-hover" id="action-table">
@@ -226,7 +208,6 @@
                             <tbody>
                                 @forelse ($action as $a)
                                     <tr>
-
                                         <td>
                                             {{ $a->dh_name }}
                                         </td>
@@ -236,21 +217,14 @@
                                         <td>
                                             {{ $a->dh_action }}
                                         </td>
-
                                     </tr>
-
                                 @empty
                                     <tr class="text-center">
                                         <td colspan="3 ">No Action Taken</td>
                                     </tr>
                                 @endforelse
-
-
                             </tbody>
                         </table>
-
-
-
                     </div>
                 </div>
             </div>
@@ -276,7 +250,6 @@
                             $extension = pathinfo($filename, PATHINFO_EXTENSION);
                             $nameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
                             $truncatedName = Str::limit($nameWithoutExtension, 10, '..');
-
                         @endphp
                         <li class="list-group-item">
 
@@ -299,8 +272,6 @@
 
 
     {{-- MODALS --}}
-
-
     <div id="modal-form" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -447,7 +418,7 @@
                 success: function(response) {
                     console.log(response);
 
-                    let tableBody = $('#action-table tbody'); // Select the table body
+                    let tableBody = $('#action-table tbody');
                     tableBody.empty();
 
                     response.forEach(function(action) {

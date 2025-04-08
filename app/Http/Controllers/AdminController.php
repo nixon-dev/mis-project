@@ -321,4 +321,8 @@ class AdminController extends Controller
             return back()->with('error', 'Error: Failed to add unit.');
         }
     }
+
+    public function new_settings() {
+        return view('admin.settings.personal');
+    }
 }

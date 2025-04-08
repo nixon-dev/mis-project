@@ -60,4 +60,6 @@ Route::middleware(['auth', 'role:Administrator'])->prefix('admin')->group(functi
 
     Route::post('/units/add', [AdminController::class,'units_add'])->name('admin.units-add');
 
+    Route::get('/new-settings', [AdminController::class, 'new_settings'])->name('admin.new-settings');
+
 });

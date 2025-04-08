@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2025 at 03:00 AM
+-- Generation Time: Apr 08, 2025 at 07:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -80,7 +80,7 @@ INSERT INTO `document` (`document_id`, `document_title`, `document_origin`, `doc
 (2, 'To payment of ICT Equipment and Furniture and Fixtures for the MIS Unit', 2, 'Payment', '250319-00002', '2025-04-01 08:00:00', 'Approved', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 5313.53, '2025-02-19 08:11:24', '2025-04-01 13:48:58'),
 (3, 'To reimburse', 4, 'Payment', '250319-00003', '2025-03-19 00:00:00', 'Pending', 'true', 'true', 'true', 'false', 'false', 'false', 'false', 'false', 0, '2025-01-20 08:11:28', '2025-03-30 05:29:52'),
 (6, 'Eviction Notice of Rhovin John Dulay', 2, 'Eviction Notice', '250320-00001', NULL, 'Denied', 'true', 'true', 'false', 'true', 'true', 'false', 'false', 'false', 3244.42, '2025-02-20 01:36:41', '2025-03-30 07:38:38'),
-(16, 'Converge Bill', 2, 'Payment', '250325-00001', '2025-03-25 09:55:00', 'Pending', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 1923, '2025-01-25 01:55:24', '2025-03-30 05:29:44'),
+(16, 'Converge Bill', 2, 'Payment', '250325-00001', '2025-03-25 09:55:00', 'Approved', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 1923, '2025-01-25 01:55:24', '2025-04-08 02:53:36'),
 (17, 'To reimburse', 3, 'Payment', '250327-00001', '2025-03-27 13:58:00', 'Pending', 'true', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-02-27 05:58:47', '2025-03-30 05:29:27'),
 (19, 'Statement of Receipts and Expenditures', 4, 'Financial & Budgeting', '250330-00001', '2025-03-30 13:30:00', 'Pending', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-03-30 05:30:17', '2025-03-30 05:30:17'),
 (20, 'Budget for IT Equipments', 3, 'Financial & Budgeting', '250330-00002', NULL, 'Pending', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-03-30 08:06:36', '2025-03-30 08:06:36'),
@@ -92,7 +92,8 @@ INSERT INTO `document` (`document_id`, `document_title`, `document_origin`, `doc
 (27, 'Test if Origin Office is working', 1, 'Test', '250401-00005', NULL, 'Approved', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-02-13 07:56:51', '2025-04-01 13:52:26'),
 (28, 'To payment of Fake Equipment and Fake Furniture and Fake Fixtures for the Fake Office', 1, 'Fake Document', '250401-00006', NULL, 'Approved', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 10:21:37', '2025-04-01 13:20:39'),
 (29, 'Fake Draft Document', 1, 'Fake Document', '250401-00007', NULL, 'Denied', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-01 13:14:44', '2025-04-01 14:01:06'),
-(30, 'fsdggfhg', 2, 'gf', '250403-00001', NULL, 'Approved', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 3600, '2025-04-03 08:03:33', '2025-04-03 08:06:07');
+(30, 'fsdggfhg', 2, 'gf', '250403-00001', NULL, 'Approved', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 3600, '2025-04-03 08:03:33', '2025-04-03 08:06:07'),
+(31, 'Fake Docx for April 04, 2025', 2, 'Fake Document', '250408-00001', NULL, 'Draft', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 0, '2025-04-08 02:46:01', '2025-04-08 02:46:01');
 
 -- --------------------------------------------------------
 
@@ -154,7 +155,23 @@ INSERT INTO `document_history` (`dh_id`, `document_id`, `dh_name`, `dh_date`, `d
 (43, 22, 'Rhovin John Dulay', '2025-04-01 15:19:51', 'Signed DV', '2025-04-01 07:19:51', '2025-04-01 07:19:51'),
 (44, 29, 'Admin', '2025-04-01 22:01:06', 'Signed PR', '2025-04-01 14:01:06', '2025-04-01 14:01:06'),
 (45, 29, 'Admin', '2025-04-01 22:01:06', 'Unsigned PR', '2025-04-01 14:01:06', '2025-04-01 14:01:06'),
-(46, 30, 'gfgf', '2025-04-03 16:04:00', 'Prepared Documents', '2025-04-03 08:04:30', '2025-04-03 08:04:30');
+(46, 30, 'gfgf', '2025-04-03 16:04:00', 'Prepared Documents', '2025-04-03 08:04:30', '2025-04-03 08:04:30'),
+(47, 16, 'Rhovin John Dulay', '2025-04-08 09:58:16', 'Unsigned PR', '2025-04-08 01:58:16', '2025-04-08 01:58:16'),
+(48, 16, 'Rhovin John Dulay', '2025-04-08 09:58:18', 'Unsigned CANVASS', '2025-04-08 01:58:18', '2025-04-08 01:58:18'),
+(49, 16, 'Rhovin John Dulay', '2025-04-08 09:58:20', 'Unsigned PO', '2025-04-08 01:58:20', '2025-04-08 01:58:20'),
+(50, 16, 'Rhovin John Dulay', '2025-04-08 09:58:21', 'Unsigned OBR', '2025-04-08 01:58:21', '2025-04-08 01:58:21'),
+(51, 16, 'Rhovin John Dulay', '2025-04-08 09:58:21', 'Unsigned PAR', '2025-04-08 01:58:21', '2025-04-08 01:58:21'),
+(52, 16, 'Rhovin John Dulay', '2025-04-08 09:58:21', 'Unsigned ABSTRACT', '2025-04-08 01:58:21', '2025-04-08 01:58:21'),
+(53, 16, 'Rhovin John Dulay', '2025-04-08 09:58:21', 'Unsigned AIR', '2025-04-08 01:58:21', '2025-04-08 01:58:21'),
+(54, 16, 'Rhovin John Dulay', '2025-04-08 09:58:21', 'Unsigned DV', '2025-04-08 01:58:21', '2025-04-08 01:58:21'),
+(55, 16, 'Rhovin John Dulay', '2025-04-08 09:58:25', 'Signed PR', '2025-04-08 01:58:25', '2025-04-08 01:58:25'),
+(56, 16, 'Rhovin John Dulay', '2025-04-08 09:58:28', 'Signed CANVASS', '2025-04-08 01:58:28', '2025-04-08 01:58:28'),
+(57, 16, 'Rhovin John Dulay', '2025-04-08 09:58:30', 'Signed ABSTRACT', '2025-04-08 01:58:30', '2025-04-08 01:58:30'),
+(58, 16, 'Rhovin John Dulay', '2025-04-08 09:58:33', 'Signed OBR', '2025-04-08 01:58:33', '2025-04-08 01:58:33'),
+(59, 16, 'Rhovin John Dulay', '2025-04-08 09:58:34', 'Signed PO', '2025-04-08 01:58:34', '2025-04-08 01:58:34'),
+(60, 16, 'Rhovin John Dulay', '2025-04-08 09:58:34', 'Signed PAR', '2025-04-08 01:58:34', '2025-04-08 01:58:34'),
+(61, 16, 'Rhovin John Dulay', '2025-04-08 09:58:34', 'Signed AIR', '2025-04-08 01:58:34', '2025-04-08 01:58:34'),
+(62, 16, 'Rhovin John Dulay', '2025-04-08 09:58:35', 'Signed DV', '2025-04-08 01:58:35', '2025-04-08 01:58:35');
 
 -- --------------------------------------------------------
 
@@ -210,7 +227,7 @@ CREATE TABLE `document_pending` (
 
 INSERT INTO `document_pending` (`dp_id`, `document_id`, `dp_status`, `dp_remarks`, `created_at`, `updated_at`) VALUES
 (1, 22, 'Approved', 'Document Approved', '2025-04-01 13:47:15', '2025-04-01 13:47:36'),
-(3, 16, 'Pending', NULL, '2025-04-01 13:44:15', '2025-04-01 13:48:05'),
+(3, 16, 'Approved', 'Goods', '2025-04-01 13:44:15', '2025-04-08 02:53:36'),
 (4, 2, 'Approved', NULL, '2025-04-01 07:25:15', '2025-04-01 13:48:58'),
 (5, 23, 'Denied', 'No attached file', '2025-04-01 07:25:15', '2025-04-01 07:36:47'),
 (6, 26, 'Denied', 'Fake Document', '2025-04-01 10:20:59', '2025-04-01 10:34:58'),
@@ -290,7 +307,8 @@ INSERT INTO `history` (`history_id`, `history_name`, `history_action`, `history_
 (48, 'staff', 'Inserted Document', 'fsdggfhg', '2025-04-03 08:03:33', '2025-04-03 08:03:33'),
 (49, 'staff', 'Added Items for', 'fsdggfhg', '2025-04-03 08:04:01', '2025-04-03 08:04:01'),
 (50, 'staff', 'Added Items for', 'fsdggfhg', '2025-04-03 08:04:15', '2025-04-03 08:04:15'),
-(51, 'staff', 'Inserted Action for', 'fsdggfhg', '2025-04-03 08:04:30', '2025-04-03 08:04:30');
+(51, 'staff', 'Inserted Action for', 'fsdggfhg', '2025-04-03 08:04:30', '2025-04-03 08:04:30'),
+(52, 'MIS Staff', 'Inserted Document', 'Fake Docx for April 04, 2025', '2025-04-08 02:46:01', '2025-04-08 02:46:01');
 
 -- --------------------------------------------------------
 
@@ -340,9 +358,10 @@ INSERT INTO `notifications` (`id`, `document_id`, `remarks`, `type`, `created_by
 (2, 25, 'Fake Documents', 'Denied', 1, '2025-04-01 21:21:18', '2025-04-01 11:01:42', '2025-04-01 13:21:18'),
 (3, 28, 'ZXC', 'Approved', 1, '2025-04-01 21:21:17', '2025-04-01 13:20:39', '2025-04-01 13:21:17'),
 (4, 2, NULL, 'Approved', 1, NULL, '2025-04-01 13:48:58', '2025-04-01 13:48:58'),
-(5, 29, 'Fake', 'Denied', 1, NULL, '2025-04-01 13:51:53', '2025-04-01 13:51:53'),
+(5, 29, 'Fake', 'Denied', 1, '2025-04-08 10:09:51', '2025-04-01 13:51:53', '2025-04-08 02:09:51'),
 (6, 27, 'Test Approve', 'Approved', 1, NULL, '2025-04-01 13:52:26', '2025-04-01 13:52:26'),
-(7, 30, 'ok', 'Approved', 7, NULL, '2025-04-03 08:06:07', '2025-04-03 08:06:07');
+(7, 30, 'ok', 'Approved', 7, NULL, '2025-04-03 08:06:07', '2025-04-03 08:06:07'),
+(8, 16, 'Goods', 'Approved', 1, NULL, '2025-04-08 02:53:36', '2025-04-08 02:53:36');
 
 -- --------------------------------------------------------
 
@@ -380,6 +399,38 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `responsibility_center`
+--
+
+CREATE TABLE `responsibility_center` (
+  `code` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `responsibility_center`
+--
+
+INSERT INTO `responsibility_center` (`code`, `name`) VALUES
+('1011', 'Municipal Mayor\'s Office'),
+('1012', 'Municipal Tourism Office'),
+('1017', 'Municipal Disaster Risk & Mgt. Office'),
+('1021', 'Municipal Vice Mayor / SB Office'),
+('1041', 'Municipal Planning & Development Office'),
+('1051', 'Municipal Civil Registrar\'s Office'),
+('1071', 'Municipal Budget Office'),
+('1081', 'Municipal Accounting Office'),
+('1091', 'Municipal Treasurer\'s Office'),
+('1101', 'Municipal Assessor\'s Office'),
+('4411', 'Municipal Health Office'),
+('7611', 'Municipal Social Welfare & Development Office'),
+('8711', 'Municipal Agriculture Office'),
+('8731', 'Municipal Environment & Natural Resources Office'),
+('8751', 'Municipal Engineering Office');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sessions`
 --
 
@@ -397,10 +448,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('0Rn6SzXK7CmCYS7ws0G8EOvXDF1ZdApLKD38L1Zc', NULL, '192.168.100.56', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYnFtTVNsRU1EQWxSR0h4QnBhN05Cb2VzcjJ3QVA3U2lnTkpLMmdJMSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjY6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1743667114),
-('e0P8O4dUlyDdQy8JI50h8s1MUZDSs6AX1S8BnApK', 1, '192.168.100.56', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiQ1pIdHZSZUtvaVpKT2FmdkNJZ0oyM3NrUXZVVXdTeWdxNE5yaHBUciI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Njg6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwL3N0YWZmL3BlbmRpbmctZG9jdW1lbnRzL3ZpZXcvMjUwMzI1LTAwMDAxIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1743667276),
-('G7Dgufhy6Zn7kpgq5ckS4KRmAXei289yrm7j5hQN', NULL, '192.168.100.59', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSFQ3NTdpM0JCdGMyU29qR0RzZVY4cEVaWlV4YldLcFJ0ZE5laEJOZyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1743667709),
-('jTX0OUraXHxSWGgaBe0xja6aXPrcjrlipLnk7KVS', 1, '192.168.100.56', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMG5ucjN4Y1JUSHljZlJjbW1USWxqNnFybUhkTjBzZURWcmlFZGRLOCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwL3N0YWZmL2Rhc2hib2FyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1743725815);
+('XeiL7yOlWqyiq2urJZ3pI7XhHU6WkQ1MoIVscmL0', 3, '192.168.100.56', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRXJHMDZXckJRVTBlVjlwWkEwY1RlMXB2VjdhUWE2YnVvU0wyaWpSVSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDU6Imh0dHA6Ly8xOTIuMTY4LjEwMC41Njo4MDAwL2FkbWluL25ldy1zZXR0aW5ncyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjM7fQ==', 1744090015);
 
 -- --------------------------------------------------------
 
@@ -465,11 +513,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `office_id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Rhovin John Dulay', 'rhovin.dulay@gmail.com', NULL, '$2y$12$3EWCkLKX4ZSl1dO8H9a4LuGUnM8bKKAuFQStBfiZDWOGZ4.TSAT7.', 'Staff', 'Ae1Y2MTuOEa0cwHhYWyFKFvHIpFDfgV8ytDGOr49mqocdDnRyhhtVGkxXKkD', '2025-03-16 23:21:29', '2025-04-01 13:55:48'),
+(1, 1, 'Rhovin John Dulay', 'rhovin.dulay@gmail.com', NULL, '$2y$12$3EWCkLKX4ZSl1dO8H9a4LuGUnM8bKKAuFQStBfiZDWOGZ4.TSAT7.', 'Staff', 'MjCr7Se4MvQYBd5ycAmprcTfM4HdpK8InkT1F0nFemBR5lpmWhaGGSxmuNmM', '2025-03-16 23:21:29', '2025-04-08 05:09:58'),
 (2, NULL, 'MIS', 'misofficediffun@gmail.com', NULL, '$2y$12$7H52v3F5tfXxzYWA/fNLB.7YSxiaWlYu6NpiLdp4iyB.SYFuLdJ9.', 'Administrator', NULL, NULL, NULL),
-(3, 2, 'Admin', 'admin@gmail.com', NULL, '$2y$12$80JzF8KP3MpIKjs11BE1.eWXPDeGQ06nZv7T4cwgFwp2GKYTaX8k6', 'Administrator', 'Psn8BtUQQeiqcUN0GyC9xIv4ratnP4Ya1SG91LTN6cK5xmvCSKPshQRT6jAG', NULL, '2025-04-03 08:00:58'),
+(3, 2, 'Admin', 'admin@gmail.com', NULL, '$2y$12$80JzF8KP3MpIKjs11BE1.eWXPDeGQ06nZv7T4cwgFwp2GKYTaX8k6', 'Administrator', 'FMMbaVEFg4HtU6tF6Ky3IUWjhe4TFzmZ2YJfhnwstGIs3JW1v26oVeSEl5eE', NULL, '2025-04-08 05:22:10'),
 (4, 2, 'staff', 'staff@gmail.com', NULL, '$2y$12$XItCEqQJU4Pp4q23xYm24Ohzcb/WExVK5aWma0IGNJkZPnccIR/ie', 'Staff', NULL, '2025-03-18 21:48:31', '2025-03-18 22:42:41'),
-(6, 2, 'MIS Staff', 'mis@gmail.com', NULL, '$2y$12$ftUBwuWNyg/xAKCaWDQ.9.5hkyglWt7DhrtyCVm6WcOuXRZs2sUby', 'Staff', NULL, '2025-03-31 08:02:45', '2025-03-31 08:06:09'),
+(6, 2, 'MIS Staff', 'mis@gmail.com', NULL, '$2y$12$ftUBwuWNyg/xAKCaWDQ.9.5hkyglWt7DhrtyCVm6WcOuXRZs2sUby', 'Staff', NULL, '2025-03-31 08:02:45', '2025-04-08 02:49:01'),
 (7, 1, 'Budget Office Staff', 'budget@gmail.com', NULL, '$2y$12$uShTBamTeFaooK6xBn/CiOahMxGo9USmMHerYEgds95cLUxrpl.k6', 'Staff', NULL, '2025-03-31 08:15:06', '2025-03-31 08:15:33');
 
 --
@@ -552,6 +600,12 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `responsibility_center`
+--
+ALTER TABLE `responsibility_center`
+  ADD PRIMARY KEY (`code`);
+
+--
 -- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
@@ -587,7 +641,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `document`
 --
 ALTER TABLE `document`
-  MODIFY `document_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `document_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `document_attachments`
@@ -599,7 +653,7 @@ ALTER TABLE `document_attachments`
 -- AUTO_INCREMENT for table `document_history`
 --
 ALTER TABLE `document_history`
-  MODIFY `dh_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `dh_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `document_items`
@@ -617,7 +671,7 @@ ALTER TABLE `document_pending`
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `history_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `history_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -629,7 +683,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `office`

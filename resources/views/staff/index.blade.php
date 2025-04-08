@@ -10,7 +10,7 @@
             <h2>Welcome <strong> {{ Auth::user()->name }}</strong></h2>
             <small>{{ $officeName }}'s latest documents</small>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
             <ul class="list-group clear-list m-t">
                 @forelse ($documents as $d)
                     <li class="list-group-item first-item">
@@ -26,13 +26,13 @@
                 @endforelse
             </ul>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 mb-3">
             <div class="flot-chart dashboard-chart" style="height: 250px; margin-top: -15px;">
-                <canvas id="myChart"></canvas>
+                <canvas id="document-chart"></canvas>
             </div>
 
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 mb-3">
             <div class="statistic-box" style="margin-top: -15px;">
                 <h4>
                     Documents
@@ -82,17 +82,16 @@
                 <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <span class="label label-primary pull-right">Today</span>
                             <h5>Total Budget</h5>
                         </div>
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <h1 class="no-margins">₱ {{ number_format($totalBudget, 2) }}</h1>
+                                <div class="col-md-6 mb-3">
+                                    <h3 class="no-margins">₱ {{ number_format($totalBudget, 2) }}</h3>
                                     <div class="font-bold text-purple">Overall</div>
                                 </div>
                                 <div class="col-md-6">
-                                    <h1 class="no-margins">₱ {{ number_format($thisMonthBudget, 2) }}</h1>
+                                    <h3 class="no-margins">₱ {{ number_format($thisMonthBudget, 2) }}</h3>
                                     <div class="font-bold text-purple">This Month</div>
                                 </div>
                             </div>
@@ -109,8 +108,8 @@
                             <div class="ibox-content">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h1 class="no-margins font-bold"><i class="fa fa-file-text-o"></i>
-                                            {{ $pendingDocxCount }}</h1>
+                                        <h2 class="no-margins font-bold"><i class="fa fa-file-text-o"></i>
+                                            {{ $pendingDocxCount }}</h2>
                                         <div class="font-bold text-purple">&nbsp;</div>
 
                                     </div>
@@ -120,8 +119,6 @@
                         </div>
                     </div>
                 @endif
-
-
                 @if ($notifications->isEmpty())
                 @else
                     <div class="col-lg-12">
@@ -151,14 +148,11 @@
                                             ({{ $notif->name }})
                                             -
                                             {{ $notif->notif_created_at = Carbon\Carbon::parse($notif->notif_created_at)->diffForHumans() }}
-
                                         </div>
                                     @empty
                                     @endforelse
-
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 @endif
@@ -166,7 +160,7 @@
             <div class="col-lg-3">
                 <div class="ibox">
                     <div class="ibox-content">
-                        asdasd
+                        Test
                     </div>
                 </div>
             </div>
@@ -202,7 +196,7 @@
 
             };
             const myChart = new Chart(
-                document.getElementById('myChart'),
+                document.getElementById('document-chart'),
                 config
             );
         </script>
