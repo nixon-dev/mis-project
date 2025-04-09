@@ -1,5 +1,5 @@
 @extends('staff.base')
-@section('title', 'Approved Documents - Management Information System')
+@section('title', 'Draft Documents - Management Information System')
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
@@ -8,7 +8,7 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-8">
-            <h2>Approved Documents</h2>
+            <h2>Draft Documents</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="/staff/dashboard">Staff</a>
@@ -17,9 +17,8 @@
                     Document Tracking
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong>Approved</strong>
+                    <strong>Draft</strong>
                 </li>
-
             </ol>
         </div>
         <div class="col-sm-4">
@@ -101,7 +100,6 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5>Document Data</h5>
-                        {{-- <a href="{{ url('/add-student-form') }}">Add New Record</a> --}}
 
                         <div class="ibox-tools">
                             <a class="collapse-link">
@@ -134,17 +132,16 @@
                                                     <span class="label label-success">{{ $d->document_status }}</span>
                                                 @elseif ($d->document_status == 'Denied')
                                                     <span class="label label-danger">{{ $d->document_status }}</span>
-                                                @else
+                                                @elseif ($d->document_status == 'Pending')
                                                     <span class="label label-primary">{{ $d->document_status }}</span>
+                                                @else
+                                                    <span class="label label-info">{{ $d->document_status }}</span>
                                                 @endif
                                             </td>
                                             <td class="wp-30"> {{ $d->document_title }} </td>
                                             <td class="wp-30"> {{ $d->office_name }} </td>
                                             <td class="wp-10"> {{ $d->document_nature }} </td>
                                             <td class="wp-20"> {{ $d->document_number }} </td>
-                                            {{-- <td class="wp-10"><span class="pull-left">₱</span> <span
-                                                class="pull-right">{{ number_format($d->amount, 2) }}</span> </td> --}}
-
                                             <td class="wp-10 text-center">
                                                 <a href="{{ url('/staff/document-tracking/' . $d->document_number) }}"
                                                     class="btn btn-primary btn-sm">

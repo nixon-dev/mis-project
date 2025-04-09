@@ -33,8 +33,6 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
-Route::get('/mark-read/{id}', [ApiController::class, 'mark_read'])->name('mark.read');
-
 require __DIR__ . '/admin.php';
 require __DIR__ . '/staff.php';
 require __DIR__ . '/api.php';

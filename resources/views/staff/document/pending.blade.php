@@ -1,5 +1,5 @@
 @extends('staff.base')
-@section('title', 'Document Tracking - Management Information System')
+@section('title', 'Pending Documents - Management Information System')
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
@@ -8,7 +8,7 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-8">
-            <h2>Pending Document Tracking</h2>
+            <h2>Pending Documents</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="/staff/dashboard">Staff</a>

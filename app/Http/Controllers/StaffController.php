@@ -92,7 +92,7 @@ class StaffController extends Controller
                 return $item;
             });
 
-        return view('staff.index', compact('data', 'budgetOfficeId','office', 'notifications', 'pendingCount', 'deniedCount', 'approvedCount', 'officeName', 'thisMonthDocumentCount', 'lastMonthDocumentCount', 'documents', 'totalBudget', 'thisMonthBudget', 'pendingDocxCount'));
+        return view('staff.index', compact('data', 'budgetOfficeId', 'office', 'notifications', 'pendingCount', 'deniedCount', 'approvedCount', 'officeName', 'thisMonthDocumentCount', 'lastMonthDocumentCount', 'documents', 'totalBudget', 'thisMonthBudget', 'pendingDocxCount'));
     }
 
 
@@ -155,12 +155,31 @@ class StaffController extends Controller
         return view('staff.document', compact('data', 'office'));
     }
 
+    public function document_draft()
+    {
+        $assigned_office = Auth::user()->office_id;
+        $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
+        $data = Document::where('document_origin', $assigned_office)
+            ->where('document_status', 'Draft')
+            ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
+            ->select('document.*', 'office.office_name')
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+
+
+        foreach ($data as $d) {
+            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
+        }
+        return view('staff.document.draft', compact('data', 'officeName'));
+    }
+
     public function document_pending()
     {
         $assigned_office = Auth::user()->office_id;
         $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
         $data = Document::where('document_origin', $assigned_office)
-            ->whereIn('document_status', ['Pending', 'Draft'])
+            ->where('document_status', 'Pending')
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
             ->select('document.*', 'office.office_name')
             ->orderBy('created_at', 'DESC')
@@ -229,4 +248,20 @@ class StaffController extends Controller
             return redirect()->back()->with('error', 'Error: Update Failed');
         }
     }
+
+    public function notifications()
+    {
+        @$assignedOffice = Auth::user()->office_id;
+        $notifications = Notifications::leftJoin('document', 'document.document_id', '=', 'notifications.document_id')
+            ->leftJoin('users', 'users.id', '=', 'notifications.created_by')
+            ->where('document.document_origin', $assignedOffice)
+            ->where('read_at', null)
+            ->select('document.*', 'notifications.*', 'users.*', 'notifications.created_at as notif_created_at', 'notifications.id as notif_id')
+            ->orderBy('notif_created_at', 'DESC')
+            ->take(10)->get();
+
+        return view('staff.notifications', compact('notifications'));
+    }
+
+
 }

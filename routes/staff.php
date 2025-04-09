@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\ApiController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Document\DocumentController;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,8 @@ Route::middleware(['auth', 'role:Staff'])->prefix('staff')->group(function () {
     Route::get('/add-document', [StaffController::class, 'add_document'])->name('staff.add-document');
 
     Route::get('/document-tracking', [StaffController::class, 'document_tracking'])->name('staff.document');
+
+    Route::get('/document/draft', [StaffController::class, 'document_draft'])->name('staff.document-draft');
 
     Route::get('/document/pending', [StaffController::class, 'document_pending'])->name('staff.document-pending');
 
@@ -38,5 +41,8 @@ Route::middleware(['auth', 'role:Staff'])->prefix('staff')->group(function () {
     Route::post('/update-document-amount', [DocumentController::class, 'document_update'])->name('staff.document-update-amount');
 
     Route::post('/document/add-item', [DocumentController::class, 'document_insert_item'])->name('staff.document-insert-item');
+
+    Route::get('/notifications', [StaffController::class, 'notifications'])->name('staff.notifiations');
+
 
 });

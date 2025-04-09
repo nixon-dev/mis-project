@@ -3,4 +3,6 @@
 use App\Http\Controllers\api\ApiController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/api/history', [ApiController::class, 'get_history']);
+Route::get('/mark-read/{id}', [ApiController::class, 'mark_read'])->name('mark.read');
+
+Route::get('/viewnotif/{id}/{number}', [ApiController::class, 'view_notif'])->name('viewnotif');

@@ -18,4 +18,18 @@ class ApiController extends Controller
         return back();
 
     }
+
+    public function view_notif($id, $number)
+    {
+        $query = Notifications::where('id', $id)
+            ->update([
+                'read_at' => now(),
+            ]);
+
+        if ($query) {
+            return redirect()->route('staff.view-document', ['id' => $number]);
+        }
+
+
+    }
 }
