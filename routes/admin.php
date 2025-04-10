@@ -74,4 +74,12 @@ Route::middleware(['auth', 'role:Administrator'])->prefix('admin')->group(functi
 
     Route::get('/responsibility-center/delete/{code}', [AdminController::class, 'responsibility_center_delete'])->name('admin.rescen-delete');
 
+    Route::get('/mooe', [AdminController::class,'mooe_list'])->name('admin.mooe');
+
+    Route::post('/mooe/add', [AdminController::class,'mooe_add'])->name('admin.mooe-add');
+
+    Route::post('/mooe/edit', [AdminController::class,'mooe_edit'])->name('admin.mooe-edit');
+
+    Route::get('/mooe/delete/{code}', [AdminController::class, 'mooe_delete'])->name('admin.mooe-delete');
+
 });

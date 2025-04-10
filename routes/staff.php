@@ -22,7 +22,7 @@ Route::middleware(['auth', 'role:Staff'])->prefix('staff')->group(function () {
 
     Route::get('/document/denied', [StaffController::class, 'document_denied'])->name('staff.document-denied');
 
-    Route::get('/document-tracking/{id}', [StaffController::class, 'view_document'])->name('staff.view-document');
+    Route::get('/document/view/{id}', [StaffController::class, 'view_document'])->name('staff.view-document');
 
     Route::post('/insert-document', [DocumentController::class, 'insert_document'])->name('staff.document-insert');
 
@@ -43,6 +43,10 @@ Route::middleware(['auth', 'role:Staff'])->prefix('staff')->group(function () {
     Route::post('/document/add-item', [DocumentController::class, 'document_insert_item'])->name('staff.document-insert-item');
 
     Route::get('/notifications', [StaffController::class, 'notifications'])->name('staff.notifiations');
+
+    Route::post('/user/update-password', [ChangePasswordController::class, 'user_update_password'])->name('staff.user-update-password');
+
+    Route::post('/user/update', [StaffController::class, 'user_update'])->name('staff.user-update');
 
 
 });

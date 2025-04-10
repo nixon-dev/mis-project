@@ -11,12 +11,16 @@ use Illuminate\Http\Request;
 
 use App\Models\Document;
 use App\Models\History;
+use App\Models\Mooe;
 use App\Models\Office;
 use App\Models\PendingDocx;
+use App\Models\ResCenter;
 use App\Models\Units;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\RecordHistory;
+
+use function PHPUnit\Framework\isEmpty;
 
 class StaffController extends Controller
 {
@@ -103,13 +107,16 @@ class StaffController extends Controller
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
             ->select('document.*', 'office.office_name')
             ->first();
+            
 
-        if ($data->document_origin != $assigned_office) {
-            return redirect(url('/staff/document-tracking'))->with('error', "Error: You don't have permission to view this document.");
-        }
+       
 
         if (!$data) {
-            return redirect(url('/staff/document-tracking'))->with('error', 'Error: No Document Found');
+            return back()->with('error', 'Error: No Document Found');
+        }
+
+        if ($data->document_origin != $assigned_office) {
+            return back()->with('error', "Error: You don't have permission to view this document.");
         }
 
         $action = History::where('document_id', $data->document_id)->get();
@@ -134,26 +141,11 @@ class StaffController extends Controller
 
         $units = Units::get();
 
-        return view('staff.view-document', compact('data', 'action', 'items', 'attachments', 'checkIfSent', 'pendingDocx', 'units'));
+        $mooes = Mooe::orderBy('name', 'ASC')->get();
+
+        return view('staff.view-document', compact('data', 'action', 'items', 'attachments', 'checkIfSent', 'pendingDocx', 'units', 'mooes'));
     }
 
-    public function document_tracking()
-    {
-        $assigned_office = Auth::user()->office_id;
-        $office = Office::orderBy('office_name', 'ASC')->get();
-        $data = Document::where('document_origin', $assigned_office)
-            ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
-            ->select('document.*', 'office.office_name')
-            ->orderBy('created_at', 'DESC')
-            ->get();
-
-
-
-        foreach ($data as $d) {
-            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
-        }
-        return view('staff.document', compact('data', 'office'));
-    }
 
     public function document_draft()
     {
@@ -166,12 +158,14 @@ class StaffController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
+        $rescen = ResCenter::orderBy('name', 'ASC')->get();
+
 
 
         foreach ($data as $d) {
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
-        return view('staff.document.draft', compact('data', 'officeName'));
+        return view('staff.document.draft', compact('data', 'officeName', 'rescen'));
     }
 
     public function document_pending()
@@ -185,12 +179,12 @@ class StaffController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
-
+            $rescen = ResCenter::orderBy('name', 'ASC')->get();
 
         foreach ($data as $d) {
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
-        return view('staff.document.pending', compact('data', 'officeName'));
+        return view('staff.document.pending', compact('data', 'officeName', 'rescen'));
     }
 
     public function document_approved()
@@ -205,10 +199,11 @@ class StaffController extends Controller
 
         $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
 
+        $rescen = ResCenter::orderBy('name', 'ASC')->get();
         foreach ($data as $d) {
             $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
         }
-        return view('staff.document.approved', compact('data', 'officeName'));
+        return view('staff.document.approved', compact('data', 'officeName', 'rescen'));
     }
 
     public function document_denied()
@@ -229,12 +224,11 @@ class StaffController extends Controller
 
     public function settings()
     {
-        return view('staff.settings');
+        return view('staff.settings.account');
     }
 
     public function user_update(Request $request)
     {
-
         $request->validate([
             'id' => 'required|numeric',
             'name' => 'required|string',
@@ -243,9 +237,15 @@ class StaffController extends Controller
         $query = User::where('id', $request->id)->update(['name' => $request->name]);
 
         if ($query) {
-            return redirect()->back()->with('success', 'Personal Information updated successfully!');
+            return response()->json([
+                'success' => true,
+                'message' => 'Personal information updated successfully!',
+            ]);
         } else {
-            return redirect()->back()->with('error', 'Error: Update Failed');
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: Update Failed',
+            ]);
         }
     }
 

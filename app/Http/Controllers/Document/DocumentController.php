@@ -42,11 +42,12 @@ class DocumentController extends Controller
         $assignedOffice = Auth::user()->office_id;
 
         $query = Document::insert([
-            'document_title' => $request->input('document_title'),
+            'document_title' => $request->document_title,
             'document_origin' => $assignedOffice,
-            'document_nature' => $request->input('document_nature'),
+            'document_nature' => $request->document_nature,
             'document_number' => $documentId,
-            'document_deadline' => $request->input('document_deadline'),
+            'document_deadline' => $request->document_deadline,
+            'rc_code' => $request->rc_code,
         ]);
 
         $this->recordHistory('Inserted Document', $request->document_title);
@@ -186,7 +187,8 @@ class DocumentController extends Controller
             'di_description' => $request->item_description,
             'di_quantity' => $request->item_quantity,
             'di_unit_price' => $request->item_unit_price,
-            'di_total_amount' => $request->item_total_amount
+            'di_total_amount' => $request->item_total_amount,
+            'di_mooe' => $request->item_mooe,
         ]);
 
         $oldAmount = Document::where('document_id', $request->document_id)->first()->amount;

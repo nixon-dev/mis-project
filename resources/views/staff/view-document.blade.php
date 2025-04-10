@@ -2,6 +2,7 @@
 @section('title', 'View Document - Management Information System')
 
 @section('css')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="{{ asset('css/plugins/iCheck/custom.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/plugins/jQueryUI/jquery-ui.css') }}" type="text/css" />
@@ -39,9 +40,13 @@
                     <li class="breadcrumb-item">
                         <a href="{{ route('staff.document-denied') }}">Denied</a>
                     </li>
-                @else
+                @elseif ($data->document_status == 'Pending')
                     <li class="breadcrumb-item">
                         <a href="{{ route('staff.document-pending') }}">Pending</a>
+                    </li>
+                @else
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('staff.document-draft') }}">Draft</a>
                     </li>
                 @endif
                 <li class="breadcrumb-item active">
@@ -78,9 +83,11 @@
                             <div class="col-lg-12">
                                 <div class="m-b-md">
                                     <a data-toggle="modal" href="#items-form"
-                                        class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Add Items</a>
+                                        class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Add
+                                        Items</a>
                                     <a data-toggle="modal" href="#amount-form"
-                                        class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Edit Document</a>
+                                        class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Edit
+                                        Document</a>
 
                                     <h2 class="font-bold">{{ $data->document_title }}</h2>
                                 </div>
@@ -134,6 +141,8 @@
 
                                     <dt class="fs-18">Document Number:</dt>
                                     <dd class="fs-16">{{ $data->document_number }}</dd>
+                                    <dt class="fs-18">Responsibility Center</dt>
+                                    <dd class="fs-16">{{ $data->rc_code ?? 'None' }}</dd>
                                     <dt class="fs-18">Deadline:</dt>
                                     <dd class="fs-16">{{ $data->document_deadline }}</dd>
 
@@ -188,7 +197,8 @@
                                         <tr>
                                             <th class="wp-10">Item No.</th>
                                             <th class="wp-10">Unit</th>
-                                            <th class="wp-40">Description</th>
+                                            <th class="wp-25">Description</th>
+                                            <th class="wp-15">MOOE</th>
                                             <th class="wp-10 text-center">Quantity</th>
                                             <th class="wp-10">Unit Price</th>
                                             <th class="wp-10">Total Amount</th>
@@ -206,6 +216,9 @@
                                                 </td>
                                                 <td>
                                                     {{ $i->di_description }}
+                                                </td>
+                                                <td>
+                                                    {{ $i->di_mooe }}
                                                 </td>
                                                 <td class="text-center">
                                                     {{ $i->di_quantity }}
@@ -321,22 +334,22 @@
                         <li class="list-group-item">No Attached File</li>
                     @endforelse
                 </ul>
-                <a href="#upload-form" data-toggle="modal" class="btn btn-primary btn-sm w-100 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Attach File</a>
+                <a href="#upload-form" data-toggle="modal"
+                    class="btn btn-primary btn-sm w-100 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Attach
+                    File</a>
             </div>
         </div>
     </div>
 
 
     {{-- MODALS --}}
-    <div id="items-form" class="modal fade" aria-hidden="true">
+    <div id="items-form" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
-
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Add Item</h3>
-
                             <form role="form" action="{{ route('staff.document-insert-item') }}" method="POST">
                                 @csrf()
 
@@ -360,7 +373,21 @@
                                 <div class="form-group">
                                     <label>Description</label>
                                     <textarea name="item_description" class="form-control" required></textarea>
+                                </div>
+                                <div class="form-group row ">
+                                    <div class="col-sm-12">
+                                        <label>MOOE</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <select id="mooeSelect" class="form-control p-w-sm select2" style="width: 100%;"
+                                            name="item_mooe" required>
+                                            @foreach ($mooes as $m)
+                                                <option value="{{ $m->code }}">
+                                                    {{ $m->name }}</option>
+                                            @endforeach
+                                        </select>
 
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -446,12 +473,10 @@
                                     <input type="datetime-local" onfocus="this.showPicker()" name="history_date"
                                         class="form-control" required>
                                 </div>
-
                                 <div class="form-group">
                                     <label>Action Taken/Comments</label>
                                     <input type="text" name="history_action" class="form-control" required>
                                 </div>
-
                                 <div class="form-group text-center">
                                     <button class="btn btn-sm btn-primary m-t-n-xs w-100"
                                         type="submit"><strong>Submit</strong>
@@ -474,41 +499,34 @@
 
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Edit Document</h3>
-
                             <form role="form" action="{{ route('staff.document-update-amount') }}" method="POST">
                                 @csrf()
-
                                 <div class="form-group d-none">
                                     <label>Document ID</label>
                                     <input value="{{ $data->document_id }}" name="document_id" class="form-control"
                                         type="number" readonly>
                                 </div>
-
                                 <div class="form-group">
                                     <label>Title</label>
                                     <input type="text" name="document_title" value="{{ $data->document_title }}"
                                         class="form-control" required minlength="5">
                                 </div>
-
                                 <div class="form-group">
                                     <label>Nature of Document</label>
                                     <input type="text" name="document_nature" value="{{ $data->document_nature }}"
                                         class="form-control" required>
                                 </div>
-
                                 <div class="form-group">
                                     <label>Amount</label>
                                     <input type="number" name="amount" min="0" value="{{ $data->amount }}"
                                         step=".01" class="form-control" required>
                                 </div>
-
                                 <div class="form-group">
                                     <label>Deadline</label>
                                     <input type="datetime-local" name="document_deadline" class="form-control"
                                         onfocus="this.showPicker()"
                                         @if ($data->document_deadline != 'No Deadline') value="{{ $data->unformatted_document_deadline }}" @endif>
                                 </div>
-
                                 <div class="form-group text-center">
                                     <button class="btn btn-sm btn-primary m-t-n-xs w-100"
                                         type="submit"><strong>Edit</strong>
@@ -527,6 +545,18 @@
 
 
 @section('script')
+    <script>
+        $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#mooeSelect').select2({
+                placeholder: "Select an option...",
+                allowClear: true
+            });
+        });
+    </script>
     <script src="{{ asset('js/plugins/iCheck/icheck.min.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -595,4 +625,5 @@
             itemTotalAmount.value = total.toFixed(2);
         }
     </script>
+
 @endsection

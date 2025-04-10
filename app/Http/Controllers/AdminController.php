@@ -14,6 +14,7 @@ use App\Models\History;
 use App\Models\Office;
 use App\Models\User;
 use App\Models\Items;
+use App\Models\Mooe;
 use App\Models\ResCenter;
 use App\Models\Units;
 use Illuminate\Database\QueryException;
@@ -88,7 +89,7 @@ class AdminController extends Controller
             ->first();
 
         if (!$data) {
-            return redirect(url('/admin/document-tracking'))->with('error', 'Error: No Document Found');
+            return redirect()->route('admin.document')->with('error', 'Error: No Document Found');
         }
 
         $action = History::where('document_id', $data->document_id)->get();
@@ -362,6 +363,11 @@ class AdminController extends Controller
             'name' => 'required|string',
         ]);
 
+        $checkCode = ResCenter::where('code', $request->code)->first();
+        if ($checkCode) {
+            return back()->with('error', 'Error: Code already exists!');
+        }
+
         $query = ResCenter::insert([
             'code' => $request->code,
             'name' => $request->name,
@@ -401,6 +407,68 @@ class AdminController extends Controller
             return back()->with('success', 'Responsibility Center deleted successfully!');
         } else {
             return back()->with('error', 'Error: Failed deleting responsibility center');
+        }
+    }
+
+    public function mooe_list()
+    {
+        $mooes = Mooe::orderBy('name', 'ASC')->get();
+
+        return view('admin.settings.mooe', compact('mooes'));
+    }
+
+    public function mooe_add(Request $request)
+    {
+        $request->validate([
+            'code' => 'required',
+            'name' => 'required|string',
+        ]);
+
+        $checkCode = Mooe::where('code', $request->code)->first();
+
+        if ($checkCode) {
+            return back()->with('error', 'Error: Code already exists!');
+        }
+
+        $query = Mooe::insert([
+            'code' => $request->code,
+            'name' => $request->name,
+        ]);
+
+        if ($query) {
+            return back()->with('success', 'MOOE inserted successfully!');
+        } else {
+            return back()->with('error', 'Error: Failed inserting MOOE');
+        }
+    }
+
+    public function mooe_edit(Request $request)
+    {
+        $request->validate([
+            'code' => 'required',
+            'name' => 'required|string',
+        ]);
+
+        $query = Mooe::where('code', $request->code)
+            ->update([
+                'name' => $request->name,
+            ]);
+
+        if ($query) {
+            return back()->with('success', 'MOOE updated successfully!');
+        } else {
+            return back()->with('error', 'Error: Failed updating MOOE');
+        }
+    }
+
+    public function mooe_delete($code)
+    {
+        $query = Mooe::where('code', $code)->delete();
+
+        if ($query) {
+            return back()->with('success', 'MOOE deleted successfully!');
+        } else {
+            return back()->with('error', 'Error: Failed deleting MOOE');
         }
     }
 }

@@ -21,12 +21,7 @@
                 </li>
             </ol>
         </div>
-        <div class="col-sm-4">
-            <div class="title-action">
-                {{-- <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Add Document</a> --}}
-            </div>
-
-        </div>
+       
     </div>
 
     <div class="wrapper wrapper-content animated fadeInDown">
@@ -96,7 +91,7 @@
                                             <td class="wp-10"> {{ $d->document_nature }} </td>
                                             <td class="wp-20"> {{ $d->document_number }} </td>
                                             <td class="wp-10 text-center">
-                                                <a href="{{ url('/staff/document-tracking/' . $d->document_number) }}"
+                                                <a href="{{ route('staff.view-document', ['id' => $d->document_number]) }}"
                                                     class="btn btn-primary btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </a>

@@ -27,6 +27,7 @@ class ItemController extends Controller
             'di_unit' => $request->item_unit,
             'di_description' => $request->item_description,
             'di_quantity' => $request->item_quantity,
+            'di_mooe' => $request->item_mooe,
         ]);
 
         $document_title = Document::where('document_id', $request->document_id)->first()->document_title;

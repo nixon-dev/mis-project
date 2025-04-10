@@ -31,6 +31,39 @@
     </div>
 </div>
 
+<div id="mooeModal" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <h3 class="m-t-none m-b">MOOE Details</h3>
+
+                        <form role="form" action="{{ route('admin.mooe-edit') }}" method="POST">
+                            @csrf()
+                            <div class="form-group">
+                                <label>Code</label>
+                                <input type="text" name="code" id="modalCode" class="form-control" readonly required>
+                            </div>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" name="name" id="modalName" class="form-control" required>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <button class="btn btn-sm btn-primary m-t-n-xs w-100"
+                                    type="submit"><strong>Update</strong>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="officeModal" class="modal fade" aria-hidden="true">
     <div class="modal-dialog">

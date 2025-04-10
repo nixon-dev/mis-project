@@ -25,51 +25,7 @@
             <div class="title-action">
                 <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Add Document</a>
             </div>
-            <div id="modal-form" class="modal fade" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div class="row">
-
-                                <div class="col-sm-12">
-                                    <h3 class="m-t-none m-b">Add Document</h3>
-
-                                    <form role="form" action="{{ url('/staff/insert-document') }}" method="POST">
-                                        @csrf()
-                                        <div class="form-group">
-                                            <label>Title</label>
-                                            <input type="text" name="document_title" placeholder="" class="form-control"
-                                                required minlength="5">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Origin Office</label>
-                                            <input type="text" name="document_origin" value="{{ $officeName }}"
-                                                class="form-control" readonly required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Nature of Document</label>
-                                            <input type="text" name="document_nature" placeholder="" class="form-control"
-                                                required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Deadline</label>
-                                            <input type="datetime-local" name="document_deadline" class="form-control"
-                                                onfocus="this.showPicker()">
-                                        </div>
-
-                                        <div class="form-group text-center">
-                                            <button class="btn btn-sm btn-primary m-t-n-xs w-100"
-                                                type="submit"><strong>Submit</strong>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('staff.document.components.modal')
         </div>
     </div>
 
@@ -143,7 +99,7 @@
                                             <td class="wp-10"> {{ $d->document_nature }} </td>
                                             <td class="wp-20"> {{ $d->document_number }} </td>
                                             <td class="wp-10 text-center">
-                                                <a href="{{ url('/staff/document-tracking/' . $d->document_number) }}"
+                                                <a href="{{ route('staff.view-document', ['id' => $d->document_number]) }}"
                                                     class="btn btn-primary btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
@@ -178,17 +134,10 @@
 @endsection
 
 @section('script')
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}"></script>
     <script src="https://cdn.datatables.net/responsive/3.0.4/js/responsive.bootstrap4.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#mySelect').select2({
-                placeholder: "Select an option...",
-                allowClear: true
-            });
-        });
-    </script>
+    
     <script>
         $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';
         $(document).ready(function() {

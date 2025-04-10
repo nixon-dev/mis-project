@@ -63,11 +63,14 @@
                             <span class="nav-label">Users</span></a>
                     </li>
                     <li
-                        class="{{ request()->routeIs(['admin.units', 'admin.office', 'admin.history', 'admin.responsibility-center']) ? 'active' : '' }}">
+                        class="{{ request()->routeIs(['admin.units', 'admin.office', 'admin.history', 'admin.responsibility-center', 'admin.mooe']) ? 'active' : '' }}">
                         <a href="#" aria-expanded="false" class="text-white"><i class="fa fa-gear"
                                 aria-hidden="true"></i>
                             <span class="nav-label">Settings</span><span class="fa arrow" aria-hidden="true"></span></a>
                         <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                            
+                            <li class={{ request()->routeIs('admin.mooe') ? 'active' : '' }}><a
+                                href="{{ route('admin.mooe') }}">MOOE</a></li>
                             <li class={{ request()->routeIs('admin.responsibility-center') ? 'active' : '' }}><a
                                     href="{{ route('admin.responsibility-center') }}">Responsibility Center</a></li>
                             <li class={{ request()->routeIs('admin.office') ? 'active' : '' }}><a
