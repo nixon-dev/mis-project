@@ -30,7 +30,7 @@
 
         <nav class="navbar-default navbar-static-side dark-skin" role="navigation">
             <div class="sidebar-collapse">
-                <ul class="nav metismenu " id="side-menu">
+                <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header ">
                         <div class="dropdown profile-element">
                             <img alt="image" class="rounded-circle" src="{{ asset('img/logo/diffun_quirino.png') }}"
@@ -52,40 +52,36 @@
                             <span class="nav-label">Document
                                 Tracking</span></a>
                     </li>
+
                     <li class="{{ request()->routeIs('admin.new-settings') ? 'active' : '' }}">
-                        <a href="{{ route('admin.new-settings') }}" class="text-white"><i class="fa fa-cogs "></i>
-                            <span class="nav-label">New Settings</span></a>
+                        <a href="{{ route('admin.new-settings') }}" class="text-white"><i class="fa fa-user"></i>
+                            <span class="nav-label">Account Settings</span></a>
+                    </li>
+
+                    <li class="{{ request()->routeIs('admin.users-list') ? 'active' : '' }}">
+                        <a href="{{ route('admin.users-list') }}" class="text-white"><i class="fa fa-users"></i>
+                            <span class="nav-label">Users</span></a>
                     </li>
                     <li
-                        class="{{ request()->routeIs(['admin.user-settings', 'admin.users-list', 'admin.office', 'admin.users-list-pending', 'admin.history']) ? 'active' : '' }}">
+                        class="{{ request()->routeIs(['admin.units', 'admin.office', 'admin.history', 'admin.responsibility-center']) ? 'active' : '' }}">
                         <a href="#" aria-expanded="false" class="text-white"><i class="fa fa-gear"
                                 aria-hidden="true"></i>
                             <span class="nav-label">Settings</span><span class="fa arrow" aria-hidden="true"></span></a>
                         <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
-
-                            <li class="{{ request()->routeIs('admin.user-settings') ? 'active' : '' }}"><a
-                                    href="{{ route('admin.user-settings') }}">User Settings</a></li>
-
-                            <li class={{ request()->routeIs('admin.users-list-pending') ? 'active' : '' }}><a
-                                    href="{{ route('admin.users-list-pending') }}">Pending User List</a></li>
-
-                            <li class={{ request()->routeIs('admin.users-list') ? 'active' : '' }}><a
-                                    href="{{ route('admin.users-list') }}">User List</a></li>
-
+                            <li class={{ request()->routeIs('admin.responsibility-center') ? 'active' : '' }}><a
+                                    href="{{ route('admin.responsibility-center') }}">Responsibility Center</a></li>
                             <li class={{ request()->routeIs('admin.office') ? 'active' : '' }}><a
                                     href="{{ route('admin.office') }}">Office List</a></li>
-
                             <li class={{ request()->routeIs('admin.units') ? 'active' : '' }}><a
                                     href="{{ route('admin.units') }}">Unit List</a></li>
 
                             <li class={{ request()->routeIs('admin.history') ? 'active' : '' }}><a
                                     href="{{ route('admin.history') }}">Activity Log</a></li>
-
-                            <li class="{{ request()->routeIs('admin.active-users') ? 'active' : '' }}"><a
-                                    href="{{ route('admin.active-users') }}">Active User</a></li>
                         </ul>
                     </li>
+
                 </ul>
+
 
             </div>
         </nav>

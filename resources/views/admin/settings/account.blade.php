@@ -1,9 +1,9 @@
 @extends('admin.base')
-@section('title', 'New Setting - Management Information System')
+@section('title', 'Account Settings - Management Information System')
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-8">
-            <h2>Personal Setting</h2>
+            <h2>Account Setting</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ route('admin.index') }}">Admin</a>
@@ -33,16 +33,16 @@
             <div class="col-lg-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li><a data-toggle="tab" href="#profile" aria-expanded="false">Profile</a></li>
-                        <li><a data-toggle="tab" href="#password" aria-expanded="false">Password</a></li>
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#profile" aria-expanded="true">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#password" aria-expanded="false">Password</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div id="profile" class="tab-pane active">
+                        <div id="profile" class="tab-pane fade show active">
                             <div class="panel-body">
                                 @include('admin.settings.components.profile')
                             </div>
                         </div>
-                        <div id="password" class="tab-pane">
+                        <div id="password" class="tab-pane fade">
                             <div class="panel-body">
                                 @include('admin.settings.components.password')
                             </div>

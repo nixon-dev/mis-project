@@ -5706,6 +5706,7 @@ body.fullscreen-ibox-mode {
 }
 body.modal-open {
     padding-right: inherit !important;
+    overflow-y: auto;
 }
 _::-webkit-full-page-media,
 _:future,

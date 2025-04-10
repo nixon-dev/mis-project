@@ -12,10 +12,10 @@
             <h2>{{ $info[0]->name }}</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard">Admin</a>
+                    <a href="{{ route('admin.index') }}">Admin</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    <a href="/admin/users">Users</a>
+                    <a href="{{ route('admin.users-list') }}">Users</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>{{ $info[0]->id }}</strong>

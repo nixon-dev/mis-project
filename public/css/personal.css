@@ -32,6 +32,10 @@
     background: #1d30fe;
 }
 
+.blue-1 {
+    background: #38a4ec;
+}
+
 .gray {
     background: #2b2d3a;
 }
@@ -137,4 +141,8 @@
 
 .wp-30 {
     width: 30%;
+}
+
+.wp-80 {
+    width: 80%;
 }

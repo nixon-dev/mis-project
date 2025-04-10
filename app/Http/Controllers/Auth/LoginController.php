@@ -36,6 +36,10 @@ class LoginController extends Controller
             if ($user->role === 'Administrator') {
                 return redirect()->route('admin.index');
             } elseif ($user->role === 'Staff') {
+                if ($user->office_id === Null) {
+                    Auth::logout();
+                    return redirect()->back()->with('error', "No Assigned Office, Please contact administrator!");
+                }
                 return redirect()->route('staff.index');
             } else {
                 Auth::logout();

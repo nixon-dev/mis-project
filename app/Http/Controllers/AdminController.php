@@ -14,6 +14,7 @@ use App\Models\History;
 use App\Models\Office;
 use App\Models\User;
 use App\Models\Items;
+use App\Models\ResCenter;
 use App\Models\Units;
 use Illuminate\Database\QueryException;
 use App\Traits\RecordHistory;
@@ -134,23 +135,18 @@ class AdminController extends Controller
 
 
 
-
-
     public function users_list()
     {
-        $users = User::where('role', '!=', 'Guest')->leftJoin('office', 'office.office_id', '=', 'users.office_id')
-            ->select('users.*', 'office.office_name')
-            ->get();
-        return view('admin.users', compact('users'));
-    }
-
-    public function pending_users_list()
-    {
-        $users = User::where('role', '=', 'Guest')
+        $usersList = User::where('role', '!=', 'Guest')
             ->leftJoin('office', 'office.office_id', '=', 'users.office_id')
             ->select('users.*', 'office.office_name')
             ->get();
-        return view('admin.pending-users', compact('users'));
+
+        $usersPending = User::where('role', '=', 'Guest')
+            ->leftJoin('office', 'office.office_id', '=', 'users.office_id')
+            ->select('users.*', 'office.office_name')
+            ->get();
+        return view('admin.settings.users', compact('usersList', 'usersPending'));
     }
 
     public function view_users($id)
@@ -168,10 +164,6 @@ class AdminController extends Controller
         }
     }
 
-    public function user_settings()
-    {
-        return view('admin.user-settings');
-    }
 
     public function users_update(Request $request)
     {
@@ -191,7 +183,6 @@ class AdminController extends Controller
 
     public function user_update(Request $request)
     {
-
         $request->validate([
             'id' => 'required|numeric',
             'name' => 'required|string',
@@ -253,12 +244,31 @@ class AdminController extends Controller
         }
     }
 
+    public function office_edit(Request $request)
+    {
+        $request->validate([
+            'office_id' => 'required|numeric',
+            'office_name' => 'required|string',
+        ]);
+
+        $query = Office::where('office_id', $request->office_id)
+            ->update([
+                'office_name' => $request->office_name,
+            ]);
+
+        if ($query) {
+            return redirect()->back()->with('success', 'Office updated successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Error: Failed to update office');
+        }
+    }
+
     public function users_delete($id)
     {
         $query = User::where('id', $id)->delete();
 
         if ($query) {
-            return redirect(url('/admin/users/'))->with('success', 'User has been deleted!');
+            return redirect()->route('admin.users-list')->with('success', 'User has been deleted!');
         } else {
             return redirect()->back()->with('error', 'Error: Failed to Delete User');
         }
@@ -281,10 +291,44 @@ class AdminController extends Controller
 
     public function units()
     {
-
         $units = Units::orderBy('unit_name', 'ASC')->get();
 
         return view('admin.units', compact('units'));
+    }
+
+
+
+    public function units_add(Request $request)
+    {
+        $request->validate([
+            'unit_name' => 'required|string',
+        ]);
+        $query = Units::insert([
+            'unit_name' => $request->unit_name,
+        ]);
+        if ($query) {
+            return back()->with('success', 'Unit added successfully!');
+        } else {
+            return back()->with('error', 'Error: Failed to add unit.');
+        }
+    }
+
+    public function units_edit(Request $request)
+    {
+        $request->validate([
+            'unit_id' => 'required|numeric',
+            'unit_name' => 'required|string',
+        ]);
+
+        $query = Units::where('unit_id', $request->unit_id)
+            ->update([
+                'unit_name' => $request->unit_name,
+            ]);
+        if ($query) {
+            return back()->with('success', 'Unit edited successfully!');
+        } else {
+            return back()->with('error', 'Error: Failed to edit unit.');
+        }
     }
 
     public function units_delete($id)
@@ -299,24 +343,64 @@ class AdminController extends Controller
         }
     }
 
-    public function units_add(Request $request)
+    public function new_settings()
+    {
+        return view('admin.settings.account');
+    }
+
+    public function responsiblity_center_list()
+    {
+        $centers = ResCenter::orderBy('name', 'ASC')->get();
+
+        return view('admin.settings.responsibility-center', compact('centers'));
+    }
+
+    public function responsibility_center_add(Request $request)
     {
         $request->validate([
-            'unit_name' => 'required|string',
+            'code' => 'required|numeric',
+            'name' => 'required|string',
         ]);
 
-        $query = Units::insert([
-            'unit_name' => $request->unit_name,
+        $query = ResCenter::insert([
+            'code' => $request->code,
+            'name' => $request->name,
         ]);
 
         if ($query) {
-            return back()->with('success','Unit added successfully!');
+            return back()->with('success', 'Responsibility Center inserted successfully!');
         } else {
-            return back()->with('error', 'Error: Failed to add unit.');
+            return back()->with('error', 'Error: Failed inserting responsibility center');
         }
     }
 
-    public function new_settings() {
-        return view('admin.settings.personal');
+    public function responsibility_center_edit(Request $request)
+    {
+        $request->validate([
+            'code' => 'required|numeric',
+            'name' => 'required|string',
+        ]);
+
+        $query = ResCenter::where('code', $request->code)
+            ->update([
+                'name' => $request->name,
+            ]);
+
+        if ($query) {
+            return back()->with('success', 'Responsibility Center updated successfully!');
+        } else {
+            return back()->with('error', 'Error: Failed updating responsibility center');
+        }
+    }
+
+    public function responsibility_center_delete($code)
+    {
+        $query = ResCenter::where('code', $code)->delete();
+
+        if ($query) {
+            return back()->with('success', 'Responsibility Center deleted successfully!');
+        } else {
+            return back()->with('error', 'Error: Failed deleting responsibility center');
+        }
     }
 }

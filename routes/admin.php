@@ -40,6 +40,8 @@ Route::middleware(['auth', 'role:Administrator'])->prefix('admin')->group(functi
 
     Route::post('/office/add', [AdminController::class, 'office_add'])->name('admin.office-add');
 
+    Route::post('/office/edit', [AdminController::class,'office_edit'])->name('admin.office_edit');
+
     Route::get('/office/{id}', [AdminController::class, 'office_delete'])->name('admin.office-delete');
 
     Route::post('/document/update-status', [DocumentController::class, 'document_update_status'])->name('admin.document-update-status');
@@ -56,10 +58,20 @@ Route::middleware(['auth', 'role:Administrator'])->prefix('admin')->group(functi
 
     Route::get('/units', [AdminController::class, 'units'])->name('admin.units');
 
-    Route::get('/units/delete/{id}', [AdminController::class, 'units_delete'])->name('admin.units-delete');
-
     Route::post('/units/add', [AdminController::class,'units_add'])->name('admin.units-add');
 
+    Route::post('/units/edit', [AdminController::class, 'units_edit'])->name('admin.units-edit');
+
+    Route::get('/units/delete/{id}', [AdminController::class, 'units_delete'])->name('admin.units-delete');
+
     Route::get('/new-settings', [AdminController::class, 'new_settings'])->name('admin.new-settings');
+
+    Route::get('/responsibility-centers', [AdminController::class,'responsiblity_center_list'])->name('admin.responsibility-center');
+
+    Route::post('/responsibility-center/add', [AdminController::class,'responsibility_center_add'])->name('admin.rescen-add');
+
+    Route::post('/responsibility-center/edit', [AdminController::class,'responsibility_center_edit'])->name('admin.rescen-edit');
+
+    Route::get('/responsibility-center/delete/{code}', [AdminController::class, 'responsibility_center_delete'])->name('admin.rescen-delete');
 
 });
