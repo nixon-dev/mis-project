@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ActivityLog;
 use App\Models\Attachmments;
+use App\Models\Co;
 use App\Models\PendingDocx;
 use App\Models\Sessions;
 use Auth;
@@ -136,6 +137,8 @@ class AdminController extends Controller
 
 
 
+    // Users Functions
+
     public function users_list()
     {
         $usersList = User::where('role', '!=', 'Guest')
@@ -204,6 +207,19 @@ class AdminController extends Controller
         }
     }
 
+    public function users_delete($id)
+    {
+        $query = User::where('id', $id)->delete();
+
+        if ($query) {
+            return redirect()->route('admin.users-list')->with('success', 'User has been deleted!');
+        } else {
+            return redirect()->back()->with('error', 'Error: Failed to Delete User');
+        }
+    }
+
+    // Office Functions
+
     public function office()
     {
         $office = Office::orderBy('office_name', 'ASC')->get();
@@ -264,16 +280,7 @@ class AdminController extends Controller
         }
     }
 
-    public function users_delete($id)
-    {
-        $query = User::where('id', $id)->delete();
 
-        if ($query) {
-            return redirect()->route('admin.users-list')->with('success', 'User has been deleted!');
-        } else {
-            return redirect()->back()->with('error', 'Error: Failed to Delete User');
-        }
-    }
 
     public function history(Request $request)
     {
@@ -289,6 +296,9 @@ class AdminController extends Controller
             ->get();
         return view('admin.active-users', compact('activeUsers'));
     }
+
+
+    // Units Functions
 
     public function units()
     {
@@ -335,7 +345,7 @@ class AdminController extends Controller
     public function units_delete($id)
     {
 
-        $query  = Units::where('unit_id', $id)->delete();
+        $query = Units::where('unit_id', $id)->delete();
 
         if ($query) {
             return back()->with('success', 'Unit deleted successfully!');
@@ -344,10 +354,14 @@ class AdminController extends Controller
         }
     }
 
-    public function new_settings()
+    // Account Settings
+
+    public function account_settings()
     {
         return view('admin.settings.account');
     }
+
+    // Settings
 
     public function responsiblity_center_list()
     {
@@ -410,6 +424,7 @@ class AdminController extends Controller
         }
     }
 
+    // Maintenance & Other Operating Expenses
     public function mooe_list()
     {
         $mooes = Mooe::orderBy('name', 'ASC')->get();
@@ -469,6 +484,69 @@ class AdminController extends Controller
             return back()->with('success', 'MOOE deleted successfully!');
         } else {
             return back()->with('error', 'Error: Failed deleting MOOE');
+        }
+    }
+
+    // Capital Outlay Functions
+    public function co_list()
+    {
+        $co = Co::orderBy('name', 'ASC')->get();
+
+        return view('admin.settings.co', compact('co'));
+    }
+
+    public function co_add(Request $request)
+    {
+        $request->validate([
+            'code' => 'required',
+            'name' => 'required|string',
+        ]);
+
+        $checkCode = Co::where('code', $request->code)->first();
+
+        if ($checkCode) {
+            return back()->with('error', 'Error: Code already exists!');
+        }
+
+        $query = Co::insert([
+            'code' => $request->code,
+            'name' => $request->name,
+        ]);
+
+        if ($query) {
+            return back()->with('success', 'Capital Outlay inserted successfully!');
+        } else {
+            return back()->with('error', 'Error: Failed inserting Capital Outlay');
+        }
+    }
+
+    public function co_edit(Request $request)
+    {
+        $request->validate([
+            'code' => 'required',
+            'name' => 'required|string',
+        ]);
+
+        $query = Co::where('code', $request->code)
+            ->update([
+                'name' => $request->name,
+            ]);
+
+        if ($query) {
+            return back()->with('success', 'Capital Outlay updated successfully!');
+        } else {
+            return back()->with('error', 'Error: Failed updating Capital Outlay');
+        }
+    }
+
+    public function co_delete($code)
+    {
+        $query = Co::where('code', $code)->delete();
+
+        if ($query) {
+            return back()->with('success', 'Capital Outlay deleted successfully!');
+        } else {
+            return back()->with('error', 'Error: Failed deleting Capital Outlay');
         }
     }
 }

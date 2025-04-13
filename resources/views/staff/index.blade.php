@@ -5,6 +5,7 @@
     <link href="{{ asset('css/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+    @include('components.message')
     <div class="row  border-bottom white-bg dashboard-header">
         <div class="col-lg-12">
             <h2>Welcome <strong> {{ Auth::user()->name }}</strong></h2>
@@ -18,7 +19,7 @@
                             {{ $d->created_at->diffForHumans() }}
                         </span>
                         <span class="label label-success">{{ $loop->iteration }}</span>
-                        <a href="{{ route('staff.view-document', ['id' => $d->document_number]) }}"
+                        <a href="{{ route('document.view', ['id' => $d->document_number]) }}"
                             class="text-dark">{{ Str::limit($d->document_title, 30, '...') }}</a>
                     </li>
 
@@ -144,7 +145,7 @@
                                                 read</a>
                                             <strong>{{ $notif->type }}</strong>:
                                             <a class="text-purple"
-                                                href="{{ route('staff.view-document', ['id' => $notif->document_number]) }}">{{ $notif->document_title }}</a>
+                                                href="{{ route('viewnotif', ['id' => $notif->id, 'number' => $notif->document_number]) }}">{{ $notif->document_title }}</a>
                                             ({{ $notif->name }})
                                             -
                                             {{ $notif->notif_created_at = Carbon\Carbon::parse($notif->notif_created_at)->diffForHumans() }}

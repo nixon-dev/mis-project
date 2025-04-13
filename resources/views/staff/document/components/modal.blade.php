@@ -7,7 +7,7 @@
                     <div class="col-sm-12">
                         <h3 class="m-t-none m-b">Add Document</h3>
 
-                        <form role="form" action="{{ url('/staff/insert-document') }}" method="POST">
+                        <form role="form" action="{{ route('document.add') }}" method="POST">
                             @csrf()
                             <div class="form-group">
                                 <label>Title</label>
@@ -23,10 +23,10 @@
                                 <div class="col-sm-12">
                                     <label class="">Responsibility Center</label>
                                 </div>
-
                                 <div class="col-sm-12">
                                     <select id="mySelect" class="form-control p-w-sm select2" style="width: 100%;"
                                         name="rc_code" required>
+                                        <option disabled selected></option>
                                         @foreach ($rescen as $rc)
                                             <option value="{{ $rc->code }}">
                                                 {{ $rc->name }}</option>
@@ -59,17 +59,12 @@
     </div>
 </div>
 
-@section('script')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script>
-    $.fn.modal.Constructor.prototype._enforceFocus = function() {};
-</script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#mySelect').select2({
-                placeholder: "Select an option...",
-                allowClear: true
-            });
+    $(document).ready(function() {
+        $('#mySelect').select2({
+            placeholder: "Select an office",
+            allowClear: true
         });
-    </script>
-@endsection
+    });
+</script>

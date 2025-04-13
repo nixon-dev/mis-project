@@ -40,7 +40,7 @@ Route::middleware(['auth', 'role:Administrator'])->prefix('admin')->group(functi
 
     Route::post('/office/add', [AdminController::class, 'office_add'])->name('admin.office-add');
 
-    Route::post('/office/edit', [AdminController::class,'office_edit'])->name('admin.office_edit');
+    Route::post('/office/edit', [AdminController::class, 'office_edit'])->name('admin.office_edit');
 
     Route::get('/office/{id}', [AdminController::class, 'office_delete'])->name('admin.office-delete');
 
@@ -58,28 +58,32 @@ Route::middleware(['auth', 'role:Administrator'])->prefix('admin')->group(functi
 
     Route::get('/units', [AdminController::class, 'units'])->name('admin.units');
 
-    Route::post('/units/add', [AdminController::class,'units_add'])->name('admin.units-add');
+    Route::post('/units/add', [AdminController::class, 'units_add'])->name('admin.units-add');
 
     Route::post('/units/edit', [AdminController::class, 'units_edit'])->name('admin.units-edit');
 
     Route::get('/units/delete/{id}', [AdminController::class, 'units_delete'])->name('admin.units-delete');
 
-    Route::get('/new-settings', [AdminController::class, 'new_settings'])->name('admin.new-settings');
+    Route::get('/account-settings', [AdminController::class, 'account_settings'])->name('admin.new-settings');
 
-    Route::get('/responsibility-centers', [AdminController::class,'responsiblity_center_list'])->name('admin.responsibility-center');
 
-    Route::post('/responsibility-center/add', [AdminController::class,'responsibility_center_add'])->name('admin.rescen-add');
-
-    Route::post('/responsibility-center/edit', [AdminController::class,'responsibility_center_edit'])->name('admin.rescen-edit');
-
+    // Responsibility Center
+    Route::get('/responsibility-centers', [AdminController::class, 'responsiblity_center_list'])->name('admin.responsibility-center');
+    Route::post('/responsibility-center/add', [AdminController::class, 'responsibility_center_add'])->name('admin.rescen-add');
+    Route::post('/responsibility-center/edit', [AdminController::class, 'responsibility_center_edit'])->name('admin.rescen-edit');
     Route::get('/responsibility-center/delete/{code}', [AdminController::class, 'responsibility_center_delete'])->name('admin.rescen-delete');
 
-    Route::get('/mooe', [AdminController::class,'mooe_list'])->name('admin.mooe');
-
-    Route::post('/mooe/add', [AdminController::class,'mooe_add'])->name('admin.mooe-add');
-
-    Route::post('/mooe/edit', [AdminController::class,'mooe_edit'])->name('admin.mooe-edit');
-
+    // MOOE
+    Route::get('/mooe', [AdminController::class, 'mooe_list'])->name('admin.mooe');
+    Route::post('/mooe/add', [AdminController::class, 'mooe_add'])->name('admin.mooe-add');
+    Route::post('/mooe/edit', [AdminController::class, 'mooe_edit'])->name('admin.mooe-edit');
     Route::get('/mooe/delete/{code}', [AdminController::class, 'mooe_delete'])->name('admin.mooe-delete');
+
+    // Capital Outlay
+    Route::get('/capital-outlay', [AdminController::class, 'co_list'])->name('admin.co');
+    Route::post('/capital-outlay/add', [AdminController::class, 'co_add'])->name('admin.co-add');
+    Route::post('/capital-outlay/edit', [AdminController::class, 'co_edit'])->name('admin.co-edit');
+    Route::get('/capital-outlay/delete/{code}', [AdminController::class, 'co_delete'])->name('admin.co-delete');
+
 
 });

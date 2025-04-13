@@ -26,25 +26,8 @@
     <div class="wrapper wrapper-content animated fadeInDown">
         <div class="row">
 
-            <div class="col-sm-12">
-                @if (Session::has('success'))
-                    <p class="alert alert-success">{{ Session::get('success') }}</p>
-                @elseif (Session::has('error'))
-                    <p class="alert alert-danger">{{ Session::get('error') }}</p>
-                @endif
-            </div>
+            @include('components.message')
 
-            @if ($errors->any())
-                <div class="col-sm-12">
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            @endif
 
             <div class="col-lg-6">
                 <div class="ibox ">
@@ -66,18 +49,18 @@
                             @csrf()
                             <div class="form-group d-none">
                                 <label>ID</label>
-                                <input type="number" name="id" value="{{ Auth::user()->id ?? '' }}" class="form-control"
-                                    readonly>
+                                <input type="number" name="id" value="{{ Auth::user()->id ?? '' }}"
+                                    class="form-control" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" name="name" value="{{ Auth::user()->name ?? '' }}" class="form-control"
-                                    required>
+                                <input type="text" name="name" value="{{ Auth::user()->name ?? '' }}"
+                                    class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="text" name="email" value="{{ Auth::user()->email ?? '' }}" class="form-control"
-                                    readonly>
+                                <input type="text" name="email" value="{{ Auth::user()->email ?? '' }}"
+                                    class="form-control" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Role</label>
@@ -113,10 +96,11 @@
                         <form action="{{ url('/admin/user/update-password') }}" method="POST" autocomplete="off">
 
                             @csrf()
-                           
+
                             <div class="form-group d-none">
                                 <label>Email</label>
-                                <input type="email" name="email" value="{{ Auth::user()->email ?? '' }}" class="form-control" readonly>
+                                <input type="email" name="email" value="{{ Auth::user()->email ?? '' }}"
+                                    class="form-control" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Old Password</label>
@@ -134,8 +118,8 @@
                             </div>
                             <div class="form-group d-none">
                                 <label>ID</label>
-                                <input type="number" name="id" value="{{ Auth::user()->id ?? '' }}" class="form-control"
-                                    readonly>
+                                <input type="number" name="id" value="{{ Auth::user()->id ?? '' }}"
+                                    class="form-control" readonly>
                             </div>
 
                             <div class="form-group text-center">
@@ -154,7 +138,7 @@
 
 @section('script')
     <script>
-        document.querySelector('#confirm_password').addEventListener('input', function () {
+        document.querySelector('#confirm_password').addEventListener('input', function() {
             const password = document.getElementById('new_password').value;
             const repeatPassword = document.getElementById('confirm_password').value;
 
@@ -164,6 +148,5 @@
                 document.getElementById('confirm_password').setCustomValidity("");
             }
         });
-
     </script>
 @endsection

@@ -14,7 +14,7 @@
                             {{ $d->created_at->diffForHumans() }}
                         </span>
                         <span class="label label-success">{{ $loop->iteration }}</span>
-                        <a href="{{ route('staff.view-document', ['id' => $d->document_number]) }}"
+                        <a href="{{ route('admin.document-view', ['id' => $d->document_number]) }}"
                             class="text-dark">{{ Str::limit($d->document_title, 30, '...') }}</a>
                     </li>
 

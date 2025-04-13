@@ -30,11 +30,8 @@
 
     <div class="wrapper wrapper-content animated fadeInDown">
 
-        @if (Session::has('success'))
-            <p class="alert alert-success">{{ Session::get('success') }}</p>
-        @elseif (Session::has('error'))
-            <p class="alert alert-danger">{{ Session::get('error') }}</p>
-        @endif
+        @include('components.message')
+
 
         <div class="row">
             <div class="col-lg-12">
@@ -55,7 +52,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        
+
 
 
 

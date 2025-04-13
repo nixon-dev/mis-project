@@ -2,26 +2,31 @@
 <html data-bs-theme="dark">
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/ico" href="{{ asset('img/favicon.ico') }}">
-
     <title> @yield('title', 'Management Information System')</title>
-
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
     <link href="{{ asset('css/personal.css') }}" rel="stylesheet">
 
-
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
     @yield('css')
 
+    <!-- Mainly scripts -->
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
+    <!-- Custom and plugin javascript -->
+    <script src="{{ asset('js/inspinia.js') }}"></script>
+    <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 </head>
 
 <body class="fixed-sidebar">
@@ -63,14 +68,16 @@
                             <span class="nav-label">Users</span></a>
                     </li>
                     <li
-                        class="{{ request()->routeIs(['admin.units', 'admin.office', 'admin.history', 'admin.responsibility-center', 'admin.mooe']) ? 'active' : '' }}">
+                        class="{{ request()->routeIs(['admin.co', 'admin.units', 'admin.office', 'admin.history', 'admin.responsibility-center', 'admin.mooe']) ? 'active' : '' }}">
                         <a href="#" aria-expanded="false" class="text-white"><i class="fa fa-gear"
                                 aria-hidden="true"></i>
                             <span class="nav-label">Settings</span><span class="fa arrow" aria-hidden="true"></span></a>
                         <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
-                            
+
+                            <li class={{ request()->routeIs('admin.co') ? 'active' : '' }}><a
+                                    href="{{ route('admin.co') }}">Capital Outlay</a></li>
                             <li class={{ request()->routeIs('admin.mooe') ? 'active' : '' }}><a
-                                href="{{ route('admin.mooe') }}">MOOE</a></li>
+                                    href="{{ route('admin.mooe') }}">MOOE</a></li>
                             <li class={{ request()->routeIs('admin.responsibility-center') ? 'active' : '' }}><a
                                     href="{{ route('admin.responsibility-center') }}">Responsibility Center</a></li>
                             <li class={{ request()->routeIs('admin.office') ? 'active' : '' }}><a
@@ -228,16 +235,7 @@
         </div>
     </div>
 
-    <!-- Mainly scripts -->
-    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ asset('js/popper.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
-    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="{{ asset('js/inspinia.js') }}"></script>
-    <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 
     @yield('script')
 

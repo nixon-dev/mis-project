@@ -32,13 +32,8 @@
     <div class="wrapper wrapper-content animated fadeInDown">
         <div class="row">
 
-            <div class="col-sm-12">
-                @if (Session::has('success'))
-                    <p class="alert alert-success">{{ Session::get('success') }}</p>
-                @elseif (Session::has('error'))
-                    <p class="alert alert-danger">{{ Session::get('error') }}</p>
-                @endif
-            </div>
+            @include('components.message')
+
 
             <div class="col-lg-6">
                 <div class="ibox ">
@@ -89,7 +84,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Role</label>
-                                <select name="role" class="form-control">
+                                <select name="role" class="form-control" id="roleSelect">
                                     <option value="Guest" {{ $info[0]->role == 'Guest' ? 'selected' : '' }}>Guest</option>
                                     <option value="Staff" {{ $info[0]->role == 'Staff' ? 'selected' : '' }}>Staff</option>
                                     <option value="Administrator"
@@ -97,7 +92,8 @@
                                 </select>
                             </div>
 
-                            <div class="form-group {{ $info[0]->role == 'Administrator' ? 'd-none' : '' }}">
+                            <div id="officeDiv"
+                                class="form-group {{ $info[0]->role == 'Administrator' ? 'd-none' : '' }}{{ $info[0]->role == 'Guest' ? 'd-none' : '' }}">
                                 <label>Office</label>
                                 <select id="mySelect" class="form-control p-w-sm select2" style="width: 100%;"
                                     name="office_id">
@@ -126,6 +122,21 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="{{ asset('js/plugins/iCheck/icheck.min.js') }}"></script>
     <script>
+        const roleSelect = document.getElementById('roleSelect');
+        const officeSelect = document.getElementById('mySelect');
+        const officeDiv = document.getElementById('officeDiv');
+
+        roleSelect.addEventListener('change', function() {
+            const roleValue = this.value;
+            if (roleValue === 'Staff') {
+                officeDiv.classList.remove('d-none');
+                officeSelect.required = true;
+            } else {
+                officeDiv.classList.add('d-none');
+                officeSelect.required = false;
+            }
+        });
+
         $(document).ready(function() {
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',

@@ -1,5 +1,19 @@
-@if (Session::has('success'))
-    <p class="alert alert-success">{{ Session::get('success') }}</p>
-@elseif (Session::has('error'))
-    <p class="alert alert-danger">{{ Session::get('error') }}</p>
-@endif
+<script>
+    @if (Session::has('success'))
+        Swal.fire({
+            title: "Success!",
+            text: "{{ session('success') }}",
+            icon: "success",
+            timer: 3000,
+            showConfirmButton: false
+        });
+    @elseif (Session::has('error'))
+        Swal.fire({
+            title: "Error!",
+            text: "{{ session('error') }}",
+            icon: "error",
+            timer: 3000,
+            showConfirmButton: false
+        });
+    @endif
+</script>

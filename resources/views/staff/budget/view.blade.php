@@ -19,7 +19,13 @@
                     <a href="{{ route('staff.index') }}">Staff</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ route('budget.pending') }}">Pending Document</a>
+                    @if ($externalDocx->de_status == 'Approved')
+                        <a href="{{ route('budget.approved') }}">Approved Document</a>
+                    @elseif ($externalDocx->de_status == 'Pending')
+                        <a href="{{ route('budget.pending') }}">Pending Document</a>
+                    @elseif ($externalDocx->de_status == 'Denied')
+                        <a href="{{ route('budget.denied') }}">Denied Document</a>
+                    @endif
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>{{ $data->document_number }}</strong>
@@ -28,7 +34,11 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Document Action</a>
+                @if ($externalDocx->de_status == 'Pending')
+                    <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Document Action</a>
+                @elseif($externalDocx->de_status == 'Approved')
+                    <a data-toggle="modal" href="#forward-form" class="btn btn-primary">Forward to</a>
+                @endif
             </div>
         </div>
     </div>
@@ -52,25 +62,25 @@
                                             <dt class="fs-18">Status:</dt>
                                             <dd class="fs-16">
                                                 @php
-                                                    $status = match ($data->document_status) {
-                                                        'Approve' => 'success',
+                                                    $status = match ($externalDocx->de_status) {
+                                                        'Approved' => 'success',
                                                         'Denied' => 'danger',
                                                         'Pending' => 'primary',
                                                         default => 'info',
                                                     };
                                                 @endphp
                                                 <span
-                                                    class="label label-{{ $status }}">{{ $data->document_status }}</span>
+                                                    class="label label-{{ $status }}">{{ $externalDocx->de_status }}</span>
                                             </dd>
                                         </dl>
                                     </div>
                                     <div class="col-lg-5">
                                         <dl class="dl-horizontal">
 
-                                            @if ($pendingDocx)
+                                            @if ($externalDocx)
                                                 <dt class="fs-18">Remarks</dt>
                                                 <dd class="fs-16">
-                                                    {{ $pendingDocx->dp_remarks }}
+                                                    {{ $externalDocx->de_remarks }}
                                                 </dd>
                                             @endif
                                         </dl>
@@ -325,7 +335,7 @@
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Add Action</h3>
 
-                            <form role="form" action="{{ route('staff.document-insert-action') }}" method="POST">
+                            <form role="form" action="{{ route('budget.add-action') }}" method="POST">
                                 @csrf()
 
                                 <div class="form-group d-none">
@@ -350,6 +360,58 @@
                                     <label>Action Taken/Comments</label>
                                     <input type="text" name="history_action" class="form-control" required>
                                 </div>
+
+                                <div class="form-group text-center">
+                                    <button class="btn btn-sm btn-primary m-t-n-xs w-100"
+                                        type="submit"><strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="forward-form" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <h3 class="m-t-none m-b">Add Action</h3>
+
+                            <form role="form" action="{{ route('budget.forward') }}" method="POST">
+                                @csrf()
+
+                                <div class="form-group d-none">
+                                    <label>Document ID</label>
+                                    <input value="{{ $data->document_id }}" name="document_id" class="form-control"
+                                        type="number" readonly>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <label>Office</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <select id="officeSelect" class="form-control p-w-sm select2"
+                                            style="width: 100%;" name="office_id" required>
+                                            <option selected></option>
+                                            @forelse ($office as $o)
+                                                <option value="{{ $o->office_id }}">
+                                                    {{ $o->office_name }}</option>
+                                            @empty
+                                                <option disabled>No Office Found, Please ask Administrator</option>
+                                            @endforelse
+                                        </select>
+
+                                    </div>
+                                </div>
+
+
 
                                 <div class="form-group text-center">
                                     <button class="btn btn-sm btn-primary m-t-n-xs w-100"

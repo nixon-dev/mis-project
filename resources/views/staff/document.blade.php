@@ -111,8 +111,6 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5>Document Data</h5>
-                        {{-- <a href="{{ url('/add-student-form') }}">Add New Record</a> --}}
-
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -155,7 +153,7 @@
                                             <td class="wp-10 text-center">
                                                 <a href="{{ url('/staff/document-tracking/' . $d->document_number) }}"
                                                     class="btn btn-primary btn-sm">
-                                                   <i class="fa fa-eye"></i>
+                                                    <i class="fa fa-eye"></i>
                                                 </a>
                                             </td>
                                         </tr>

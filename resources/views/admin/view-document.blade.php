@@ -51,13 +51,8 @@
         </div>
     </div>
 
-    <div class="col-sm-12 mb-3 m-t-10">
-        @if (Session::has('success'))
-            <p class="alert alert-success">{{ Session::get('success') }}</p>
-        @elseif (Session::has('error'))
-            <p class="alert alert-danger">{{ Session::get('error') }}</p>
-        @endif
-    </div>
+    @include('components.message')
+
 
 
     <div class="row">
@@ -74,9 +69,9 @@
                                     <a data-toggle="modal" href="#amount-form"
                                         class="btn btn-primary btn-xs pull-right m-l-10">Edit Document</a> --}}
 
-                                    <a href="{{ url('/admin/delete-document/' . $data->document_id) }}"
+                                    {{-- <a href="{{ url('/admin/delete-document/' . $data->document_id) }}"
                                         class="btn btn-danger btn-xs pull-right"
-                                        onclick="return confirm('Delete document?')">Delete Document</a>
+                                        onclick="return confirm('Delete document?')">Delete Document</a> --}}
                                     <h2 class="font-bold">{{ $data->document_title }}</h2>
                                 </div>
                                 <div class="row">

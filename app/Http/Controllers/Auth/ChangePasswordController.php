@@ -24,7 +24,7 @@ class ChangePasswordController extends Controller
         if (!Hash::check($request->old_password, $user->password)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error: Old password did not match our record.',
+                'message' => 'Old password did not match our record.',
             ]);
         }
 
@@ -33,11 +33,11 @@ class ChangePasswordController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Password changed successfully!',
-            ]); 
+            ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Error: Failed to update password.',
+                'message' => 'Failed to update password.',
             ]);
         }
     }

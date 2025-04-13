@@ -16,25 +16,15 @@
     </div>
     <div class="wrapper wrapper-content animated fadeInDown">
         <div class="row">
-            <div class="col-lg-12" id="message-container">
-                @include('components.message')
-            </div>
-            @if ($errors->any())
-                <div class="col-sm-12">
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            @endif
+            @include('components.message')
+
             <div class="col-lg-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#profile" aria-expanded="true">Profile</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#password" aria-expanded="false">Password</a></li>
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#profile"
+                                aria-expanded="true">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#password"
+                                aria-expanded="false">Password</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="profile" class="tab-pane fade show active">
@@ -65,20 +55,25 @@
                     dataType: 'json',
                     success: function(response) {
                         if (response.success) {
-                            $('#message-container').html('<div class="alert alert-success">' +
-                                response.message + '</div>');
-                            $('#display-name').text(response.message.split('updated to ')[1] ||
-                                $('#name').val());
+                            Swal.fire({
+                                title: "Succcess!",
+                                text: response.message,
+                                icon: "success"
+                            });
                         } else {
-                            $('#message-container').html('<div class="alert alert-danger">' +
-                                response.message + '</div>');
+                            Swal.fire({
+                                title: "Error!",
+                                text: response.message,
+                                icon: "error"
+                            });
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error("AJAX Error:", error);
-                        $('#message-container').html(
-                            '<div class="alert alert-danger">An unexpected error occurred. Please try again.</div>'
-                        );
+                        Swal.fire({
+                            title: "AJAX Error:",
+                            text: "An unexpected error occurred. Please try again.",
+                            icon: "error"
+                        });
                     },
                 });
             });
@@ -106,20 +101,25 @@
                     dataType: 'json',
                     success: function(response) {
                         if (response.success) {
-                            $('#message-container').html('<div class="alert alert-success">' +
-                                response.message + '</div>');
-                            $('#display-name').text(response.message.split('updated to ')[1] ||
-                                $('#name').val());
+                            Swal.fire({
+                                title: "Succcess!",
+                                text: response.message,
+                                icon: "success"
+                            });
                         } else {
-                            $('#message-container').html('<div class="alert alert-danger">' +
-                                response.message + '</div>');
+                            Swal.fire({
+                                title: "Error!",
+                                text: response.message,
+                                icon: "error"
+                            });
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error("AJAX Error:", error);
-                        $('#message-container').html(
-                            '<div class="alert alert-danger">An unexpected error occurred. Please try again.</div>'
-                        );
+                        Swal.fire({
+                            title: "AJAX Error:",
+                            text: "An unexpected error occurred. Please try again.",
+                            icon: "error"
+                        });
                     },
                 });
             });

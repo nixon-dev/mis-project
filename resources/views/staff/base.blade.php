@@ -15,13 +15,27 @@
 
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
     <link href="{{ asset('css/personal.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
 
 
     @yield('css')
 
+    <style>
+        .swal2-container {
+            z-index: 99999 !important;
+        }
+    </style>
 
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="{{ asset('js/inspinia.js') }}"></script>
+    <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 </head>
 
 <body class="fixed-sidebar">
@@ -48,30 +62,26 @@
                             <span class="nav-label">Dashboard</span> </a>
                     </li>
 
-                    {{-- <li class="{{ request()->routeIs('staff.document') ? 'active' : '' }}">
-                        <a href="{{ url('/staff/document-tracking') }}" class="text-white"><i
-                                class="fa fa-file-text "></i> <span class="nav-label">Document
-                                Tracking</span></a>
-                    </li> --}}
-
                     <li
-                        class="{{ request()->routeIs(['staff.document-draft', 'staff.document-pending', 'staff.document-denied', 'staff.document-approved']) ? 'active' : '' }}">
+                        class="{{ request()->routeIs(['document.draft', 'document.pending', 'document.denied', 'document.approved', 'document.view']) ? 'active' : '' }}">
                         <a href="#" aria-expanded="false" class="text-white"><i class="fa fa-gear"
                                 aria-hidden="true"></i>
                             <span class="nav-label">Document Tracking</span><span class="fa arrow"
                                 aria-hidden="true"></span></a>
                         <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
 
-                            <li class="{{ request()->routeIs('staff.document-draft') ? 'active' : '' }}"><a
-                                    href="{{ route('staff.document-draft') }}">Draft</a></li>
-                            <li class="{{ request()->routeIs('staff.document-pending') ? 'active' : '' }}"><a
-                                    href="{{ route('staff.document-pending') }}">Pending</a></li>
-                            <li class="{{ request()->routeIs('staff.document-approved') ? 'active' : '' }}"><a
-                                    href="{{ route('staff.document-approved') }}">Approved</a></li>
-                            <li class="{{ request()->routeIs('staff.document-denied') ? 'active' : '' }}"><a
-                                    href="{{ route('staff.document-denied') }}">Denied</a></li>
+                            <li class="{{ request()->routeIs('document.draft') ? 'active' : '' }}"><a
+                                    href="{{ route('document.draft') }}">Draft</a></li>
+                            <li class="{{ request()->routeIs('document.pending') ? 'active' : '' }}"><a
+                                    href="{{ route('document.pending') }}">Pending</a></li>
+                            <li class="{{ request()->routeIs('document.approved') ? 'active' : '' }}"><a
+                                    href="{{ route('document.approved') }}">Approved</a></li>
+                            <li class="{{ request()->routeIs('document.denied') ? 'active' : '' }}"><a
+                                    href="{{ route('document.denied') }}">Denied</a></li>
                         </ul>
                     </li>
+
+
 
                     {{-- THIS APPEARS IF STAFF IS ASSIGNED TO BUDGET OFFICE --}}
                     <div class="d-none">
@@ -79,11 +89,52 @@
                     </div>
 
                     @if (Auth::user()->office_id == $budgetOffice)
-                        <li class="{{ request()->routeIs('budget.pending') ? 'active' : '' }}">
-                            <a href="{{ route('budget.pending') }}" class="text-white"><i class="fa fa-file-text"></i>
-                                Pending Documents</a>
+                        <li class="">
+                            <a href="#" class="text-white"><i class="fa fa-credit-card "></i>
+                                <span class="nav-label">Budget Management</span></a>
+                        </li>
+                        <li
+                            class="{{ request()->routeIs(['budget.pending', 'budget.approved', 'budget.denied', 'budget.view']) ? 'active' : '' }}">
+                            <a href="#" aria-expanded="false" class="text-white">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                                <span class="nav-label">External Documents</span>
+                                <span class="fa arrow" aria-hidden="true"></span>
+                            </a>
+                            <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                                <li class="{{ request()->routeIs('budget.pending') ? 'active' : '' }}">
+                                    <a href="{{ route('budget.pending') }}">Pending Documents</a>
+                                </li>
+                                <li class="{{ request()->routeIs('budget.approved') ? 'active' : '' }}">
+                                    <a href="{{ route('budget.approved') }}">Approved Documents</a>
+                                </li>
+                                <li class="{{ request()->routeIs('budget.denied') ? 'active' : '' }}">
+                                    <a href="{{ route('budget.denied') }}">Denied Documents</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @else
+                        <li
+                            class="{{ request()->routeIs(['external.pending', 'external.approved', 'external.denied', 'external.view']) ? 'active' : '' }}">
+                            <a href="#" aria-expanded="false" class="text-white">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                                <span class="nav-label">External Documents</span>
+                                <span class="fa arrow" aria-hidden="true"></span>
+                            </a>
+                            <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                                <li class="{{ request()->routeIs('external.pending') ? 'active' : '' }}">
+                                    <a href="{{ route('external.pending') }}">Pending Documents</a>
+                                </li>
+                                <li class="{{ request()->routeIs('external.approved') ? 'active' : '' }}">
+                                    <a href="{{ route('external.approved') }}">Approved Documents</a>
+                                </li>
+                                <li class="{{ request()->routeIs('external.denied') ? 'active' : '' }}">
+                                    <a href="{{ route('external.denied') }}">Denied Documents</a>
+                                </li>
+                            </ul>
                         </li>
                     @endif
+
+
 
 
 
@@ -199,16 +250,7 @@
     </div>
 </div>
 
-<!-- Mainly scripts -->
-<script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
-<script src="{{ asset('js/popper.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.js') }}"></script>
-<script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-<script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
-<!-- Custom and plugin javascript -->
-<script src="{{ asset('js/inspinia.js') }}"></script>
-<script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 
 @yield('script')
 

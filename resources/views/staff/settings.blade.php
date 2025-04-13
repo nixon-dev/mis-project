@@ -55,8 +55,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Role</label>
-                                <input type="text" name="role" value="{{ Auth::user()->role }}"
-                                    class="form-control" readonly>
+                                <input type="text" name="role" value="{{ Auth::user()->role }}" class="form-control"
+                                    readonly>
                             </div>
 
 
@@ -88,7 +88,8 @@
                             @csrf()
                             <div class="form-group d-none">
                                 <label>Email</label>
-                                <input type="email" name="email" value="{{ Auth::user()->email }}" class="form-control" readonly>
+                                <input type="email" name="email" value="{{ Auth::user()->email }}" class="form-control"
+                                    readonly>
                             </div>
                             <div class="form-group">
                                 <label>Old Password</label>
@@ -106,8 +107,8 @@
                             </div>
                             <div class="form-group d-none">
                                 <label>ID</label>
-                                <input type="number" name="id" value="{{ Auth::user()->id ?? '' }}" class="form-control"
-                                    readonly>
+                                <input type="number" name="id" value="{{ Auth::user()->id ?? '' }}"
+                                    class="form-control" readonly>
                             </div>
                             <div class="form-group text-center">
                                 <button class="btn btn-sm btn-success m-t-n-xs w-100" type="submit"><strong>Update
@@ -123,7 +124,7 @@
 @endsection
 @section('script')
     <script>
-        document.querySelector('#confirm_password').addEventListener('input', function () {
+        document.querySelector('#confirm_password').addEventListener('input', function() {
             const password = document.getElementById('new_password').value;
             const repeatPassword = document.getElementById('confirm_password').value;
 

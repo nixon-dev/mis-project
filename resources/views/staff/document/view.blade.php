@@ -32,23 +32,18 @@
                 <li class="breadcrumb-item">
                     Document Tracking
                 </li>
-                @if ($data->document_status == 'Approved')
-                    <li class="breadcrumb-item">
+                <li class="breadcrumb-item">
+                    @if ($data->document_status == 'Approved')
                         <a href="{{ route('document.approved') }}">Approved</a>
-                    </li>
-                @elseif ($data->document_status == 'Denied')
-                    <li class="breadcrumb-item">
+                    @elseif ($data->document_status == 'Denied')
                         <a href="{{ route('document.denied') }}">Denied</a>
-                    </li>
-                @elseif ($data->document_status == 'Pending')
-                    <li class="breadcrumb-item">
+                    @elseif ($data->document_status == 'Pending')
                         <a href="{{ route('document.pending') }}">Pending</a>
-                    </li>
-                @else
-                    <li class="breadcrumb-item">
+                    @else
                         <a href="{{ route('document.draft') }}">Draft</a>
-                    </li>
-                @endif
+                    @endif
+                </li>
+
                 <li class="breadcrumb-item active">
                     <strong>{{ $data->document_number }}</strong>
                 </li>
@@ -57,11 +52,9 @@
         <div class="col-sm-4">
             <div class="title-action">
                 @if ($checkIfSent == '0')
-                    <a href="{{ route('budget.submit', ['id' => $data->document_id]) }}" class="btn btn-primary">Submit to
-                        Budget Office</a>
+                    <a href="#submit-form" data-toggle="modal" class="btn btn-primary">Submit</a>
                 @else
-                    <button href="#" class="btn btn-primary" disabled>Submit to
-                        Budget Office</button>
+                    <button href="#" class="btn btn-primary" disabled>Submit</button>
                 @endif
             </div>
 
@@ -69,9 +62,7 @@
         </div>
     </div>
 
-    <div class="col-sm-12 mb-3 m-t-10">
-        @include('components.message')
-    </div>
+    @include('components.message')
 
 
     <div class="row">
@@ -85,7 +76,7 @@
                                     <a data-toggle="modal" href="#items-form"
                                         class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Add
                                         Items</a>
-                                    <a data-toggle="modal" href="#amount-form"
+                                    <a data-toggle="modal" href="#update-form"
                                         class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Edit
                                         Document</a>
 
@@ -98,7 +89,7 @@
                                             <dd class="fs-16">
                                                 @php
                                                     $status = match ($data->document_status) {
-                                                        'Approve' => 'success',
+                                                        'Approved' => 'success',
                                                         'Denied' => 'danger',
                                                         'Pending' => 'primary',
                                                         default => 'info',
@@ -115,7 +106,7 @@
                                             @if ($pendingDocx)
                                                 <dt class="fs-18">Remarks</dt>
                                                 <dd class="fs-16">
-                                                    {{ $pendingDocx->dp_remarks ?? 'N/A' }}
+                                                    {{ $pendingDocx->de_remarks ?? 'N/A' }}
                                                 </dd>
                                             @endif
                                         </dl>
@@ -142,7 +133,7 @@
                                     <dt class="fs-18">Document Number:</dt>
                                     <dd class="fs-16">{{ $data->document_number }}</dd>
                                     <dt class="fs-18">Responsibility Center</dt>
-                                    <dd class="fs-16">{{ $data->rc_code ?? 'None' }}</dd>
+                                    <dd class="fs-16">{{ $data->rc_name ?? 'None' }}</dd>
                                     <dt class="fs-18">Deadline:</dt>
                                     <dd class="fs-16">{{ $data->document_deadline }}</dd>
 
@@ -354,7 +345,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Add Item</h3>
-                            <form role="form" action="{{ route('staff.document-insert-item') }}" method="POST">
+                            <form role="form" action="{{ route('document.add-item') }}" method="POST">
                                 @csrf()
 
                                 <div class="form-group d-none">
@@ -477,6 +468,53 @@
         </div>
     </div>
 
+    <div id="submit-form" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 class="m-t-none m-b">Submit Form To</h3>
+
+                    <form role="form" action="{{ route('document.submit') }}" method="POST">
+                        @csrf()
+
+                        <div class="form-group d-none">
+                            <label>Document ID</label>
+                            <input value="{{ $data->document_id }}" name="document_id" class="form-control"
+                                type="number" readonly>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <label>Office</label>
+                            </div>
+                            <div class="col-sm-12">
+                                <select id="officeSelect" class="form-control p-w-sm select2" style="width: 100%;"
+                                    name="office_id" required>
+                                    <option selected></option>
+                                    @forelse ($office as $o)
+                                        <option value="{{ $o->office_id }}"
+                                            {{ $o->office_id == $defaultBudgetOffice ? 'selected' : '' }}>
+                                            {{ $o->office_name }}</option>
+                                    @empty
+                                        <option disabled>No Office Found, Please ask Administrator</option>
+                                    @endforelse
+                                </select>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group text-center">
+                            <button class="btn btn-sm btn-primary m-t-n-xs w-100" type="submit"><strong>Submit</strong>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="action-form" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -486,7 +524,7 @@
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Add Action</h3>
 
-                            <form role="form" action="{{ route('staff.document-insert-action') }}" method="POST">
+                            <form role="form" action="{{ route('document.add-action') }}" method="POST">
                                 @csrf()
 
                                 <div class="form-group d-none">
@@ -524,7 +562,7 @@
     </div>
 
 
-    <div id="amount-form" class="modal fade" aria-hidden="true">
+    <div id="update-form" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
@@ -532,7 +570,7 @@
 
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Edit Document</h3>
-                            <form role="form" action="{{ route('staff.document-update-amount') }}" method="POST">
+                            <form role="form" action="{{ route('document.update') }}" method="POST">
                                 @csrf()
                                 <div class="form-group d-none">
                                     <label>Document ID</label>
@@ -549,10 +587,26 @@
                                     <input type="text" name="document_nature" value="{{ $data->document_nature }}"
                                         class="form-control" required>
                                 </div>
-                                <div class="form-group">
-                                    <label>Amount</label>
-                                    <input type="number" name="amount" min="0" value="{{ $data->amount }}"
-                                        step=".01" class="form-control" required>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <label>Responsibility Center</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <select id="rcSelect" class="form-control p-w-sm select2" style="width: 100%;"
+                                            name="rc_code" required>
+                                            <option selected></option>
+                                            @forelse ($rescen as $rc)
+                                                <option value="{{ $rc->code }}"
+                                                    {{ $data->rc_code == $rc->code ? 'selected' : '' }}>
+                                                    {{ $rc->name }}</option>
+                                            @empty
+                                                <option disabled>No Responsibility Center Found, Please ask Administrator
+                                                </option>
+                                            @endforelse
+                                        </select>
+
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Deadline</label>
@@ -612,11 +666,19 @@
                 placeholder: "Select a MOOE",
                 allowClear: true
             });
-        });
 
-        $(document).ready(function() {
+            $('#rcSelect').select2({
+                placeholder: "Select Responsibility Center",
+                allowClear: false
+            });
+
             $('#coSelect').select2({
                 placeholder: "Select a Capital Outlay",
+                allowClear: true
+            });
+
+            $('#officeSelect').select2({
+                placeholder: "Select an Office",
                 allowClear: true
             });
         });
@@ -643,7 +705,11 @@
         });
 
         function updateStatus(itemId, isChecked) {
-            var document_id = {{ $data->document_id }};
+            var document_id = {
+                {
+                    $data - > document_id
+                }
+            };
             var token = "{{ csrf_token() }}";
 
             $.ajax({

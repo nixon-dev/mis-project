@@ -27,7 +27,7 @@ class ApiController extends Controller
             ]);
 
         if ($query) {
-            return redirect()->route('staff.view-document', ['id' => $number]);
+            return redirect()->route('document.view', ['id' => $number]);
         }
 
 

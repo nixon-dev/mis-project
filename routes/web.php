@@ -34,7 +34,9 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 require __DIR__ . '/admin.php';
-require __DIR__ . '/staff.php';
 require __DIR__ . '/api.php';
 require __DIR__ . '/file.php';
-require __DIR__ . '/budget.php';
+require __DIR__ . '/staff/staff.php';
+require __DIR__ . '/staff/budget.php';
+require __DIR__ . '/staff/external.php';
+require __DIR__ . '/staff/document.php';

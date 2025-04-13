@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attachmments;
+use App\Models\Co;
+use App\Models\ExternalDocx;
 use App\Models\Items;
 use App\Models\Notifications;
 use App\Models\Settings;
@@ -100,127 +102,7 @@ class StaffController extends Controller
     }
 
 
-    public function view_document($id)
-    {
-        $assigned_office = Auth::user()->office_id;
-        $data = Document::where('document_number', $id)
-            ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
-            ->select('document.*', 'office.office_name')
-            ->first();
-            
 
-       
-
-        if (!$data) {
-            return back()->with('error', 'Error: No Document Found');
-        }
-
-        if ($data->document_origin != $assigned_office) {
-            return back()->with('error', "Error: You don't have permission to view this document.");
-        }
-
-        $action = History::where('document_id', $data->document_id)->get();
-        $items = Items::where('document_id', $data->document_id)->get();
-        $attachments = Attachmments::where('document_id', $data->document_id)->get();
-
-        foreach ($action as $a) {
-            $a->dh_date = Carbon::parse($a->dh_date)->format('M d, Y - h:i A');
-        }
-
-        if ($data->document_deadline === NULL) {
-            $data->document_deadline = "No Deadline";
-        } else {
-            $unformatted_deadline = Carbon::parse($data->document_deadline);
-            $data->document_deadline = $unformatted_deadline->format('M d, Y - h:i A');
-            $data->unformatted_document_deadline = $unformatted_deadline->format('Y-m-d H:i');
-        }
-
-        $pendingDocx = PendingDocx::where('document_id', $data->document_id)->first();
-
-        $checkIfSent = PendingDocx::where('document_id', $data->document_id)->count();
-
-        $units = Units::get();
-
-        $mooes = Mooe::orderBy('name', 'ASC')->get();
-
-        return view('staff.view-document', compact('data', 'action', 'items', 'attachments', 'checkIfSent', 'pendingDocx', 'units', 'mooes'));
-    }
-
-
-    public function document_draft()
-    {
-        $assigned_office = Auth::user()->office_id;
-        $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
-        $data = Document::where('document_origin', $assigned_office)
-            ->where('document_status', 'Draft')
-            ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
-            ->select('document.*', 'office.office_name')
-            ->orderBy('created_at', 'DESC')
-            ->get();
-
-        $rescen = ResCenter::orderBy('name', 'ASC')->get();
-
-
-
-        foreach ($data as $d) {
-            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
-        }
-        return view('staff.document.draft', compact('data', 'officeName', 'rescen'));
-    }
-
-    public function document_pending()
-    {
-        $assigned_office = Auth::user()->office_id;
-        $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
-        $data = Document::where('document_origin', $assigned_office)
-            ->where('document_status', 'Pending')
-            ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
-            ->select('document.*', 'office.office_name')
-            ->orderBy('created_at', 'DESC')
-            ->get();
-
-            $rescen = ResCenter::orderBy('name', 'ASC')->get();
-
-        foreach ($data as $d) {
-            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
-        }
-        return view('staff.document.pending', compact('data', 'officeName', 'rescen'));
-    }
-
-    public function document_approved()
-    {
-        $assigned_office = Auth::user()->office_id;
-        $data = Document::where('document_origin', $assigned_office)
-            ->where('document_status', 'Approved')
-            ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
-            ->select('document.*', 'office.office_name')
-            ->orderBy('created_at', 'DESC')
-            ->get();
-
-        $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
-
-        $rescen = ResCenter::orderBy('name', 'ASC')->get();
-        foreach ($data as $d) {
-            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
-        }
-        return view('staff.document.approved', compact('data', 'officeName', 'rescen'));
-    }
-
-    public function document_denied()
-    {
-        $assigned_office = Auth::user()->office_id;
-        $data = Document::where('document_origin', $assigned_office)
-            ->where('document_status', 'Denied')
-            ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
-            ->select('document.*', 'office.office_name')
-            ->orderBy('created_at', 'DESC')
-            ->get();
-
-        foreach ($data as $d) {
-            $d->document_deadline = Carbon::parse($d->document_deadline)->format('M d, Y h:i A');
-        }
-        return view('staff.document.denied', compact('data'));
-    }
 
     public function settings()
     {
@@ -244,7 +126,7 @@ class StaffController extends Controller
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Error: Update Failed',
+                'message' => 'Update Failed',
             ]);
         }
     }

@@ -61,11 +61,8 @@
 
     <div class="wrapper wrapper-content animated fadeInDown">
 
-        @if (Session::has('success'))
-            <p class="alert alert-success">{{ Session::get('success') }}</p>
-        @elseif (Session::has('error'))
-            <p class="alert alert-danger">{{ Session::get('error') }}</p>
-        @endif
+        @include('components.message')
+
 
         <div class="row">
             <div class="col-lg-12">
@@ -98,9 +95,8 @@
                                         <td> {{ $c->name }} </td>
                                         <td>{{ $c->code }}</td>
                                         <td class="text-center">
-                                            <a href="#mooeModal" data-toggle="modal"
-                                                class="btn blue-1 btn-sm" data-code="{{ $c->code }}"
-                                                data-name="{{ $c->name }}">
+                                            <a href="#mooeModal" data-toggle="modal" class="btn blue-1 btn-sm"
+                                                data-code="{{ $c->code }}" data-name="{{ $c->name }}">
                                                 <i class="fa fa-pencil text-white"></i>
                                             </a>
                                         </td>
