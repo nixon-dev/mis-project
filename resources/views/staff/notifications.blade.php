@@ -34,7 +34,7 @@
                                     read</a>
                                 <strong>{{ $notif->type }}</strong>:
                                 <a class="text-purple"
-                                    href="{{ route('staff.view-document', ['id' => $notif->document_number]) }}">{{ $notif->document_title }}</a>
+                                    href="{{ route('viewnotif', ['id' => $notif->notif_id, 'number' => $notif->document_number]) }}">{{ $notif->document_title }}</a>
                                 ({{ $notif->name }})
                                 -
                                 {{ $notif->notif_created_at = Carbon\Carbon::parse($notif->notif_created_at)->diffForHumans() }}

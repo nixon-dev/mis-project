@@ -28,6 +28,8 @@ class ApiController extends Controller
 
         if ($query) {
             return redirect()->route('document.view', ['id' => $number]);
+        } else {
+            return back()->with('error', 'Notification not found');
         }
 
 

@@ -206,4 +206,12 @@ class BudgetController extends Controller
             return redirect()->back()->with('error', 'Error: Failed to forward document');
         }
     }
+
+
+    public function budget_management() {
+        
+        $data = Office::orderBy('office_name', 'ASC')->get();
+
+        return view('staff.budget.management', compact('data'));
+    }
 }

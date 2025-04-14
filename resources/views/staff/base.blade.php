@@ -90,7 +90,7 @@
 
                     @if (Auth::user()->office_id == $budgetOffice)
                         <li class="">
-                            <a href="#" class="text-white"><i class="fa fa-credit-card "></i>
+                            <a href="{{ route('budget.management') }}" class="text-white"><i class="fa fa-credit-card "></i>
                                 <span class="nav-label">Budget Management</span></a>
                         </li>
                         <li

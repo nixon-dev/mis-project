@@ -13,6 +13,7 @@
                 <li class="breadcrumb-item">
                     <a href="/staff/dashboard">Staff</a>
                 </li>
+                <li class="breadcrumb-item">External</li>
                 <li class="breadcrumb-item active">
                     <strong>Pending Document</strong>
                 </li>

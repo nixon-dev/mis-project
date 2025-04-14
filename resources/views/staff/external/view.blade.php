@@ -329,7 +329,7 @@
         </div>
     </div>
     <script>
-        document.getElementById('actionForm').addEventListener('submit', function(e) {
+        document.getElementById('#').addEventListener('submit', function(e) {
             e.preventDefault();
             const actionSelect = document.getElementById('actionSelect').value;
 
