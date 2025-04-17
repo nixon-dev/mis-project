@@ -183,10 +183,12 @@
                                                     {{ $i->di_quantity }}
                                                 </td>
                                                 <td>
-                                                    {{ $i->di_unit_price }}
+                                                    <span class="pull-left">₱</span> <span
+                                                        class="pull-right">{{ number_format($i->di_unit_price, 2) }}</span>
                                                 </td>
                                                 <td>
-                                                    {{ $i->di_total_amount }}
+                                                    <span class="pull-left">₱</span> <span
+                                                        class="pull-right">{{ number_format($i->di_total_amount, 2) }}</span>
                                                 </td>
                                             </tr>
                                         @empty

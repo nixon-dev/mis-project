@@ -27,12 +27,12 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5>Document Data</h5>
-            
+
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>
-            
+
                             <a class="close-link">
                                 <i class="fa fa-times"></i>
                             </a>
@@ -40,23 +40,40 @@
                     </div>
                     <div class="ibox-content">
                         <div class="">
-                            <table id="documentTable" class="table table-bordered table-responsive table-hover" style="width: 100%">
+                            <table id="documentTable" class="table table-bordered table-responsive table-hover"
+                                style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th style="width: 100%">Office</th>
                                         <th>Budget</th>
+                                        <th>Manage</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   
+
+                                    @forelse ($data as $d)
                                         <tr>
-                                            <td class="text-center" colspan="2">Temp</td>
+                                            <td>{{ $d->office_name }}</td>
+
+                                            <td>
+                                                <span class="pull-left">₱</span> <span
+                                                    class="pull-right">{{ number_format($d->office_budget, 2) }}</span>
+                                            </td>
+                                            <td>View</td>
                                         </tr>
+
+
+                                    @empty
+                                        <tr>
+                                            <td class="text-center" colspan="2">No Office Found</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>Office</th>
                                         <th>Budget</th>
+                                        <th>Manage</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -100,13 +117,13 @@
                                 extend: 'pdf',
                                 title: 'ExampleFile'
                             },
-            
+
                             {
                                 extend: 'print',
                                 customize: function(win) {
                                     $(win.document.body).addClass('white-bg');
                                     $(win.document.body).css('font-size', '10px');
-            
+
                                     $(win.document.body).find('table')
                                         .addClass('compact')
                                         .css('font-size', 'inherit');
@@ -118,7 +135,7 @@
                                 .columns([2, 3])
                                 .every(function() {
                                     var column = this;
-            
+
                                     var select = $('<select><option value=""></option></select>')
                                         .appendTo($(column.footer()).empty())
                                         .on('change', function() {
@@ -142,7 +159,7 @@
                     });
                 });
             </script>
-            
+
         </div>
     </div>
 @endsection

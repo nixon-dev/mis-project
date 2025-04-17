@@ -251,7 +251,8 @@ class AdminController extends Controller
         ]);
 
         $query = Office::insert([
-            'office_name' => $request->input('office_name'),
+            'office_name' => $request->office_name,
+            'office_code' => $request->office_code,
         ]);
 
         if ($query) {
@@ -268,16 +269,30 @@ class AdminController extends Controller
             'office_name' => 'required|string',
         ]);
 
-        $query = Office::where('office_id', $request->office_id)
-            ->update([
-                'office_name' => $request->office_name,
-            ]);
+        $check = Office::where('office_code', $request->office_code)
+            ->where('office_id', '!=', $request->office_id)
+            ->exists();
 
-        if ($query) {
-            return redirect()->back()->with('success', 'Office updated successfully!');
+
+        if (!$check) {
+            $query = Office::where('office_id', $request->office_id)
+
+                ->update([
+                    'office_name' => $request->office_name,
+                    'office_code' => $request->office_code,
+                ]);
+
+            if ($query) {
+                return redirect()->back()->with('success', 'Office updated successfully!');
+            } else {
+                return redirect()->back()->with('error', 'Failed to update office');
+            }
         } else {
-            return redirect()->back()->with('error', 'Error: Failed to update office');
+
+            return redirect()->back()->with('error', 'Failed to code already in use');
         }
+
+
     }
 
 
@@ -363,66 +378,7 @@ class AdminController extends Controller
 
     // Settings
 
-    public function responsiblity_center_list()
-    {
-        $centers = ResCenter::orderBy('name', 'ASC')->get();
 
-        return view('admin.settings.responsibility-center', compact('centers'));
-    }
-
-    public function responsibility_center_add(Request $request)
-    {
-        $request->validate([
-            'code' => 'required|numeric',
-            'name' => 'required|string',
-        ]);
-
-        $checkCode = ResCenter::where('code', $request->code)->first();
-        if ($checkCode) {
-            return back()->with('error', 'Error: Code already exists!');
-        }
-
-        $query = ResCenter::insert([
-            'code' => $request->code,
-            'name' => $request->name,
-        ]);
-
-        if ($query) {
-            return back()->with('success', 'Responsibility Center inserted successfully!');
-        } else {
-            return back()->with('error', 'Error: Failed inserting responsibility center');
-        }
-    }
-
-    public function responsibility_center_edit(Request $request)
-    {
-        $request->validate([
-            'code' => 'required|numeric',
-            'name' => 'required|string',
-        ]);
-
-        $query = ResCenter::where('code', $request->code)
-            ->update([
-                'name' => $request->name,
-            ]);
-
-        if ($query) {
-            return back()->with('success', 'Responsibility Center updated successfully!');
-        } else {
-            return back()->with('error', 'Error: Failed updating responsibility center');
-        }
-    }
-
-    public function responsibility_center_delete($code)
-    {
-        $query = ResCenter::where('code', $code)->delete();
-
-        if ($query) {
-            return back()->with('success', 'Responsibility Center deleted successfully!');
-        } else {
-            return back()->with('error', 'Error: Failed deleting responsibility center');
-        }
-    }
 
     // Maintenance & Other Operating Expenses
     public function mooe_list()

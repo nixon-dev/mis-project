@@ -78,8 +78,6 @@
                                     href="{{ route('admin.co') }}">Capital Outlay</a></li>
                             <li class={{ request()->routeIs('admin.mooe') ? 'active' : '' }}><a
                                     href="{{ route('admin.mooe') }}">MOOE</a></li>
-                            <li class={{ request()->routeIs('admin.responsibility-center') ? 'active' : '' }}><a
-                                    href="{{ route('admin.responsibility-center') }}">Responsibility Center</a></li>
                             <li class={{ request()->routeIs('admin.office') ? 'active' : '' }}><a
                                     href="{{ route('admin.office') }}">Office List</a></li>
                             <li class={{ request()->routeIs('admin.units') ? 'active' : '' }}><a

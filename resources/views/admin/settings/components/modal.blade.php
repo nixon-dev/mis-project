@@ -121,6 +121,12 @@
                                 <input type="text" name="office_name" id="office_name" class="form-control" required>
                             </div>
 
+                            <div class="form-group">
+                                <label>Code</label>
+                                <input type="text" name="office_code" id="office_code" class="form-control"
+                                    required>
+                            </div>
+
                             <div class="form-group text-center">
                                 <button class="btn btn-sm btn-primary m-t-n-xs w-100"
                                     type="submit"><strong>Update</strong>

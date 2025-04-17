@@ -33,12 +33,15 @@
                                 <div class="col-sm-12">
                                     <h3 class="m-t-none m-b">Add Office</h3>
 
-                                    <form role="form" action="{{ url('/admin/office/add') }}" method="POST">
+                                    <form role="form" action="{{ route('admin.office-add') }}" method="POST">
                                         @csrf()
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <input type="text" name="office_name" placeholder="" class="form-control"
-                                                required>
+                                            <input type="text" name="office_name"class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Code</label>
+                                            <input type="text" name="office_code" class="form-control" required>
                                         </div>
 
                                         <div class="form-group text-center">
@@ -81,6 +84,7 @@
                             <thead>
                                 <tr>
                                     <th>Office Name</th>
+                                    <th>Code</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -89,9 +93,11 @@
                                 @forelse ($office as $o)
                                     <tr>
                                         <td> {{ $o->office_name }} </td>
+                                        <td>{{ $o->office_code }}</td>
                                         <td class="text-center">
                                             <a href="#officeModal" data-toggle="modal" class="btn blue-1 btn-sm"
-                                                data-id="{{ $o->office_id }}" data-name="{{ $o->office_name }}">
+                                                data-id="{{ $o->office_id }}" data-name="{{ $o->office_name }}"
+                                                data-code="{{ $o->office_code }}">
                                                 <i class="fa fa-pencil text-white"></i>
                                             </a>
                                         </td>
@@ -112,6 +118,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Office Name</th>
+                                    <th>Code</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -149,12 +156,14 @@
         $(document).ready(function() {
             $('#officeModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
-                var code = button.data('id');
+                var id = button.data('id');
                 var name = button.data('name');
+                var code = button.data('code')
 
                 var modal = $(this);
-                modal.find('#office_id').val(code);
+                modal.find('#office_id').val(id);
                 modal.find('#office_name').val(name);
+                modal.find('#office_code').val(code);
             });
         });
     </script>

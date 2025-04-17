@@ -27,7 +27,7 @@ class ExternalController extends Controller
             ->leftJoin('document', 'document.document_id', '=', 'document_external.document_id')
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
             ->select('document_external.*', 'office.*', 'document.*', 'document_external.created_at as dp_created_at')
-            ->orderBy('dp_created_at', 'ASC')
+            ->orderByDesc('dp_created_at', 'DESC')
             ->get();
 
         return view('staff.external.pending', compact('data'));
@@ -42,7 +42,7 @@ class ExternalController extends Controller
             ->leftJoin('document', 'document.document_id', '=', 'document_external.document_id')
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
             ->select('document_external.*', 'office.*', 'document.*', 'document_external.created_at as dp_created_at')
-            ->orderBy('dp_created_at', 'ASC')
+            ->orderBy('dp_created_at', 'DESC')
             ->get();
 
         return view('staff.external.approved', compact('data'));
@@ -56,7 +56,7 @@ class ExternalController extends Controller
             ->leftJoin('document', 'document.document_id', '=', 'document_external.document_id')
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
             ->select('document_external.*', 'office.*', 'document.*', 'document_external.created_at as dp_created_at')
-            ->orderBy('dp_created_at', 'ASC')
+            ->orderBy('dp_created_at', 'DESC')
             ->get();
 
         return view('staff.external.denied', compact('data'));

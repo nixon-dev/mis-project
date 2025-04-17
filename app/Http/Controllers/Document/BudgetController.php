@@ -28,7 +28,7 @@ class BudgetController extends Controller
             ->leftJoin('document', 'document.document_id', '=', 'document_external.document_id')
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
             ->select('document_external.*', 'office.*', 'document.*', 'document_external.created_at as dp_created_at')
-            ->orderBy('dp_created_at', 'ASC')
+            ->orderBy('dp_created_at', 'DESC')
             ->get();
 
         return view('staff.budget.pending', compact('data'));
@@ -42,7 +42,7 @@ class BudgetController extends Controller
             ->leftJoin('document', 'document.document_id', '=', 'document_external.document_id')
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
             ->select('document_external.*', 'office.*', 'document.*', 'document_external.created_at as dp_created_at')
-            ->orderBy('dp_created_at', 'ASC')
+            ->orderBy('dp_created_at', 'DESC')
             ->get();
 
         return view('staff.budget.approved', compact('data'));
@@ -57,7 +57,7 @@ class BudgetController extends Controller
             ->leftJoin('document', 'document.document_id', '=', 'document_external.document_id')
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
             ->select('document_external.*', 'office.*', 'document.*', 'document_external.created_at as dp_created_at')
-            ->orderBy('dp_created_at', 'ASC')
+            ->orderBy('dp_created_at', 'DESC')
             ->get();
 
         return view('staff.budget.denied', compact('data'));
@@ -208,10 +208,5 @@ class BudgetController extends Controller
     }
 
 
-    public function budget_management() {
-        
-        $data = Office::orderBy('office_name', 'ASC')->get();
 
-        return view('staff.budget.management', compact('data'));
-    }
 }
