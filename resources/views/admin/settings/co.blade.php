@@ -82,10 +82,10 @@
                         <table class="table table-bordered table-hover dataTables-example" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>Type</th>
-                                    <th>Code</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th class="wp-80">Type</th>
+                                    <th class="wp-10">Code</th>
+                                    <th class="wp-5">Edit</th>
+                                    <th class="wp-5">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>

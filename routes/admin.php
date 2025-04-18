@@ -26,7 +26,7 @@ Route::middleware(['auth', 'role:Administrator'])->prefix('admin')->group(functi
 
     Route::get('/users-pending', [AdminController::class, 'pending_users_list'])->name('admin.users-list-pending');
 
-    Route::get('/users/{id}', [AdminController::class, 'view_users'])->name('admin.users');
+    Route::get('/users/{id}', [AdminController::class, 'view_users'])->name('admin.users-view');
 
     Route::post('/users/update', [AdminController::class, 'users_update'])->name('admin.users-update');
 
@@ -35,14 +35,6 @@ Route::middleware(['auth', 'role:Administrator'])->prefix('admin')->group(functi
     Route::get('/users/delete/{id}', [AdminController::class, 'users_delete'])->name('admin.users-delete');
 
     Route::post('/user/update-password', [ChangePasswordController::class, 'user_update_password'])->name('admin.user-update-password');
-
-    Route::get('/office', [AdminController::class, 'office'])->name('admin.office');
-
-    Route::post('/office/add', [AdminController::class, 'office_add'])->name('admin.office-add');
-
-    Route::post('/office/edit', [AdminController::class, 'office_edit'])->name('admin.office_edit');
-
-    Route::get('/office/{id}', [AdminController::class, 'office_delete'])->name('admin.office-delete');
 
     Route::post('/document/update-status', [DocumentController::class, 'document_update_status'])->name('admin.document-update-status');
 
@@ -56,15 +48,22 @@ Route::middleware(['auth', 'role:Administrator'])->prefix('admin')->group(functi
 
     Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
 
-    Route::get('/units', [AdminController::class, 'units'])->name('admin.units');
-
-    Route::post('/units/add', [AdminController::class, 'units_add'])->name('admin.units-add');
-
-    Route::post('/units/edit', [AdminController::class, 'units_edit'])->name('admin.units-edit');
-
-    Route::get('/units/delete/{id}', [AdminController::class, 'units_delete'])->name('admin.units-delete');
-
     Route::get('/account-settings', [AdminController::class, 'account_settings'])->name('admin.new-settings');
+
+    // Office
+
+    Route::get('/office', [AdminController::class, 'office'])->name('admin.office');
+    Route::post('/office/add', [AdminController::class, 'office_add'])->name('admin.office-add');
+    Route::post('/office/edit', [AdminController::class, 'office_edit'])->name('admin.office_edit');
+    Route::get('/office/{id}', [AdminController::class, 'office_delete'])->name('admin.office-delete');
+
+
+    // Units
+
+    Route::get('/units', [AdminController::class, 'units'])->name('admin.units');
+    Route::post('/units/add', [AdminController::class, 'units_add'])->name('admin.units-add');
+    Route::post('/units/edit', [AdminController::class, 'units_edit'])->name('admin.units-edit');
+    Route::get('/units/delete/{id}', [AdminController::class, 'units_delete'])->name('admin.units-delete');
 
 
     // Responsibility Center

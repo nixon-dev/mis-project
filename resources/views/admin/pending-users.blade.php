@@ -21,11 +21,6 @@
                 </li>
             </ol>
         </div>
-        {{-- <div class="col-sm-4">
-            <div class="title-action">
-                <a href="" class="btn btn-primary">This is action area</a>
-            </div>
-        </div> --}}
     </div>
 
     <div class="wrapper wrapper-content animated fadeInDown">
@@ -39,8 +34,6 @@
                     <div class="ibox-title">
                         <h5>Users</h5>
 
-                        {{-- <a href="{{ url('/add-student-form') }}">Add New Record</a> --}}
-
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -52,6 +45,52 @@
                         </div>
                     </div>
                     <div class="ibox-content">
+                        <table class="table table-bordered table-striped table-hover" id="pendingUsers-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Office</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Manage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($users as $u)
+                                    <tr>
+                                        <td> {{ $u->name }} </td>
+                                        @if ($u->role == 'Administrator')
+                                            <td>Every Office</td>
+                                        @elseif ($u->office_id == null)
+                                            <td>No Assigned Office</td>
+                                        @else
+                                            <td>{{ $u->office_name }}</td>
+                                        @endif
+                                        <td> {{ $u->email }} </td>
+                                        <td> {{ $u->role }} </td>
+                                        <td class="text-center">
+                                            <a href="{{ route('admin.users-view', ['id' => $u->id]) }}"
+                                                class="btn btn-primary btn-sm">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center">No User Found</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Office</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Manage</th>
+                                </tr>
+                            </tfoot>
+                        </table>
 
 
 
@@ -73,7 +112,7 @@
         $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';
 
         $(document).ready(function() {
-            $('.dataTables-example').DataTable({
+            $('#pendingUsers-table').DataTable({
                 pageLength: 10,
                 order: [],
                 responsive: true,

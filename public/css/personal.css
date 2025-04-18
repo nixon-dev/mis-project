@@ -132,28 +132,32 @@
 }
 
 .wp-5 {
-    width: 5%;
+    width: 5% !important;
 }
 .wp-10 {
-    width: 10%;
+    width: 10% !important;
 }
 
 .wp-15 {
-    width: 15%;
+    width: 15% !important;
 }
 
 .wp-25 {
-    width: 25%;
+    width: 25% !important;
 }
 
 .wp-20 {
-    width: 20%;
+    width: 20% !important;
 }
 
 .wp-30 {
-    width: 30%;
+    width: 30% !important;
+}
+
+.wp-40 {
+    width: 40% !important;
 }
 
 .wp-80 {
-    width: 80%;
+    width: 80% !important;
 }

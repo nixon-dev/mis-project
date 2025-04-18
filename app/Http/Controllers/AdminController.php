@@ -150,6 +150,7 @@ class AdminController extends Controller
             ->leftJoin('office', 'office.office_id', '=', 'users.office_id')
             ->select('users.*', 'office.office_name')
             ->get();
+
         return view('admin.settings.users', compact('usersList', 'usersPending'));
     }
 
@@ -164,7 +165,7 @@ class AdminController extends Controller
         if ($info->isNotEmpty()) {
             return view('admin.view-user', compact('info', 'office'));
         } else {
-            return redirect(url('/admin/users'))->with('error', 'Error: User not found');
+            return redirect()->route('admin.users-list')->with('error', 'Error: User not found');
         }
     }
 
