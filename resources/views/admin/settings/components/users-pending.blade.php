@@ -28,9 +28,6 @@
                 </td>
             </tr>
         @empty
-            <tr>
-                <td colspan="5" class="text-center">No Pending User Found</td>
-            </tr>
         @endforelse
     </tbody>
     <tfoot>
@@ -50,35 +47,9 @@
 
     $(document).ready(function() {
         $('.users-pending-table').DataTable({
-            pageLength: 10,
+            pageLength: 25,
             order: [],
             responsive: true,
-            initComplete: function() {
-                this.api()
-                    .columns([3])
-                    .every(function() {
-                        var column = this;
-
-                        var select = $('<select><option value=""></option></select>')
-                            .appendTo($(column.footer()).empty())
-                            .on('change', function() {
-                                column
-                                    .search($(this).val(), {
-                                        exact: true
-                                    })
-                                    .draw();
-                            });
-                        column
-                            .data()
-                            .unique()
-                            .sort()
-                            .each(function(d, j) {
-                                select.append(
-                                    '<option value="' + d + '">' + d + '</option>'
-                                );
-                            });
-                    });
-            }
 
         });
 

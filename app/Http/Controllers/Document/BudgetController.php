@@ -73,7 +73,7 @@ class BudgetController extends Controller
             ->first();
 
         if (!$data) {
-            return redirect()->route('budget.pending')->with('error', 'Error: No Document Found');
+            return redirect()->route('budget.pending')->with('error', 'No Document Found');
         }
 
 
@@ -141,6 +141,7 @@ class BudgetController extends Controller
                 'dh_name' => Auth::user()->name,
                 'dh_date' => now(),
                 'dh_action' => $request->review_action . ' Document',
+                'dh_remarks' => $request->review_remarks,
             ]);
 
 
@@ -148,7 +149,7 @@ class BudgetController extends Controller
 
             return redirect()->back()->with('success', 'Document action taken successfully!');
         } else {
-            return redirect()->back()->with('error', 'Error: Failed to take action');
+            return redirect()->back()->with('error', 'Failed to take action');
         }
 
     }
@@ -178,20 +179,32 @@ class BudgetController extends Controller
         if ($query) {
             return redirect()->back()->with('success', 'Action added successfull!');
         } else {
-            return redirect()->back()->with('error', 'Error: Failed to insert action');
+            return redirect()->back()->with('error', 'Failed to insert action');
         }
     }
 
     public function forward(Request $request)
     {
+        $check = ExternalDocx::where('document_id', $request->document_id)
+            ->where('office_id', $request->office_id)
+            ->where('from_office', Auth::user()->office_id)
+            ->exists();
+
+        if ($check) {
+            return back()->with('error', 'Document already forwarded on that office');
+        }
+
+
         $query = ExternalDocx::insert([
             'document_id' => $request->document_id,
             'office_id' => $request->office_id,
+            'from_office' => Auth::user()->office_id,
         ]);
 
         $officeName = Office::where('office_id', $request->office_id)->first()->office_name;
 
         if ($query) {
+
             Document::where('document_id', $request->document_id)->update(['document_status' => 'Pending']);
 
             History::insert([
@@ -203,7 +216,7 @@ class BudgetController extends Controller
 
             return redirect()->back()->with('success', 'Document forwarded successfully!');
         } else {
-            return redirect()->back()->with('error', 'Error: Failed to forward document');
+            return redirect()->back()->with('error', 'Failed to forward document');
         }
     }
 

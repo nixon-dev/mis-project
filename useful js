@@ -1,0 +1,3 @@
+
+Disable Form Submit Button upon submitting
+onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;"

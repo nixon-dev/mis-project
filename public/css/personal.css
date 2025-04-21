@@ -158,6 +158,30 @@
     width: 40% !important;
 }
 
+.wp-50 {
+    width: 50% !important;
+}
+
+.wp-60 {
+    width: 60% !important;
+}
+
+.wp-70 {
+    width: 70% !important;
+}
+
+.wp-75 {
+    width: 75% !important;
+}
+
 .wp-80 {
     width: 80% !important;
+}
+
+.wp-90 {
+    width: 90% !important;
+}
+
+.wp-100 {
+    width: 100% !important;
 }

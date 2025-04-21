@@ -48,7 +48,7 @@
     </div>
     <div class="row">
         <div class="col-lg-9">
-            <div class="wrapper wrapper-content animated fadeInDown">
+            <div class="wrapper wrapper-content animated fadeIn">
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row">
@@ -105,6 +105,8 @@
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal">
 
+                                    <dt class="fs-18">Responsibility Code</dt>
+                                    <dd class="fs-16">{{ $data->office_code ?? 'None' }}</dd>
                                     <dt class="fs-18">Document Number:</dt>
                                     <dd class="fs-16">{{ $data->document_number }}</dd>
                                     <dt class="fs-18">Deadline:</dt>
@@ -212,9 +214,10 @@
                         <table class="table table-bordered table-hover" id="action-table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Action Taken</th>
+                                    <th class="wp-20">Name</th>
+                                    <th class="wp-20">Date</th>
+                                    <th class="wp-30">Action Taken</th>
+                                    <th class="wp-30">Remarks</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -228,6 +231,9 @@
                                         </td>
                                         <td>
                                             {{ $a->dh_action }}
+                                        </td>
+                                        <td>
+                                            {{ $a->dh_remarks }}
                                         </td>
                                     </tr>
                                 @empty
@@ -295,7 +301,8 @@
                             <h3 class="m-t-none m-b">Add Action</h3>
 
                             <form role="form" action="{{ route('external.add-action') }}" method="POST"
-                                id="actionForm">
+                                id="actionForm"
+                                onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;">
                                 @csrf()
 
                                 <div class="form-group d-none">
@@ -360,7 +367,8 @@
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Add Action</h3>
 
-                            <form role="form" action="{{ route('budget.forward') }}" method="POST">
+                            <form role="form" action="{{ route('budget.forward') }}" method="POST"
+                                onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;">
                                 @csrf()
 
                                 <div class="form-group d-none">

@@ -7,7 +7,8 @@
                     <div class="col-sm-12">
                         <h3 class="m-t-none m-b">Add Document</h3>
 
-                        <form role="form" action="{{ route('document.add') }}" method="POST">
+                        <form role="form" action="{{ route('document.add') }}" method="POST"
+                            onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;">
                             @csrf()
                             <div class="form-group">
                                 <label>Title</label>
@@ -19,20 +20,10 @@
                                 <input type="text" name="document_origin" value="{{ $officeName }}"
                                     class="form-control" readonly required>
                             </div>
-                            <div class="form-group row ">
-                                <div class="col-sm-12">
-                                    <label class="">Responsibility Center</label>
-                                </div>
-                                <div class="col-sm-12">
-                                    <select id="mySelect" class="form-control p-w-sm select2" style="width: 100%;"
-                                        name="rc_code" required>
-                                        <option disabled selected></option>
-                                        @foreach ($rescen as $rc)
-                                            <option value="{{ $rc->code }}">
-                                                {{ $rc->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label>Office Code</label>
+                                <input type="text" name="document_origin" value="{{ $officeCode }}"
+                                    class="form-control" readonly required>
                             </div>
                             <div class="form-group">
                                 <label>Nature of Document</label>

@@ -51,9 +51,6 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr>
-                                <td class="text-center" colspan="6">No Pending Document Found</td>
-                            </tr>
                         @endforelse
                     </tbody>
                     <tfoot>
@@ -85,66 +82,44 @@
     $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';
     $(document).ready(function() {
         $('#documentTable').DataTable({
-            pageLength: 10,
+            language: {
+                zeroRecords: "No Document Found"
+            },
+            pageLength: 25,
             order: [],
             responsive: true,
-            // dom: '<"html5buttons"B>lTfgitp',
             columnDefs: [{
                 'orderable': false,
                 'targets': [4, 5]
             }],
-            buttons: [{
-                    extend: 'copy'
-                },
-                {
-                    extend: 'csv'
-                },
-                {
-                    extend: 'excel',
-                    title: 'ExampleFile'
-                },
-                {
-                    extend: 'pdf',
-                    title: 'ExampleFile'
-                },
-
-                {
-                    extend: 'print',
-                    customize: function(win) {
-                        $(win.document.body).addClass('white-bg');
-                        $(win.document.body).css('font-size', '10px');
-
-                        $(win.document.body).find('table')
-                            .addClass('compact')
-                            .css('font-size', 'inherit');
-                    }
-                }
-            ],
             initComplete: function() {
-                this.api()
-                    .columns([2, 3])
-                    .every(function() {
-                        var column = this;
+                const api = this.api();
+                if (api.data().count() > 0) {
+                    api.columns([2, 3])
+                        .every(function() {
+                            var column = this;
 
-                        var select = $('<select><option value=""></option></select>')
-                            .appendTo($(column.footer()).empty())
-                            .on('change', function() {
-                                column
-                                    .search($(this).val(), {
-                                        exact: true
-                                    })
-                                    .draw();
-                            });
-                        column
-                            .data()
-                            .unique()
-                            .sort()
-                            .each(function(d, j) {
-                                select.append(
-                                    '<option value="' + d + '">' + d + '</option>'
-                                );
-                            });
-                    });
+                            var select = $('<select><option value=""></option></select>')
+                                .appendTo($(column.footer()).empty())
+                                .on('change', function() {
+                                    column
+                                        .search($(this).val(), {
+                                            exact: true
+                                        })
+                                        .draw();
+                                });
+
+                            column
+                                .data()
+                                .unique()
+                                .sort()
+                                .each(function(d, j) {
+                                    select.append(
+                                        '<option value="' + d + '">' + d + '</option>'
+                                    );
+                                });
+                        });
+                }
             }
         });
     });

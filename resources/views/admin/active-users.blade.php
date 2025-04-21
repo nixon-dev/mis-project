@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <table class="table table-bordered table-hover dataTables-example" style="width: 100%;">
+                        <table class="table table-bordered table-hover active-users" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th scope="col">Name</th>
@@ -111,7 +111,7 @@
         $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';
 
         $(document).ready(function() {
-            $('.dataTables-example').DataTable({
+            $('.active-users').DataTable({
                 pageLength: 10,
                 order: [],
                 responsive: true,

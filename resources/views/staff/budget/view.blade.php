@@ -105,6 +105,8 @@
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal">
 
+                                    <dt class="fs-18">Responsibility Code</dt>
+                                    <dd class="fs-16">{{ $data->office_code ?? 'None' }}</dd>
                                     <dt class="fs-18">Document Number:</dt>
                                     <dd class="fs-16">{{ $data->document_number }}</dd>
                                     <dt class="fs-18">Deadline:</dt>
@@ -212,9 +214,10 @@
                         <table class="table table-bordered table-hover" id="action-table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Action Taken</th>
+                                    <th class="wp-20">Name</th>
+                                    <th class="wp-20">Date</th>
+                                    <th class="wp-30">Action Taken</th>
+                                    <th class="wp-30">Remarks</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -228,6 +231,9 @@
                                         </td>
                                         <td>
                                             {{ $a->dh_action }}
+                                        </td>
+                                        <td>
+                                            {{ $a->dh_remarks }}
                                         </td>
                                     </tr>
                                 @empty
@@ -337,7 +343,8 @@
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Add Action</h3>
 
-                            <form role="form" action="{{ route('budget.add-action') }}" method="POST">
+                            <form role="form" action="{{ route('budget.add-action') }}" method="POST"
+                                onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;">
                                 @csrf()
 
                                 <div class="form-group d-none">
@@ -349,18 +356,23 @@
                                 <div class="form-group">
                                     <label>Name/Position</label>
                                     <input type="text" name="history_name" placeholder="" class="form-control"
-                                        required minlength="2">
+                                        value="{{ Auth::user()->name }}" required minlength="2">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Date and Time</label>
                                     <input type="datetime-local" onfocus="this.showPicker()" name="history_date"
-                                        class="form-control" required>
+                                        class="form-control" value="<?php echo date('Y-m-d\TH:i'); ?>" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Action Taken/Comments</label>
+                                    <label>Action</label>
                                     <input type="text" name="history_action" class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Remarks (Optional)</label>
+                                    <textarea class="form-control" name="history_remarks"></textarea>
                                 </div>
 
                                 <div class="form-group text-center">
@@ -385,7 +397,8 @@
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Add Action</h3>
 
-                            <form role="form" action="{{ route('budget.forward') }}" method="POST">
+                            <form role="form" action="{{ route('budget.forward') }}" method="POST"
+                                onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;">
                                 @csrf()
 
                                 <div class="form-group d-none">

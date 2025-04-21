@@ -20,7 +20,7 @@
             </ol>
         </div>
     </div>
-    <div class="wrapper wrapper-content animated fadeInDown">
+    <div class="wrapper wrapper-content animated fadeIn">
         @include('components.alert')
         <div class="row">
             @include('staff.external.components.table')

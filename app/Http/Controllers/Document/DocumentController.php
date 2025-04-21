@@ -56,7 +56,6 @@ class DocumentController extends Controller
             'document_nature' => $request->document_nature,
             'document_number' => $documentId,
             'document_deadline' => $request->document_deadline,
-            'rc_code' => $request->rc_code,
         ]);
 
         $this->recordHistory('Inserted Document', $request->document_title);
@@ -75,8 +74,7 @@ class DocumentController extends Controller
         $assigned_office = Auth::user()->office_id;
         $data = Document::where('document_number', $id)
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
-            ->leftJoin('responsibility_center as c', 'c.code', '=', 'document.rc_code')
-            ->select('document.*', 'office.office_name', 'c.name as rc_name')
+            ->select('document.*', 'office.*')
             ->first();
 
         if (!$data) {
@@ -108,29 +106,20 @@ class DocumentController extends Controller
         }
 
         $pendingDocx = ExternalDocx::where('document_id', $data->document_id)->first();
-
         $checkIfSent = ExternalDocx::where('document_id', $data->document_id)->count();
-
         $units = Units::get();
-
         $mooes = Mooe::orderBy('name', 'ASC')->get();
-
         $co = Co::orderBy('name', 'ASC')->get();
-
-        $rescen = ResCenter::orderBy('name', 'ASC')->get();
-
         $office = Office::orderBy('office_name', 'ASC')->get();
-
         $defaultBudgetOffice = Settings::where('id', '1')->first()->budget_office;
 
-        return view('staff.document.view', compact('data', 'action', 'items', 'attachments', 'checkIfSent', 'pendingDocx', 'units', 'mooes', 'co', 'rescen', 'office', 'defaultBudgetOffice'));
+        return view('staff.document.view', compact('data', 'action', 'items', 'attachments', 'checkIfSent', 'pendingDocx', 'units', 'mooes', 'co', 'office', 'defaultBudgetOffice'));
     }
 
 
     public function draft()
     {
         $assigned_office = Auth::user()->office_id;
-        $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
         $data = Document::where('document_origin', $assigned_office)
             ->where('document_status', 'Draft')
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
@@ -138,16 +127,17 @@ class DocumentController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        $rescen = ResCenter::orderBy('name', 'ASC')->get();
+
+        $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
+        $officeCode = Office::where('office_id', $assigned_office)->first()->office_code;
 
 
-        return view('staff.document.draft', compact('data', 'officeName', 'rescen'));
+        return view('staff.document.draft', compact('data', 'officeName', 'officeCode'));
     }
 
     public function pending()
     {
         $assigned_office = Auth::user()->office_id;
-        $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
         $data = Document::where('document_origin', $assigned_office)
             ->where('document_status', 'Pending')
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
@@ -155,10 +145,13 @@ class DocumentController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        $rescen = ResCenter::orderBy('name', 'ASC')->get();
 
 
-        return view('staff.document.pending', compact('data', 'officeName', 'rescen'));
+        $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
+        $officeCode = Office::where('office_id', $assigned_office)->first()->office_code;
+
+
+        return view('staff.document.pending', compact('data', 'officeName', 'officeCode'));
     }
 
     public function approved()
@@ -172,10 +165,9 @@ class DocumentController extends Controller
             ->get();
 
         $officeName = Office::where('office_id', $assigned_office)->first()->office_name;
+        $officeCode = Office::where('office_id', $assigned_office)->first()->office_code;
 
-        $rescen = ResCenter::orderBy('name', 'ASC')->get();
-
-        return view('staff.document.approved', compact('data', 'officeName', 'rescen'));
+        return view('staff.document.approved', compact('data', 'officeName', 'officeCode'));
     }
 
     public function denied()
@@ -196,9 +188,22 @@ class DocumentController extends Controller
         $query = ExternalDocx::insert([
             'document_id' => $request->document_id,
             'office_id' => $request->office_id,
+            'from_office' => Auth::user()->office_id,
         ]);
 
+
+
         if ($query) {
+
+            $officeName = Office::where('office_id', $request->office_id)->first()->office_name;
+
+            History::insert([
+                'document_id' => $request->document_id,
+                'dh_name' => Auth::user()->name,
+                'dh_date' => Carbon::now(),
+                'dh_action' => 'Submitted documents to ' . $officeName,
+            ]);
+
             Document::where('document_id', $request->document_id)->update(['document_status' => 'Pending']);
 
             return redirect()->back()->with('success', 'Document submitted successfully!');
@@ -240,10 +245,11 @@ class DocumentController extends Controller
         ]);
 
         $query = History::insert([
-            'document_id' => $request->input('document_id'),
-            'dh_name' => $request->input('history_name'),
-            'dh_date' => $request->input('history_date'),
-            'dh_action' => $request->input('history_action'),
+            'document_id' => $request->document_id,
+            'dh_name' => $request->history_name,
+            'dh_date' => $request->history_date,
+            'dh_action' => $request->history_action,
+            'dh_remarks' => $request->history_remarks,
         ]);
 
 
@@ -272,7 +278,6 @@ class DocumentController extends Controller
                 'document_title' => $request->document_title,
                 'document_nature' => $request->document_nature,
                 'document_deadline' => $request->document_deadline,
-                'rc_code' => $request->rc_code,
             ]);
 
         $this->recordHistory('Updated', $request->document_title);

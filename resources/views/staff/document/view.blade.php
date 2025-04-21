@@ -100,18 +100,6 @@
                                             </dd>
                                         </dl>
                                     </div>
-                                    <div class="col-lg-5">
-                                        <dl class="dl-horizontal">
-
-                                            @if ($pendingDocx)
-                                                <dt class="fs-18">Remarks</dt>
-                                                <dd class="fs-16">
-                                                    {{ $pendingDocx->de_remarks ?? 'N/A' }}
-                                                </dd>
-                                            @endif
-                                        </dl>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -130,10 +118,11 @@
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal">
 
+
+                                    <dt class="fs-18">Responsibility Code</dt>
+                                    <dd class="fs-16">{{ $data->office_code ?? 'None' }}</dd>
                                     <dt class="fs-18">Document Number:</dt>
                                     <dd class="fs-16">{{ $data->document_number }}</dd>
-                                    <dt class="fs-18">Responsibility Center</dt>
-                                    <dd class="fs-16">{{ $data->rc_name ?? 'None' }}</dd>
                                     <dt class="fs-18">Deadline:</dt>
                                     <dd class="fs-16">{{ $data->document_deadline }}</dd>
 
@@ -232,7 +221,7 @@
 
                                         @empty
                                             <tr class="text-center">
-                                                <td colspan="6">No Items Found</td>
+                                                <td colspan="8">No Items Found</td>
                                             </tr>
                                         @endforelse
 
@@ -255,9 +244,10 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Action Taken</th>
+                                    <th class="wp-20">Name</th>
+                                    <th class="wp-20">Date</th>
+                                    <th class="wp-30">Action Taken</th>
+                                    <th class="wp-30">Remarks</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -273,12 +263,15 @@
                                         <td>
                                             {{ $a->dh_action }}
                                         </td>
+                                        <td>
+                                            {{ $a->dh_remarks }}
+                                        </td>
 
                                     </tr>
 
                                 @empty
                                     <tr class="text-center">
-                                        <td colspan="3 ">No Action Taken</td>
+                                        <td colspan="4">No Action Taken</td>
                                     </tr>
                                 @endforelse
 
@@ -345,7 +338,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Add Item</h3>
-                            <form role="form" action="{{ route('document.add-item') }}" method="POST">
+                            <form role="form" action="{{ route('document.add-item') }}" method="POST"
+                                onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;">
                                 @csrf()
 
                                 <div class="form-group d-none">
@@ -492,9 +486,9 @@
                                     name="office_id" required>
                                     <option selected></option>
                                     @forelse ($office as $o)
-                                        <option value="{{ $o->office_id }}"
-                                            {{ $o->office_id == $defaultBudgetOffice ? 'selected' : '' }}>
-                                            {{ $o->office_name }}</option>
+                                        <option value="{{ $o->office_id }}">
+                                            {{ $o->office_name }}
+                                        </option>
                                     @empty
                                         <option disabled>No Office Found, Please ask Administrator</option>
                                     @endforelse
@@ -524,7 +518,8 @@
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Add Action</h3>
 
-                            <form role="form" action="{{ route('document.add-action') }}" method="POST">
+                            <form role="form" action="{{ route('document.add-action') }}" method="POST"
+                                onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;">
                                 @csrf()
 
                                 <div class="form-group d-none">
@@ -534,9 +529,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Name/Position</label>
-                                    <input type="text" name="history_name" placeholder="" class="form-control"
-                                        required minlength="2">
+                                    <label>Name</label>
+                                    <input type="text" name="history_name" value="{{ Auth::user()->name }}"
+                                        class="form-control" required minlength="2">
                                 </div>
 
                                 <div class="form-group">
@@ -544,9 +539,15 @@
                                     <input type="datetime-local" onfocus="this.showPicker()" name="history_date"
                                         class="form-control" required>
                                 </div>
+
                                 <div class="form-group">
-                                    <label>Action Taken/Comments</label>
+                                    <label>Action</label>
                                     <input type="text" name="history_action" class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Remarks (Optional)</label>
+                                    <textarea class="form-control" name="history_remarks"></textarea>
                                 </div>
                                 <div class="form-group text-center">
                                     <button class="btn btn-sm btn-primary m-t-n-xs w-100"
@@ -570,7 +571,8 @@
 
                         <div class="col-sm-12">
                             <h3 class="m-t-none m-b">Edit Document</h3>
-                            <form role="form" action="{{ route('document.update') }}" method="POST">
+                            <form role="form" action="{{ route('document.update') }}" method="POST"
+                                onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;">
                                 @csrf()
                                 <div class="form-group d-none">
                                     <label>Document ID</label>
@@ -586,27 +588,6 @@
                                     <label>Nature of Document</label>
                                     <input type="text" name="document_nature" value="{{ $data->document_nature }}"
                                         class="form-control" required>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <label>Responsibility Center</label>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <select id="rcSelect" class="form-control p-w-sm select2" style="width: 100%;"
-                                            name="rc_code" required>
-                                            <option selected></option>
-                                            @forelse ($rescen as $rc)
-                                                <option value="{{ $rc->code }}"
-                                                    {{ $data->rc_code == $rc->code ? 'selected' : '' }}>
-                                                    {{ $rc->name }}</option>
-                                            @empty
-                                                <option disabled>No Responsibility Center Found, Please ask Administrator
-                                                </option>
-                                            @endforelse
-                                        </select>
-
-                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Deadline</label>
@@ -665,11 +646,6 @@
             $('#mooeSelect').select2({
                 placeholder: "Select a MOOE",
                 allowClear: true
-            });
-
-            $('#rcSelect').select2({
-                placeholder: "Select Responsibility Center",
-                allowClear: false
             });
 
             $('#coSelect').select2({
