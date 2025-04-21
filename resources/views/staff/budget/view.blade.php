@@ -74,17 +74,6 @@
                                             </dd>
                                         </dl>
                                     </div>
-                                    <div class="col-lg-5">
-                                        <dl class="dl-horizontal">
-
-                                            @if ($externalDocx)
-                                                <dt class="fs-18">Remarks</dt>
-                                                <dd class="fs-16">
-                                                    {{ $externalDocx->de_remarks }}
-                                                </dd>
-                                            @endif
-                                        </dl>
-                                    </div>
 
                                 </div>
 
@@ -354,7 +343,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Name/Position</label>
+                                    <label>Name</label>
                                     <input type="text" name="history_name" placeholder="" class="form-control"
                                         value="{{ Auth::user()->name }}" required minlength="2">
                                 </div>
@@ -499,11 +488,15 @@
                     tableBody.empty();
 
                     response.forEach(function(action) {
+                        let remarks = action.dh_remarks ? action.dh_remarks : '';
                         let row = `
+                        if (${action.dh_remarks == null})  {
+                        ${action.dh_remarks} == ''}
                     <tr>
                         <td>${action.dh_name}</td>
                         <td>${action.dh_date}</td>
                         <td>${action.dh_action}</td>
+                        <td>${remarks}</td>
                     </tr>
                 `;
                         tableBody.append(row);

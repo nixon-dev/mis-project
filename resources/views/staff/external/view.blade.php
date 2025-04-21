@@ -74,17 +74,6 @@
                                             </dd>
                                         </dl>
                                     </div>
-                                    <div class="col-lg-5">
-                                        <dl class="dl-horizontal">
-
-                                            @if ($externalDocx)
-                                                <dt class="fs-18">Remarks</dt>
-                                                <dd class="fs-16">
-                                                    {{ $externalDocx->de_remarks }}
-                                                </dd>
-                                            @endif
-                                        </dl>
-                                    </div>
 
                                 </div>
 

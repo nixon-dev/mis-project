@@ -69,7 +69,7 @@ class BudgetController extends Controller
 
         $data = Document::where('document_number', $id)
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
-            ->select('document.*', 'office.office_name')
+            ->select('document.*', 'office.*')
             ->first();
 
         if (!$data) {

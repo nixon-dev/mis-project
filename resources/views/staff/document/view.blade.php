@@ -117,8 +117,6 @@
                             </div>
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal">
-
-
                                     <dt class="fs-18">Responsibility Code</dt>
                                     <dd class="fs-16">{{ $data->office_code ?? 'None' }}</dd>
                                     <dt class="fs-18">Document Number:</dt>
@@ -537,7 +535,7 @@
                                 <div class="form-group">
                                     <label>Date and Time</label>
                                     <input type="datetime-local" onfocus="this.showPicker()" name="history_date"
-                                        class="form-control" required>
+                                        class="form-control" value="<?php echo date('Y-m-d\TH:i'); ?>" required>
                                 </div>
 
                                 <div class="form-group">

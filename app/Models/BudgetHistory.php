@@ -9,5 +9,5 @@ class BudgetHistory extends Model
 {
     use HasFactory;
 
-    protected $table = "office_budget as ob";
+    protected $table = "office_budget";
 }

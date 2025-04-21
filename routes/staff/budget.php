@@ -19,5 +19,5 @@ Route::middleware(['auth', 'role:Staff'])->prefix('staff/budget/')->group(functi
 
     Route::get('/budget-management', [BMController::class, 'management'])->name('management.list');
     Route::get('/budget-management/view/{id}', [BMController::class, 'view'])->name('management.view');
-
+    Route::post('/budget-management/allocate', [BMController::class, 'allocate'])->name('management.allocate');
 });
