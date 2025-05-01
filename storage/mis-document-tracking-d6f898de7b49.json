@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "mis-document-tracking",
+  "private_key_id": "d6f898de7b494900b90a61c8d344a6e49fb7b130",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDojDgj65NZsMc9\nGtnHKfKc3WUVzOCaiBbbBFHuUwJazh0HBiO6ojEDkoxykWxSMpwbberTZYcLH1EV\nn1H6oD3wgYcbi1Vh6OwMRLM34UZOwVbLU6JY61SbZUcYmfGNP5uAAb3OwDXoDfsj\n1RYTyP3i0NL8/JW6/u1tIHCOGgsz8UCw07tTRnWtHFt8u24V5yPA/0l9p9eObp+y\nm9yS/+h0RJ0N6YQEG61GAWcqTCRjodkFV+X0xGwpS4myKRNHePTO9VXN+f5sIzAb\nGY2iBA1Xlt+CD3IxQqfy4qjF9DdDdFkzErDqN9oOYVJxtAZk1zQH6aK1vU52Ukpd\n7jsKBvh3AgMBAAECggEAPyxEXgGzlERxQ5jFO5UaKuH8AXmYNHKu3s2kIj2boKZo\nfU1+LEe+T+2iSMdXqVbFULBCAC6PCob15I1U3GRmnyzY0rM9vSzk3wpUs2P30RI1\nrWOpcUVwxQw0zaqYU5pJeHNAqGdP3ZvasyfCaRqLWfAHuSE23cc+IYyT9w59J50o\nNvsLQnQMCHE/q20DThmv/95Khu6d2xhzYRUuwuM/MPs2YyaT5vXxhOGqtE+zdAA3\nZ+3t545S/Cj+CLiRkv9PrUiL4V1pY/pyz7y428rU4Lnhi7x3LhHOnbm1XEBRMCLO\nen/1KyOINGerUZgfd+IoSLc/yfXRa7WmyKUWXfITAQKBgQD2PgXayNI2dOvK01j8\nOJpm38oYkQ/3WgD3goyUJpYAfpgvzDULC7kSwyCGdhLiXbTRJqmUtqt/rspxd0PI\nnWtEOYQFqZ1jaL7kRfbOb0uZ0EWHYaDHeQIBdfv5xxRgnyl/HBOGp4HF5cWiPLWX\nQaz7HLg92oIbFAmGYHwrCMVfAQKBgQDxw0YOEpWvm4C0twjz2cqVRXvuWj1gTlXS\n5pEWDVpL3O9+ROtSO24t2aWiXQINaCIkQmyxbrIcpijrK3cfB5d/WvAKr0K0dXUC\nA6i87uX3V4KpNZOk6PgtMRUGx/qvbi0maQJnuRtNp5088IkOTPL172B21aS1s8F2\n8wA8lHbPdwKBgGbH7rOqnSvD0+PeIcdtbO1Bvd5RNmPdeofVQw5XqMbeEHHq/7zz\nkLWHIt1dDXbU/DNMuv3q3Vy3PaLs0Cs9oddhVnzyllI3F2660VDLXbf/GfZvRqfc\nF306nQleEmBeLvjyZCgRZPaQeNTGGFnhPO23yCNxQFtDGtKvFUT1LUUBAoGAY/Wi\nTIVAoKgB8jZPnEtraIafNDDZea1J7PZp/J0uvXkvCJ1EUu7BonF/+37LL3Hj0+wm\n9sHXIONOvdVt3kWMTRrzbueCBA0ggOG0bdG1AayMGJxPXHr6yeymTfR3YPuD7YKz\nfOFbOaNY7u5hLKmCN09vKhMxk/MrxZu5eFLGQQcCgYEA0TfGfX8b5cBZCe/bQe/U\nkJBFFextfKtfbFKtEE1nQCHrAimKrJyXoVh4H8mzNQMPtCKNE1S1rszUjP6xzNPM\nWQGI8+jGgU4LIAX1wOQmRlc2+gDOSgbcY3cXwd6OrtMBlU8D++FwLnc5kgFd54Cx\n5A4ctY47P2H1sO9dE0zNhE0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "laravel-drive-converter@mis-document-tracking.iam.gserviceaccount.com",
+  "client_id": "107457299835735092040",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/laravel-drive-converter%40mis-document-tracking.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

@@ -246,10 +246,6 @@
                                 'pdf' => 'fa-file-pdf-o',
                                 'doc' => 'fa-file-word-o',
                                 'docx' => 'fa-file-word-o',
-                                'xls' => 'fa-file-excel-o',
-                                'xlsx' => 'fa-file-excel-o',
-                                'ppt' => 'fa-file-powerpoint-o',
-                                'pptx' => 'fa-file-powerpoint-o',
                             ];
                             $iconClass = $icons[$attachment->da_file_type] ?? 'fa-file';
 
@@ -257,24 +253,24 @@
                             $extension = pathinfo($filename, PATHINFO_EXTENSION);
                             $nameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
                             $truncatedName = Str::limit($nameWithoutExtension, 10, '..');
+
+                            $downloadTarget =
+                                Auth::user()->office_id == $data->office_id ? 'download_file' : 'file-view';
+
                         @endphp
                         <li class="list-group-item">
 
-                            @if (Auth::user()->office_id == $data->office_id)
-                                <a href="{{ route('download_file', ['filename' => $attachment->da_name]) }}"
-                                    class="pull-left"><i class="fa {{ $iconClass }}" target="_blank"></i>
-                                    {{ $truncatedName }}.{{ $extension }}</a>
-                            @else
-                                <a href="{{ route('download_pdf', ['filename' => $attachment->da_name]) }}"
-                                    class="pull-left"><i class="fa {{ $iconClass }}" target="_blank"></i>
-                                    {{ $truncatedName }}.{{ $extension }}</a>
-                            @endif
+                            <a href="{{ route($downloadTarget, ['folder' => $attachment->da_folder, 'filename' => $attachment->da_name]) }}"
+                                class="pull-left file-link" target="_blank">
+                                <i class="fa {{ $iconClass }}"></i>
+                                {{ $truncatedName }}.{{ $extension }}
+                            </a>
 
 
 
 
 
-                            <a href="{{ route('delete_file', ['filename' => $attachment->da_name]) }}"
+                            <a href="{{ route('delete_file', ['folder' => $attachment->da_folder, 'filename' => $attachment->da_name]) }}"
                                 onclick="return confirm('Delete attachment?')" class="pull-right text-danger"><i
                                     class="fa fa-trash"></i></a>
                         </li>
@@ -391,8 +387,12 @@
                                                 <option disabled>No Office Found, Please ask Administrator</option>
                                             @endforelse
                                         </select>
-
                                     </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Remarks</label>
+                                    <textarea name="remarks" class="form-control"></textarea>
                                 </div>
 
 
@@ -413,6 +413,8 @@
 
 
 @section('script')
+
+
     <script src="{{ asset('js/plugins/iCheck/icheck.min.js') }}"></script>
     <script>
         $(document).ready(function() {

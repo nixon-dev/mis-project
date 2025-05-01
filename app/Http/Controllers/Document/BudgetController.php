@@ -212,6 +212,7 @@ class BudgetController extends Controller
                 'dh_name' => Auth::user()->name,
                 'dh_date' => now(),
                 'dh_action' => 'Forwarded Document to ' . $officeName,
+                'dh_remarks' => $request->remarks,
             ]);
 
             return redirect()->back()->with('success', 'Document forwarded successfully!');

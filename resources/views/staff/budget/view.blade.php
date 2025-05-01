@@ -260,13 +260,9 @@
                         @endphp
                         <li class="list-group-item">
 
-                            <a href="{{ route('download_file', ['filename' => $attachment->da_name]) }}"
-                                class="pull-left"><i class="fa {{ $iconClass }}"></i>
+                            <a href="{{ route('file-view', ['folder' => $attachment->da_folder, 'filename' => $attachment->da_name]) }}"
+                                class="pull-left" target="_blank"><i class="fa {{ $iconClass }}"></i>
                                 {{ $truncatedName }}.{{ $extension }}</a>
-
-                            <a href="{{ route('delete_file', ['filename' => $attachment->da_name]) }}"
-                                onclick="return confirm('Delete attachment?')" class="pull-right text-danger"><i
-                                    class="fa fa-trash"></i></a>
                         </li>
                     @empty
                         <li class="list-group-item">No Attached File</li>

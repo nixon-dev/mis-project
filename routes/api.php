@@ -9,3 +9,5 @@ Route::get('/view-notif/{id}/{number}', [ApiController::class, 'view_notif'])->n
 
 
 Route::get('/file/pdf/download/{filename}', [ApiController::class, 'download_pdf'])->name('download_pdf');
+
+Route::get('file/view/pdf/{filename}', [ApiController::class, 'view_pdf'])->name('view_pdf');

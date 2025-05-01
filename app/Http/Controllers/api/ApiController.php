@@ -5,6 +5,8 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\Notifications;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use PhpOffice\PhpWord\IOFactory;
@@ -43,8 +45,26 @@ class ApiController extends Controller
     public function download_pdf($filename)
     {
 
+        // $filePath = 'pdf/' . $filename;
+        // if (!Storage::disk('public')->exists($filePath)) {
+        //     abort(404, 'File not found');
+        // }
+
+        // return Storage::disk('public')->download($filePath, $filename);
+
+        return response()->file(storage_path('app/public/pdf/' . $filename), [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $filename . '"'
+        ]);
+
+
+    }
+
+    public function view_pdf($filename)
+    {
         try {
             $filePath = 'files/' . $filename;
+
             if (!Storage::disk('public')->exists($filePath)) {
                 abort(404, 'File not found');
             }
@@ -52,20 +72,20 @@ class ApiController extends Controller
             $fullPath = storage_path('app/public/' . $filePath);
 
             $phpWord = IOFactory::load($fullPath);
+            $htmlWriter = IOFactory::createWriter($phpWord, 'HTML');
+            $htmlContent = '';
+            ob_start();
+            $htmlWriter->save('php://output');
+            $htmlContent = ob_get_contents();
+            ob_end_clean();
 
+            $pdf = SnappyPdf::loadHTML($htmlContent);
 
-            Settings::setPdfRendererName(Settings::PDF_RENDERER_DOMPDF);
-            Settings::setPdfRendererPath(base_path('vendor/dompdf/dompdf'));
+            // Return the PDF (you can choose to stream or download)
+            return $pdf->stream('document.pdf');
 
-            $pdfPath = storage_path('app/public/temp_' . pathinfo($filename, PATHINFO_FILENAME) . '.pdf');
-
-            $pdfWriter = IOFactory::createWriter($phpWord, 'PDF');
-            $pdfWriter->save($pdfPath);
-
-            return response()->download($pdfPath)->deleteFileAfterSend(true);
-        } catch (\Throwable $e) {
-            return response("Error generating PDF: " . $e->getMessage(), 500);
+        } catch (Exception $e) {
+            return response("Error:" . $e->getMessage(), 500);
         }
-
     }
 }
