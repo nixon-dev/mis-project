@@ -58,7 +58,7 @@
                     .every(function() {
                         var column = this;
 
-                        var select = $('<select><option value=""></option></select>')
+                        var select = $('<select style="width: 100%;"><option value=""></option></select>')
                             .appendTo($(column.footer()).empty())
                             .on('change', function() {
                                 column
