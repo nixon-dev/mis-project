@@ -18,11 +18,11 @@
                         </a>
 
                         {{ $filename }}
+                        {{ $fileUrl }}
 
                     </div>
                     <div class="ibox-content">
-                        <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ $fileUrl }}"
-                            style="width:100%; height:700px;" frameborder="0">
+                        <iframe src="{{ $fileUrl }}" style="width:100%; height:700px;" frameborder="0">
                         </iframe>
                     </div>
                 </div>
