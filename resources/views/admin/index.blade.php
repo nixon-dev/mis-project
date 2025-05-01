@@ -134,10 +134,59 @@
                                             {{ $au->name ? $au->name : 'Guest' }}
                                         </td>
                                         <td>
-                                            {{ $au->ip_address }}
+                                            @php
+                                                $ip = $au->ip_address;
+                                                $ipAddress = 'Unknown';
+                                        
+                                                try {
+                                                    $response = @file_get_contents("https://ipinfo.io/{$ip}/json");
+                                        
+                                                    if ($response) {
+                                                        $details = json_decode($response);
+                                        
+                                                        $city = $details->city ?? null;
+                                                        $region = $details->region ?? null;
+                                                        $country = $details->country ?? null;
+                                        
+                                                        $parts = array_filter([$city, $region, $country]);
+                                                        if (!empty($parts)) {
+                                                            $ipAddress = implode(', ', $parts);
+                                                        }
+                                                    }
+                                                } catch (\Exception $e) {
+                                                    $ipAddress = 'Unknown';
+                                                }
+                                            @endphp
+                                            {{ $ipAddress }}
                                         </td>
+                                        
                                         <td>
-                                            {{ $au->user_agent }}
+                                            @php
+                                                $userAgent = $au->user_agent;
+
+                                                if (
+                                                    strpos($userAgent, 'OPR') !== false ||
+                                                    strpos($userAgent, 'Opera') !== false
+                                                ) {
+                                                    $browser = 'Opera';
+                                                } elseif (strpos($userAgent, 'Edge') !== false) {
+                                                    $browser = 'Microsoft Edge';
+                                                } elseif (strpos($userAgent, 'Chrome') !== false) {
+                                                    $browser = 'Google Chrome';
+                                                } elseif (strpos($userAgent, 'Safari') !== false) {
+                                                    $browser = 'Safari';
+                                                } elseif (strpos($userAgent, 'Firefox') !== false) {
+                                                    $browser = 'Mozilla Firefox';
+                                                } elseif (
+                                                    strpos($userAgent, 'MSIE') !== false ||
+                                                    strpos($userAgent, 'Trident/') !== false
+                                                ) {
+                                                    $browser = 'Internet Explorer';
+                                                } else {
+                                                    $browser = 'Unknown Browser';
+                                                }
+                                            @endphp
+                                            {{ $browser }}
                                         </td>
                                         <td>
 
