@@ -18,7 +18,6 @@
                         </a>
 
                         {{ $filename }}
-                        {{ $fileUrl }}
 
                     </div>
                     <div class="ibox-content">

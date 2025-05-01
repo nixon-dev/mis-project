@@ -39,9 +39,10 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5>Personal Details</h5>
-                        <a href="{{ url('/admin/users/delete/' . $info[0]->id) }}" class="btn btn-danger btn-xs pull-right"
-                            onclick="return confirm('Delete User?')">Delete
-                            User</a>
+                        <a href="#" class="btn btn-danger btn-xs pull-right delete-user"
+                            data-url="{{ route('admin.users-delete', ['id' => $info[0]->id]) }}">
+                            Delete User
+                        </a>
                     </div>
                     <div class="ibox-content">
                         <h3 class="font-bold text-dark">Name: {{ $info[0]->name }}</h3>
@@ -149,4 +150,29 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.delete-user').forEach(function(element) {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('data-url');
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This will permanently delete the user.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete user!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = url;
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
 @endsection

@@ -114,7 +114,13 @@
                             </ul>
                         </li>
                     @else
-                        <li
+                        <li class="{{ request()->routeIs('external.document') ? 'active' : '' }}">
+                            <a href="{{ route('external.document') }}" class="text-white"><i
+                                    class="fa fa-file-text"></i>
+                                <span class="nav-label">External Document</span> </a>
+                        </li>
+
+                        {{-- <li
                             class="{{ request()->routeIs(['external.pending', 'external.approved', 'external.denied', 'external.view']) ? 'active' : '' }}">
                             <a href="#" aria-expanded="false" class="text-white">
                                 <i class="fa fa-file-text" aria-hidden="true"></i>
@@ -132,7 +138,7 @@
                                     <a href="{{ route('external.denied') }}">Denied Documents</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                     @endif
 
 

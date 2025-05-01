@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Document;
 
 use App\Http\Controllers\Controller;
+use App\Models\BudgetHistory;
 use App\Models\ExternalDocx;
 use App\Models\Office;
 use App\Traits\RecordHistory;
+use DB;
 use Illuminate\Http\Request;
 
 use App\Models\Attachmments;
@@ -16,6 +18,7 @@ use App\Models\Notifications;
 use App\Models\PendingDocx;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Log;
 class BudgetController extends Controller
 {
     use RecordHistory;
@@ -67,6 +70,8 @@ class BudgetController extends Controller
     {
         $assignedOffice = Auth::user()->office_id;
 
+
+
         $data = Document::where('document_number', $id)
             ->leftJoin('office', 'office.office_id', '=', 'document.document_origin')
             ->select('document.*', 'office.*')
@@ -74,6 +79,10 @@ class BudgetController extends Controller
 
         if (!$data) {
             return redirect()->route('budget.pending')->with('error', 'No Document Found');
+        }
+
+        if (!ExternalDocx::where('document_id', $data->document_id)->where('office_id', $assignedOffice)->exists()) {
+            return redirect()->route('budget.pending')->with('error', "You are not authorized to view this document.");
         }
 
 
@@ -124,10 +133,6 @@ class BudgetController extends Controller
             ]);
 
         if ($query) {
-            Document::where('document_id', $request->document_id)
-                ->update([
-                    'document_status' => $request->review_action
-                ]);
 
             Notifications::insert([
                 'document_id' => $request->document_id,
@@ -143,9 +148,6 @@ class BudgetController extends Controller
                 'dh_action' => $request->review_action . ' Document',
                 'dh_remarks' => $request->review_remarks,
             ]);
-
-
-
 
             return redirect()->back()->with('success', 'Document action taken successfully!');
         } else {
@@ -194,7 +196,6 @@ class BudgetController extends Controller
             return back()->with('error', 'Document already forwarded on that office');
         }
 
-
         $query = ExternalDocx::insert([
             'document_id' => $request->document_id,
             'office_id' => $request->office_id,
@@ -205,8 +206,6 @@ class BudgetController extends Controller
 
         if ($query) {
 
-            Document::where('document_id', $request->document_id)->update(['document_status' => 'Pending']);
-
             History::insert([
                 'document_id' => $request->document_id,
                 'dh_name' => Auth::user()->name,
@@ -215,12 +214,104 @@ class BudgetController extends Controller
                 'dh_remarks' => $request->remarks,
             ]);
 
-            return redirect()->back()->with('success', 'Document forwarded successfully!');
+            ExternalDocx::where('office_id', Auth::user()->office_id)
+                ->where('document_id', $request->document_id)
+                ->delete();
+
+            return redirect()->route('budget.pending')->with('success', 'Document forwarded successfully!');
         } else {
             return redirect()->back()->with('error', 'Failed to forward document');
         }
     }
 
 
+    public function change(Request $request)
+    {
+
+
+
+        DB::beginTransaction();
+
+        try {
+            if ($request->document_status == 'Approved') {
+                $document = Document::where('document_id', $request->document_id)->first();
+                $documentOrigin = $document->document_origin;
+                $documentNumber = $document->document_number;
+
+                $office = Office::where('office_id', $documentOrigin)->first();
+                $officeName = $office->office_name;
+                $oldBudgetAmount = $office->office_budget;
+
+                $documentBudget = $document->amount;
+
+                if ($documentBudget <= $oldBudgetAmount) {
+                    $newAmount = $oldBudgetAmount - $documentBudget;
+
+                    Office::where('office_id', $documentOrigin)->update([
+                        'office_budget' => $newAmount,
+                    ]);
+
+                    $documentTitle = Document::where('document_id', $request->document_id)->first()->document_title;
+
+                    BudgetHistory::insert([
+                        'ob_allocated_by' => Auth::user()->id,
+                        'office_id' => $documentOrigin,
+                        'ob_allocated_amount' => -$documentBudget,
+                        'ob_remarks' => 'Approved ' . $documentTitle,
+                    ]);
+
+                    Document::where('document_id', $request->document_id)
+                        ->update([
+                            'document_status' => $request->document_status,
+                        ]);
+
+                    ExternalDocx::where('document_id', $request->document_id)
+                        ->where('office_id', Auth::user()->office_id)
+                        ->update([
+                            'de_status' => $request->document_status,
+                        ]);
+
+                    History::insert([
+                        'document_id' => $request->document_id,
+                        'dh_name' => Auth::user()->name,
+                        'dh_date' => Carbon::now(),
+                        'dh_action' => $request->document_status . ' Document',
+                        'dh_remarks' => $request->remarks,
+                    ]);
+
+                    DB::commit();
+                    return back()->with('success', 'Document status updated successfully!');
+                } else {
+                    DB::rollBack();
+                    return redirect()->back()->with('error', $officeName . ' does not have sufficient funds to proceed.');
+                }
+            } else {
+                Document::where('document_id', $request->document_id)
+                    ->update([
+                        'document_status' => $request->document_status,
+                    ]);
+
+                ExternalDocx::where('document_id', $request->document_id)
+                    ->where('office_id', Auth::user()->office_id)
+                    ->update([
+                        'de_status' => $request->document_status,
+                    ]);
+
+                History::insert([
+                    'document_id' => $request->document_id,
+                    'dh_name' => Auth::user()->name,
+                    'dh_date' => Carbon::now(),
+                    'dh_action' => $request->document_status . ' Document',
+                    'dh_remarks' => $request->remarks,
+                ]);
+
+                DB::commit();
+                return back()->with('success', 'Document status updated successfully!');
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Failed to update document status. Please try again.');
+        }
+    }
 
 }

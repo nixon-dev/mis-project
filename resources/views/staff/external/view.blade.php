@@ -18,7 +18,7 @@
                 <li class="breadcrumb-item">
                     <a href="{{ route('staff.index') }}">Staff</a>
                 </li>
-                <li class="breadcrumb-item">
+                {{-- <li class="breadcrumb-item">
                     @if ($externalDocx->de_status == 'Approved')
                         <a href="{{ route('budget.approved') }}">Approved Document</a>
                     @elseif ($externalDocx->de_status == 'Pending')
@@ -26,6 +26,9 @@
                     @elseif ($externalDocx->de_status == 'Denied')
                         <a href="{{ route('budget.denied') }}">Denied Document</a>
                     @endif
+                </li> --}}
+                <li class="breadcrumb-item">
+                    <a href="{{ route('external.document') }}">External Documents</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>{{ $data->document_number }}</strong>
@@ -296,7 +299,6 @@
                             <h3 class="m-t-none m-b">Add Action</h3>
 
                             <form role="form" action="{{ route('external.add-action') }}" method="POST"
-                                id="actionForm"
                                 onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;">
                                 @csrf()
 
@@ -332,26 +334,7 @@
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById('action-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const actionSelect = document.getElementById('actionSelect').value;
 
-            Swal.fire({
-                title: 'Are you sure?',
-                text: `Do you really want to ${actionSelect} this document?`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#9121fe',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Proceed',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    e.target.submit();
-                }
-            });
-        });
-    </script>
 
     <div id="forward-form" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
@@ -360,9 +343,9 @@
                     <div class="row">
 
                         <div class="col-sm-12">
-                            <h3 class="m-t-none m-b">Add Action</h3>
+                            <h3 class="m-t-none m-b">Forward to other office</h3>
 
-                            <form role="form" action="{{ route('budget.forward') }}" method="POST"
+                            <form role="form" action="{{ route('external.forward') }}" method="POST"
                                 onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;">
                                 @csrf()
 
@@ -391,11 +374,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Remarks</label>
+                                    <label>Remarks (Optional)</label>
                                     <textarea name="remarks" class="form-control"></textarea>
                                 </div>
-
-
 
                                 <div class="form-group text-center">
                                     <button class="btn btn-sm btn-primary m-t-n-xs w-100"
@@ -413,8 +394,6 @@
 
 
 @section('script')
-
-
     <script src="{{ asset('js/plugins/iCheck/icheck.min.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -424,67 +403,4 @@
             });
         });
     </script>
-
-    <script>
-        $(document).ready(function() {
-            $('.i-checks').on('ifChanged', function(event) {
-                let checkbox = $(this).find('input[type="checkbox"]');
-                let itemId = checkbox.attr('onchange').match(/'([^']+)'/)[1]; // Extract 'air' or 'dv'
-                let isChecked = checkbox.prop('checked');
-
-                updateStatus(itemId, isChecked);
-            });
-        });
-
-        function updateStatus(itemId, isChecked) {
-            var document_id = {{ $data->document_id }};
-            var token = "{{ csrf_token() }}";
-
-            $.ajax({
-                method: 'POST',
-                url: '{{ route('staff.document-update-status') }}',
-                data: {
-                    'document_id': document_id,
-                    'item_column': itemId,
-                    'item_status': isChecked ? true : false,
-                    _token: token,
-                },
-                success: function(response) {
-                    console.log("Success:", response);
-                    reloadActionHistory();
-                },
-                error: function(xhr) {
-                    console.error("Error:", xhr.responseText);
-                }
-            });
-        }
-
-        function reloadActionHistory() {
-            $.ajax({
-                url: '{{ route('budget.reload', ['id' => $data->document_id]) }}',
-                type: 'GET',
-                success: function(response) {
-                    console.log(response);
-
-                    let tableBody = $('#action-table tbody');
-                    tableBody.empty();
-
-                    response.forEach(function(action) {
-                        let row = `
-                    <tr>
-                        <td>${action.dh_name}</td>
-                        <td>${action.dh_date}</td>
-                        <td>${action.dh_action}</td>
-                    </tr>
-                `;
-                        tableBody.append(row);
-                    });
-                },
-                error: function(error) {
-                    console.error(error);
-                }
-            });
-        }
-    </script>
-
 @endsection

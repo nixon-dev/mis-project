@@ -23,6 +23,15 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('truncate', function ($expression) {
             return "<?php echo Str::limit($expression, 20, '...'); ?>";
         });
+
+        Blade::directive('shorten', function ($expression) {
+            return "<?php
+                \$__params = explode(',', $expression);
+                \$__text = trim(\$__params[0]);
+                \$__limit = isset(\$__params[1]) ? trim(\$__params[1]) : 50;
+                echo Str::limit(\$__text, \$__limit);
+            ?>";
+        });
     }
 
 

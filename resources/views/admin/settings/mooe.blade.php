@@ -101,9 +101,8 @@
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ route('admin.mooe-delete', ['code' => $c->code]) }}"
-                                                class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Delete {{ $c->name }}?')">
+                                            <a href="#" data-url="{{ route('admin.mooe-delete', ['code' => $c->code]) }}"
+                                                class="btn btn-danger btn-sm delete-mooe">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>
@@ -125,7 +124,30 @@
 @endsection
 @section('script')
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.delete-mooe').forEach(function(element) {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('data-url');
 
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This will permanently delete this MOOE.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = url;
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 
     <script>
         $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';

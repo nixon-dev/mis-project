@@ -1,5 +1,5 @@
 @extends('admin.base')
-@section('title', 'Users - Management Information System')
+@section('title', 'Activity Logs - Management Information System')
 @section('css')
     <link href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
@@ -8,16 +8,16 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-8">
-            <h2>History</h2>
+            <h2>Activity Log</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard">Admin</a>
+                    <a href="{{ route('admin.index') }}">Admin</a>
                 </li>
                 <li class="breadcrumb-item active">
                     Settings
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong>History</strong>
+                    <strong>Activity Log</strong>
                 </li>
             </ol>
         </div>

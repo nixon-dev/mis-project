@@ -9,6 +9,8 @@ use App\Http\Controllers\StaffController;
 
 Route::middleware(['auth', 'role:Staff'])->prefix('staff/external')->group(function () {
 
+    Route::get('/documents', [ExternalController::class, 'documents'])->name('external.document');
+
     Route::get('/pending', [ExternalController::class, 'pending'])->name('external.pending');
 
     Route::get('/approved', [ExternalController::class, 'approved'])->name('external.approved');
@@ -18,5 +20,9 @@ Route::middleware(['auth', 'role:Staff'])->prefix('staff/external')->group(funct
     Route::get('/view/{id}', [ExternalController::class, 'view'])->name('external.view');
 
     Route::post('/add-action', [ExternalController::class, 'add_action'])->name('external.add-action');
+
+
+
+    Route::post('/forward', [ExternalController::class, 'forward'])->name('external.forward');
 
 });

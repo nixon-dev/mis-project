@@ -51,14 +51,14 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <a href="#modal-form" data-toggle="modal" class="btn btn-xs btn-white pull-right">Add Budget</a>
-                        <h5>Budget Allocation History</h5>
+                        <h5>Budget History</h5>
                     </div>
                     <div class="ibox-content">
                         <table id="budgetHistoryTable" class="display table table-bordered table-hover  wp-100">
                             <thead>
                                 <tr>
                                     <th class="wp-20">Date</th>
-                                    <th class="wp-20">Allocated By</th>
+                                    <th class="wp-20">Processed By</th>
                                     <th class="wp-25">Amount</th>
                                     <th class="wp-35">Remarks</th>
                                 </tr>
@@ -80,9 +80,9 @@
                             <tfoot>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Allocated By</th>
+                                    <th>Processed By</th>
                                     <th>Amount</th>
-                                    <th class="wp-20">Remarks</th>
+                                    <th>Remarks</th>
                                 </tr>
                             </tfoot>
                         </table>

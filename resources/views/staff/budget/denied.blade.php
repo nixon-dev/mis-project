@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="wrapper wrapper-content animated fadeInDown">
-        @include('components.alert')
+        @include('components.message')
         <div class="row">
             @include('staff.budget.components.table')
 

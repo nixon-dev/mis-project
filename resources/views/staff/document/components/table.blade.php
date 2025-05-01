@@ -38,7 +38,7 @@
                                         <span class="label label-primary">{{ $d->document_status }}</span>
                                     @endif
                                 </td>
-                                <td class="wp-30"> {{ $d->document_title }} </td>
+                                <td class="wp-30"> @shorten($d->document_title, 50)</td>
                                 <td class="wp-30"> {{ $d->office_name }} </td>
                                 <td class="wp-10"> {{ $d->document_nature }} </td>
                                 <td class="wp-20"> {{ $d->document_number }} </td>
@@ -90,7 +90,7 @@
                         .every(function() {
                             var column = this;
 
-                            var select = $('<select><option value=""></option></select>')
+                            var select = $('<select style="width: 100%;"><option value=""></option></select>')
                                 .appendTo($(column.footer()).empty())
                                 .on('change', function() {
                                     column

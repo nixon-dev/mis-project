@@ -51,10 +51,8 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                @if ($checkIfSent == '0')
+                @if ($data->document_status == 'Draft')
                     <a href="#submit-form" data-toggle="modal" class="btn btn-primary">Submit</a>
-                @else
-                    <button href="#" class="btn btn-primary" disabled>Submit</button>
                 @endif
             </div>
 
@@ -74,10 +72,10 @@
                             <div class="col-lg-12">
                                 <div class="m-b-md">
                                     <a data-toggle="modal" href="#items-form"
-                                        class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Add
+                                        class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'd-none' }}">Add
                                         Items</a>
                                     <a data-toggle="modal" href="#update-form"
-                                        class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Edit
+                                        class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'd-none' }}">Edit
                                         Document</a>
 
                                     <h2 class="font-bold">{{ $data->document_title }}</h2>
@@ -234,7 +232,7 @@
                     <div class="ibox-title">
                         <h5>Actions</h5>
                         <a data-toggle="modal" href="#action-form"
-                            class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Add
+                            class="btn btn-primary btn-xs pull-right m-l-10 {{ $data->document_status == 'Draft' ? '' : 'd-none' }}">Add
                             Actions</a>
 
                     </div>
@@ -293,10 +291,6 @@
                                 'pdf' => 'fa-file-pdf-o',
                                 'doc' => 'fa-file-word-o',
                                 'docx' => 'fa-file-word-o',
-                                'xls' => 'fa-file-excel-o',
-                                'xlsx' => 'fa-file-excel-o',
-                                'ppt' => 'fa-file-powerpoint-o',
-                                'pptx' => 'fa-file-powerpoint-o',
                             ];
                             $iconClass = $icons[$attachment->da_file_type] ?? 'fa-file';
 
@@ -312,16 +306,45 @@
                                 class="pull-left"><i class="fa {{ $iconClass }}"></i>
                                 {{ $truncatedName }}.{{ $extension }}</a>
 
-                            <a href="{{ route('delete_file', ['folder' => $attachment->da_folder, 'filename' => $attachment->da_name]) }}"
-                                onclick="return confirm('Delete attachment?')" class="pull-right text-danger"><i
-                                    class="fa fa-trash"></i></a>
+                            <a href="#"
+                                class="pull-right text-danger delete-attachment {{ $data->document_status == 'Draft' ? '' : 'd-none' }}"
+                                data-url="{{ route('delete_file', ['folder' => $attachment->da_folder, 'filename' => $attachment->da_name]) }}">
+                                <i class="fa fa-trash"></i>
+                            </a>
+
                         </li>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                document.querySelectorAll('.delete-attachment').forEach(function(element) {
+                                    element.addEventListener('click', function(e) {
+                                        e.preventDefault();
+                                        const url = this.getAttribute('data-url');
+
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: "This will permanently delete the attachment.",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#d33',
+                                            cancelButtonColor: '#3085d6',
+                                            confirmButtonText: 'Yes, delete it!',
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                window.location.href = url;
+                                            }
+                                        });
+                                    });
+                                });
+                            });
+                        </script>
+
                     @empty
                         <li class="list-group-item">No Attached File</li>
                     @endforelse
                 </ul>
                 <a href="#upload-form" data-toggle="modal"
-                    class="btn btn-primary btn-sm w-100 {{ $data->document_status == 'Draft' ? '' : 'disabled' }}">Attach
+                    class="btn btn-primary btn-sm w-100 {{ $data->document_status == 'Draft' ? '' : 'd-none' }}">Attach
                     File</a>
             </div>
         </div>

@@ -34,11 +34,8 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                @if ($externalDocx->de_status == 'Pending')
-                    <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Document Action</a>
-                @elseif($externalDocx->de_status == 'Approved')
-                    <a data-toggle="modal" href="#forward-form" class="btn btn-primary">Forward to</a>
-                @endif
+                <a data-toggle="modal" href="#forward-form"
+                class="btn btn-primary  {{ $data->document_status == 'Pending' ? '' : 'd-none' }}">Forward to</a>
             </div>
         </div>
     </div>
@@ -46,6 +43,7 @@
     <div class="col-sm-12 mb-3 m-t-10">
         @include('components.message')
     </div>
+    
     <div class="row">
         <div class="col-lg-9">
             <div class="wrapper wrapper-content animated fadeInDown">
@@ -54,6 +52,9 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
+                                    <a data-toggle="modal" href="#status-form"
+                                        class="btn btn-xs btn-white pull-right {{ $data->document_status == 'Pending' ? '' : 'd-none' }}">Change
+                                        Status</a>
                                     <h2 class="font-bold">{{ $data->document_title }}</h2>
                                 </div>
                                 <div class="row">
@@ -62,15 +63,16 @@
                                             <dt class="fs-18">Status:</dt>
                                             <dd class="fs-16">
                                                 @php
-                                                    $status = match ($externalDocx->de_status) {
+                                                    $status = match ($data->document_status) {
                                                         'Approved' => 'success',
                                                         'Denied' => 'danger',
                                                         'Pending' => 'primary',
                                                         default => 'info',
                                                     };
                                                 @endphp
-                                                <span
-                                                    class="label label-{{ $status }}">{{ $externalDocx->de_status }}</span>
+                                                <span class="label label-{{ $status }}">
+                                                    {{ $data->document_status }}
+                                                </span>
                                             </dd>
                                         </dl>
                                     </div>
@@ -196,7 +198,8 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5>Actions</h5>
-                        <a data-toggle="modal" href="#action-form" class="btn btn-primary btn-xs pull-right m-l-10">Add
+                        <a data-toggle="modal" href="#action-form"
+                            class="btn btn-primary btn-xs pull-right m-l-10  {{ $data->document_status == 'Pending' ? '' : 'd-none' }}">Add
                             Actions</a>
                     </div>
                     <div class="ibox-content">
@@ -380,7 +383,7 @@
                     <div class="row">
 
                         <div class="col-sm-12">
-                            <h3 class="m-t-none m-b">Add Action</h3>
+                            <h3 class="m-t-none m-b">Forward to other office</h3>
 
                             <form role="form" action="{{ route('budget.forward') }}" method="POST"
                                 onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;">
@@ -410,7 +413,54 @@
 
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label>Remarks (Optional)</label>
+                                    <textarea name="remarks" class="form-control"></textarea>
+                                </div>
+                                <div class="form-group text-center">
+                                    <button class="btn btn-sm btn-primary m-t-n-xs w-100"
+                                        type="submit"><strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="status-form" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 class="m-t-none m-b">Change Document Status</h3>
+                            <form role="form" action="{{ route('budget.change') }}" method="POST"
+                                onsubmit="this.querySelector('button[type=submit]').disabled = true; return true;">
+                                @csrf()
+
+                                <div class="form-group d-none">
+                                    <label>Document ID</label>
+                                    <input value="{{ $data->document_id }}" name="document_id" class="form-control"
+                                        type="number" readonly>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <select class="form-control p-w-sm" name="document_status" required>
+                                            <option value="Approved">Approved
+                                            </option>
+                                            <option value="Denied">Denied</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Remarks (Optional)</label>
+                                    <textarea class="form-control" name="remarks"></textarea>
+                                </div>
 
 
                                 <div class="form-group text-center">

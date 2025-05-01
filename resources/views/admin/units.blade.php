@@ -1,5 +1,5 @@
 @extends('admin.base')
-@section('title', 'Office - Management Information System')
+@section('title', 'Units - Management Information System')
 @section('css')
     <link href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
 @endsection
@@ -9,7 +9,7 @@
             <h2>Units</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard">Admin</a>
+                    <a href="{{ route('admin.index') }}">Admin</a>
                 </li>
                 <li class="breadcrumb-item active">
                     Settings
@@ -96,9 +96,8 @@
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ route('admin.units-delete', ['id' => $unit->unit_id]) }}"
-                                                class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Delete {{ $unit->unit_name }}?')">
+                                            <a href="#" data-url="{{ route('admin.units-delete', ['id' => $unit->unit_id]) }}"
+                                                class="btn btn-danger btn-sm delete-unit">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>
@@ -119,7 +118,30 @@
 @endsection
 @section('script')
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.delete-unit').forEach(function(element) {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('data-url');
 
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This will permanently delete this Unit.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = url;
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 
     <script>
         $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';

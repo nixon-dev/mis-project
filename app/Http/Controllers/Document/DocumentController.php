@@ -63,7 +63,7 @@ class DocumentController extends Controller
 
 
         if ($query) {
-            return redirect()->back()->with('success', 'Added Document successfully!');
+            return redirect()->route('document.draft')->with('success', 'Added Document successfully!');
         } else {
             return redirect()->back()->with('error', 'Failed to insert document');
         }
@@ -86,8 +86,9 @@ class DocumentController extends Controller
         }
 
         if ($data->document_origin != $assigned_office) {
-            return back()->with('error', "You don't have permission to view this document.");
+            return back()->with('error', "You are not authorized to view this document.");
         }
+
 
         $action = History::where('document_id', $data->document_id)->get();
         $items = Items::where('document_id', $data->document_id)->get();
