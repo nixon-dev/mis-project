@@ -72,9 +72,6 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <tr>
-                                        <td style="width: 100%" colspan="6">No Document Found</td>
-                                    </tr>
                                 @endforelse
                             </tbody>
                             <tfoot>
@@ -104,6 +101,9 @@
 
         $(document).ready(function() {
             $('#documentTable').DataTable({
+                language: {
+                    zeroRecords: "No Document Found"
+                },
                 pageLength: 25,
                 order: [],
                 responsive: true,
