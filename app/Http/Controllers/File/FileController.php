@@ -106,7 +106,8 @@ class FileController extends Controller
             return redirect()->route('external.pending')->with('error', 'File does not exist.');
         }
 
-        $fileUrl = Storage::disk('public')->download($filePath, $filename);
+        $fileUrl = asset('storage/' . $filePath);
+
 
         return view('staff.external.view-pdf', compact('fileUrl', 'filename'));
     }
