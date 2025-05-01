@@ -38,21 +38,21 @@
                             style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Title</th>
-                                    <th>Origin</th>
-                                    <th>Nature</th>
-                                    <th>No.</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">View</th>
+                                    <th class="wp-30">Title</th>
+                                    <th class="wp-20">Origin</th>
+                                    <th class="wp-10">Nature</th>
+                                    <th class="wp-10">No.</th>
+                                    <th class="wp-10 text-center">Status</th>
+                                    <th class="wp-10 text-center">View</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($data as $d)
                                     <tr>
-                                        <td class="wp-30"> {{ $d->document_title }} </td>
-                                        <td class="wp-20"> {{ $d->office_name }} </td>
-                                        <td class="wp-10"> {{ $d->document_nature }} </td>
-                                        <td class="wp-10"> {{ $d->document_number }} </td>
+                                        <td> {{ $d->document_title }} </td>
+                                        <td> {{ $d->office_name }} </td>
+                                        <td> {{ $d->document_nature }} </td>
+                                        <td> {{ $d->document_number }} </td>
                                         @php
                                             $statusClass = match ($d->document_status) {
                                                 'Approved' => 'success',
@@ -61,10 +61,10 @@
                                                 default => 'info',
                                             };
                                         @endphp
-                                        <td class="wp-10 text-center">
+                                        <td class="text-center">
                                             <span class="label label-{{ $statusClass }}">{{ $d->document_status }}</span>
                                         </td>
-                                        <td class="wp-10 text-center">
+                                        <td class="text-center">
                                             <a href="{{ url('/admin/document-tracking/' . $d->document_number) }}"
                                                 class="btn btn-primary btn-sm">
                                                 <i class="fa fa-eye text-white"></i>
