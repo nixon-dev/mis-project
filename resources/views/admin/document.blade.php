@@ -3,9 +3,6 @@
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
-    <link href="https://cdn.datatables.net/responsive/3.0.4/css/responsive.bootstrap4.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
 
 @endsection
 @section('content')
@@ -14,7 +11,7 @@
             <h2>Document Tracking</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard">Admin</a>
+                    <a href="{{ route('admin.index') }}">Admin</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>Document Tracking</strong>
@@ -41,14 +38,14 @@
                                     <th class="wp-20">Origin</th>
                                     <th class="wp-15">Nature</th>
                                     <th class="wp-15">No.</th>
-                                    <th class="wp-10 text-center">Status</th>
-                                    <th class="wp-10 text-center">View</th>
+                                    <th class="wp-20 text-center">Status</th>
+                                    <th class="wp-20 text-center">View</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($data as $d)
                                     <tr>
-                                        <td> {{ $d->document_title }} </td>
+                                        <td> @shorten($d->document_title, 50) </td>
                                         <td> {{ $d->office_name }} </td>
                                         <td> {{ $d->document_nature }} </td>
                                         <td> {{ $d->document_number }} </td>
