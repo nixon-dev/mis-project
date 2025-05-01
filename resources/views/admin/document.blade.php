@@ -40,8 +40,8 @@
                                 <tr>
                                     <th class="wp-30">Title</th>
                                     <th class="wp-20">Origin</th>
-                                    <th class="wp-10">Nature</th>
-                                    <th class="wp-10">No.</th>
+                                    <th class="wp-15">Nature</th>
+                                    <th class="wp-15">No.</th>
                                     <th class="wp-10 text-center">Status</th>
                                     <th class="wp-10 text-center">View</th>
                                 </tr>
