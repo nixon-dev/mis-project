@@ -34,8 +34,7 @@
                         <h5>Document Data</h5>
                     </div>
                     <div class="ibox-content">
-                        <table id="documentTable" class="table table-bordered table-responsive table-hover"
-                            style="width: 100%">
+                        <table id="documentTable" class="table table-bordered table-responsive table-hover">
                             <thead>
                                 <tr>
                                     <th class="wp-30">Title</th>
@@ -95,7 +94,6 @@
 @section('script')
 
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}"></script>
-    <script src="https://cdn.datatables.net/responsive/3.0.4/js/responsive.bootstrap4.js"></script>
     <script>
         $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';
 
@@ -109,16 +107,16 @@
                 responsive: true,
                 columnDefs: [{
                     'orderable': false,
-                    'targets': [4, 5]
+                    'targets': [5]
                 }],
                 initComplete: function() {
                     const api = this.api();
                     if (api.data().count() > 0) {
-                        api.columns([2, 3])
+                        api.columns([1])
                             .every(function() {
                                 var column = this;
 
-                                var select = $('<select><option value=""></option></select>')
+                                var select = $('<select style="width: 100%;"><option value=""></option></select>')
                                     .appendTo($(column.footer()).empty())
                                     .on('change', function() {
                                         column
