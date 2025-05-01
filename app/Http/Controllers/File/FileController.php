@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\File;
 
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Http\Request;
 use App\Models\Attachmments;
 use Illuminate\Support\Facades\Auth;
@@ -14,35 +15,35 @@ class FileController extends Controller
 
     public function fileUpload(Request $request)
     {
+        try {
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
 
-        $request->validate([
-            'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx',
-            'document_id' => 'required|integer',
-        ]);
+                $allowedExtensions = ['pdf', 'doc', 'docx'];
 
-        $file = $request->file('file');
-        $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $extension = $file->getClientOriginalExtension();
+                if (!in_array(strtolower($extension), $allowedExtensions)) {
+                    return response()->json(['error' => 'Invalid file type. Only PDF, DOC, and DOCX are allowed.'], 400);
+                }
 
-        $sanitizedFileName = preg_replace('/[^a-zA-Z0-9._-]/', '', $originalFileName);
+                $sanitizedFileName = preg_replace('/[^a-zA-Z0-9._-]/', '', $originalFileName);
+                $fileName = $sanitizedFileName . '_' . time() . '.' . $extension;
+                $file->storeAs('files', $fileName, 'public');
 
-        $fileName = $sanitizedFileName;
-        // $sanitizedFileName = str_replace(['..', '/', '\\'], '', $sanitizedFileName);
-        $fileName = $fileName . '_' . time() . '.' . $extension;
+                Attachmments::insert([
+                    'document_id' => $request->document_id,
+                    'da_name' => $fileName,
+                    'da_file_type' => $extension,
+                ]);
 
-        $file->storeAs('files', $fileName, 'public');
-
-        Attachmments::insert([
-            'document_id' => $request->document_id,
-            'da_name' => $fileName,
-            'da_file_type' => $extension,
-        ]);
-
-
-
-        return response()->json(['success' => $fileName]);
-
-
+                return response()->json(['success' => $fileName]);
+            } else {
+                return response()->json(['error' => 'No file provided.'], 400);
+            }
+        } catch (Exception $e) {
+            return response("Error: " . $e->getMessage(), 500);
+        }
     }
 
     public function fileDownload($filename)

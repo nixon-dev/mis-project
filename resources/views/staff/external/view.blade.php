@@ -260,9 +260,19 @@
                         @endphp
                         <li class="list-group-item">
 
-                            <a href="{{ route('download_file', ['filename' => $attachment->da_name]) }}"
-                                class="pull-left"><i class="fa {{ $iconClass }}"></i>
-                                {{ $truncatedName }}.{{ $extension }}</a>
+                            @if (Auth::user()->office_id == $data->office_id)
+                                <a href="{{ route('download_file', ['filename' => $attachment->da_name]) }}"
+                                    class="pull-left"><i class="fa {{ $iconClass }}" target="_blank"></i>
+                                    {{ $truncatedName }}.{{ $extension }}</a>
+                            @else
+                                <a href="{{ route('download_pdf', ['filename' => $attachment->da_name]) }}"
+                                    class="pull-left"><i class="fa {{ $iconClass }}" target="_blank"></i>
+                                    {{ $truncatedName }}.{{ $extension }}</a>
+                            @endif
+
+
+
+
 
                             <a href="{{ route('delete_file', ['filename' => $attachment->da_name]) }}"
                                 onclick="return confirm('Delete attachment?')" class="pull-right text-danger"><i
@@ -327,7 +337,7 @@
         </div>
     </div>
     <script>
-        document.getElementById('#').addEventListener('submit', function(e) {
+        document.getElementById('action-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const actionSelect = document.getElementById('actionSelect').value;
 

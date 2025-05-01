@@ -667,49 +667,28 @@
         });
     </script>
 
-    <script>
-        $(document).ready(function() {
-            $('.i-checks').on('ifChanged', function(event) {
-                let checkbox = $(this).find('input[type="checkbox"]');
-                let itemId = checkbox.attr('onchange').match(/'([^']+)'/)[1];
-                let isChecked = checkbox.prop('checked');
 
-                updateStatus(itemId, isChecked);
-            });
-        });
-
-        function updateStatus(itemId, isChecked) {
-            var document_id = {
-                {
-                    $data - > document_id
-                }
-            };
-            var token = "{{ csrf_token() }}";
-
-            $.ajax({
-                method: 'POST',
-                url: '{{ route('staff.document-update-status') }}',
-                data: {
-                    'document_id': document_id,
-                    'item_column': itemId,
-                    'item_status': isChecked ? true : false,
-                    _token: token,
-                },
-                success: function(response) {
-                    console.log("Success:", response);
-                },
-                error: function(xhr) {
-                    console.error("Error:", xhr.responseText);
-                }
-            });
-        }
-    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
     <script>
         Dropzone.options.fileupload = {
-            acceptedFiles: ".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx",
+            acceptedFiles: ".pdf,.doc,.docx",
             parallelUploads: 3,
+            init: function() {
+                this.on("error", function(file, response) {
+                    // If response is a string, use it directly
+                    let message = typeof response === "string" ?
+                        response :
+                        response.message || "An error occurred during upload.";
+
+                    // Show error message in Dropzone preview
+                    file.previewElement.classList.add("dz-error");
+                    const errorElements = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+                    errorElements.forEach((el) => {
+                        el.textContent = message;
+                    });
+                });
+            }
 
         };
     </script>
