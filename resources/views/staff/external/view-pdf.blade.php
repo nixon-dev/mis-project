@@ -24,7 +24,13 @@
                         <iframe src="https://docs.google.com/gview?url={{ $fileUrl }}&embedded=true"
                              style="width:100%; height:700px;" frameborder="0">
                          </iframe
-                             <script>$('.ndfHFb-c4YZDc-Wrql6b').remove();</script>
+                             <script>$(document).ready(function() {
+  // Wait for the iframe to load (though even then, access might be blocked)
+  $('iframe').on('load', function() {
+    // Attempt to find the element within the iframe and add the class
+    $(this).contents().find('.ndfHFb-c4YZDc-Wrql6b').addClass('d-none');
+  });
+});</script>
 
                     </div>
                 </div>
