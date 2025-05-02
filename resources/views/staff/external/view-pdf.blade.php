@@ -24,6 +24,7 @@
                         <iframe src="https://docs.google.com/gview?url={{ $fileUrl }}&embedded=true"
                              style="width:100%; height:700px;" frameborder="0">
                          </iframe
+                             <script>$('.ndfHFb-c4YZDc-Wrql6b').remove();</script>
 
                     </div>
                 </div>
