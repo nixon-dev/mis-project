@@ -21,9 +21,23 @@
 
                     </div>
                     <div class="ibox-content">
-                        <iframe src="https://docs.google.com/gview?url={{ $fileUrl }}&embedded=true"
-                             style="width:100%; height:700px;" frameborder="0">
-                         </iframe
+                     <div style="position: relative; width: 100%; height: 700px;">
+    <iframe id="docxViewer"
+        src="https://docs.google.com/gview?url={{ $fileUrl }}&embedded=true"
+        style="width: 100%; height: 700px;" frameborder="0"></iframe>
+
+    <!-- Overlay only top-right corner -->
+    <div style="
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80px;
+        height: 40px;
+        background: transparent;
+        z-index: 999;
+        pointer-events: auto;
+    "></div>
+</div>
 
 
                     </div>
@@ -31,12 +45,4 @@
             </div>
         </div>
     </div>
- <script>
-$('.ndfHFb-c4YZDc-Wrql6b').remove();
-     var head = $("#iframe").contents().find("head");
-var css = '<style type="text/css">' +
-          '.ndfHFb-c4YZDc-Wrql6b{display:none}; ' +
-          '</style>';
-$(head).append(css);
- </script>
 @endsection
