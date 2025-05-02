@@ -21,9 +21,9 @@
 
                     </div>
                     <div class="ibox-content">
-                        <iframe src="https://docs.google.com/gview?url={{ $fileUrl }}"
-                            style="width:100%; height:700px;" frameborder="0">
-                        </iframe>
+                        <iframe src="https://docs.google.com/gview?url={{ $fileUrl }}&embedded=true"
+                             style="width:100%; height:700px;" frameborder="0">
+                         </iframe
 
                     </div>
                 </div>
