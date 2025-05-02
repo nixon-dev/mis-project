@@ -21,7 +21,7 @@
 
                     </div>
                     <div class="ibox-content">
-                        <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ $fileUrl }}"
+                        <iframe src="https://docs.google.com/gview?url={{ $fileUrl }}"
                             style="width:100%; height:700px;" frameborder="0">
                         </iframe>
 
