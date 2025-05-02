@@ -1,5 +1,5 @@
 @extends('staff.base')
-@section('title', ' {{ $filename }} - Management Information System')
+@section('title', $filename . ' - Management Information System')
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
@@ -32,12 +32,11 @@
         </div>
     </div>
  <script>
-$(document).ready(function() {
-  // Wait for the iframe to load (though even then, access might be blocked)
-  $('iframe').on('load', function() {
-    // Attempt to find the element within the iframe and add the class
-    $(this).contents().find('.ndfHFb-c4YZDc-Wrql6b').addClass('d-none');
-  });
-});
+$('.ndfHFb-c4YZDc-Wrql6b').remove();
+     var head = $("#iframe").contents().find("head");
+var css = '<style type="text/css">' +
+          '.ndfHFb-c4YZDc-Wrql6b{display:none}; ' +
+          '</style>';
+$(head).append(css);
  </script>
 @endsection
