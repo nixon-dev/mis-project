@@ -32,8 +32,8 @@
         top: 0;
         right: 0;
         width: 80px;
-        height: 40px;
-        background: transparent;
+        height: 80px;
+        background: #fff;
         z-index: 999;
         pointer-events: auto;
     "></div>
