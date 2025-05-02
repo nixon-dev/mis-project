@@ -33,7 +33,7 @@
         right: 0;
         width: 80px;
         height: 80px;
-        background: #fff;
+        background: transparent;
         z-index: 999;
         pointer-events: auto;
     "></div>
