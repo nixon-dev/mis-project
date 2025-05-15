@@ -133,7 +133,7 @@
                                         <td>
                                             {{ $au->name ? $au->name : 'Guest' }}
                                         </td>
-                                        <td>
+<!--                                         <td>
                                             @php
                                                 $ip = $au->ip_address;
                                                 $ipAddress = 'Unknown';
@@ -158,6 +158,9 @@
                                                 }
                                             @endphp
                                             {{ $ipAddress }}
+                                        </td> -->
+                                        <td>
+                                            {{ $au->ip_address }}
                                         </td>
                                         
                                         <td>
