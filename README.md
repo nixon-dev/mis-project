@@ -31,22 +31,22 @@ A Laravel 12 web application, it manages office documents with role-based dashbo
 
 1. **Clone the repository:**
    ```bash
-        git clone https://github.com/nixon-dev/mis-project.git
+   git clone https://github.com/nixon-dev/mis-project.git
 2. **Install vendors**
    ```bash
-        composer install
+   composer install
 3. **Import MySQL DB**
 4. **After importing MySQL DB, change credentials in .env**
       ```python
-        DB_CONNECTION=mysql
-        DB_HOST=127.0.0.1
-        DB_PORT=3306
-        DB_DATABASE=mis
-        DB_USERNAME=root
-        DB_PASSWORD=
+      DB_CONNECTION=mysql
+      DB_HOST=127.0.0.1
+      DB_PORT=3306
+      DB_DATABASE=mis
+      DB_USERNAME=root
+      DB_PASSWORD=
       ```
  5. **Run laravel server**
     ```php
-        php artisan serve
+    php artisan serve
 
 
