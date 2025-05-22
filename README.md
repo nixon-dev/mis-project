@@ -35,16 +35,16 @@ A Laravel 12 web application, it manages office documents with role-based dashbo
 2. **Install vendors**
    ```bash
         composer install
-3. Import MySQL DB
+3. **Import MySQL DB**
 4. **After importing MySQL DB, change credentials in .env**
-  ```python
+      ```python
         DB_CONNECTION=mysql
         DB_HOST=127.0.0.1
         DB_PORT=3306
         DB_DATABASE=mis
         DB_USERNAME=root
         DB_PASSWORD=
-  ```
+      ```
  5. **Run laravel server**
     ```php
         php artisan serve
